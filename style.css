@@ -1,0 +1,827 @@
+/* --- 1. VARIÁVEIS E BASE (Design System) --- */
+:root {
+    /* Paleta Lúdica e Premium */
+    --primary: #2563eb;       /* Azul Royal */
+    --primary-dark: #1e40af;
+    --secondary: #f97316;     /* Laranja Vibrante */
+    --accent: #8b5cf6;        /* Roxo */
+    --success: #22c55e;       /* Verde */
+    --error: #ef4444;         /* Vermelho */
+    
+    --bg-app: #f0f9ff;        /* Fundo azulzinho claro */
+    --surface: #ffffff;
+    --text-main: #1e293b;
+    --text-light: #64748b;
+    
+    --radius: 20px;
+    --shadow: 0 4px 0 rgba(0,0,0,0.15); /* Sombra "durinha" estilo game */
+    --shadow-soft: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif; }
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+#app {
+    width: 100%;
+    max-width: 500px; /* Largura máxima ideal para mobile */
+    padding-bottom: 20px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
+
+/* --- 2. TELA INICIAL --- */
+#tela-inicial { text-align: center; padding-top: 20px; }
+.logo-area { margin-bottom: 30px; }
+.logo-area h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 5px; }
+.logo-area p { color: var(--text-light); margin: 0; }
+
+.card-nivel-usuario {
+    background: var(--surface);
+    padding: 15px 20px;
+    border-radius: var(--radius);
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex; justify-content: space-between; align-items: center;
+    border: 2px solid #e2e8f0;
+}
+
+/* BOTÕES ESTILO GAME (Menu) */
+.btn-menu {
+    border: none;
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-align: left;
+    color: white;
+    box-shadow: var(--shadow);
+    transition: transform 0.1s, box-shadow 0.1s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btn-menu:active { transform: translateY(4px); box-shadow: none; }
+.btn-menu span { display: block; font-size: 1.3rem; font-weight: 800; font-family: 'Fredoka', sans-serif; }
+.btn-menu small { font-size: 0.9rem; opacity: 0.9; font-weight: 600; }
+
+/* Cores dos Botões */
+.azul { background: var(--primary); }
+.azul:hover { background: var(--primary-dark); }
+.verde { background: var(--success); }
+.roxo { background: var(--accent); }
+
+.btn-link {
+    background: none; border: none; color: var(--text-light);
+    text-decoration: underline; cursor: pointer; font-size: 0.9rem;
+}
+
+/* --- 3. TELAS INTERNAS (Estudo e Seleção) --- */
+.oculto { display: none !important; }
+
+.cabecalho-interno {
+    display: flex; align-items: center; gap: 15px;
+    margin-bottom: 25px; padding-top: 10px;
+}
+.cabecalho-interno h2 { color: var(--text-main); font-size: 1.5rem; }
+
+.btn-voltar {
+    background: var(--surface);
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    padding: 8px 16px;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Grid de Seleção de Números (1 a 10) */
+.grid-botoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 por linha */
+    gap: 15px;
+}
+
+/* --- 4. LAYOUT SPLIT VIEW (O Novo Design Híbrido) --- */
+.layout-dividido {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 10px;
+    position: relative;
+}
+
+.coluna-lista { flex: 1; transition: 0.3s; }
+.coluna-quiz { 
+    flex: 1; 
+    display: none; /* Inicia oculta */
+    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elástico */
+}
+
+/* --- ESTILOS DA LISTA (LADO ESQUERDO) --- */
+.lista-tabuada ul {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 10px;
+}
+
+.linha-tabuada {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-light);
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Quando vira interrogação */
+.resposta-oculta {
+    color: #cbd5e1; /* Cinza claro */
+    font-weight: 400;
+}
+.resultado-num {
+    font-family: 'Fredoka', sans-serif;
+    min-width: 30px; text-align: center;
+}
+
+/* O FOCO: Linha ativa na pergunta */
+.linha-tabuada.focada {
+    border-color: var(--primary);
+    background-color: #eff6ff;
+    color: var(--primary);
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+    z-index: 2;
+}
+
+/* Feedbacks na Lista */
+.linha-tabuada.revelada-certa {
+    background-color: #dcfce7; color: #166534; border-color: transparent;
+}
+.linha-tabuada.revelada-erro {
+    background-color: #fee2e2; color: #991b1b;
+}
+
+/* --- ESTILOS DO CARD LATERAL (LADO DIREITO) --- */
+.card-quiz-flutuante {
+    background: white;
+    padding: 25px 20px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+    position: sticky;
+    top: 20px;
+    border: 1px solid #f1f5f9;
+}
+
+.pergunta-destaque {
+    font-size: 2.2rem;
+    font-family: 'Fredoka', sans-serif;
+    color: var(--text-main);
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 18px;
+    border: 2px dashed #cbd5e1;
+}
+
+.grid-opcoes-lateral {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.btn-lateral {
+    padding: 20px 10px; /* Mais alto */
+    font-size: 1.5rem;
+    font-weight: 900;     /* Fonte mais grossa */
+    font-family: 'Fredoka', sans-serif;
+    color: var(--text-main);
+    background: white;
+    
+    /* A Mágica do 3D */
+    border: 2px solid #cbd5e1;
+    border-bottom-width: 6px; /* Borda grossa embaixo */
+    border-radius: 16px;
+    
+    cursor: pointer;
+    transition: all 0.1s;
+    position: relative;
+}
+.btn-lateral:active {
+    transform: translateY(4px); /* Desce */
+    border-bottom-width: 2px;   /* Sombra diminui */
+    background: #f1f5f9;
+}
+.btn-lateral:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.btn-lateral.certo { 
+    background: #dcfce7; border-color: var(--success); color: #166534; 
+    box-shadow: 0 4px 0 #86efac;
+}
+.btn-lateral.errado { 
+    background: #fee2e2; border-color: var(--error); color: #991b1b; 
+    box-shadow: 0 4px 0 #fca5a5;
+}
+
+/* --- 5. TELA DE JOGO (TELA CHEIA - Treino/Desafio) --- */
+#header-jogo { margin-bottom: 20px; }
+.topo-info {
+    display: flex; justify-content: space-between; align-items: center;
+    background: white; padding: 10px 20px; border-radius: 50px;
+    box-shadow: var(--shadow-soft); margin-bottom: 15px;
+}
+#timer-display { font-weight: 800; font-family: monospace; font-size: 1.2rem; }
+#placar-display { font-weight: 800; color: var(--secondary); font-size: 1.2rem; }
+
+.barra-progresso {
+    height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden;
+}
+#barra-fill {
+    height: 100%; background: var(--secondary); width: 100%; transition: width 1s linear;
+}
+
+.area-pergunta {
+    background: white;
+    padding: 40px 20px;
+    border-radius: 24px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 3.5rem;
+    font-family: 'Fredoka', sans-serif;
+    color: var(--text-main);
+    box-shadow: var(--shadow);
+    display: flex; justify-content: center; gap: 15px; align-items: center;
+}
+.sinal, .igual { color: var(--text-light); opacity: 0.5; }
+
+/* Botões de Opção (Tela Cheia) - Reusa estilos */
+.botao-opcao {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: var(--radius);
+    padding: 20px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-main);
+    box-shadow: 0 5px 0 #e2e8f0;
+    cursor: pointer;
+    width: 100%;
+}
+.botao-opcao:active { transform: translateY(4px); box-shadow: none; }
+.botao-opcao.correto { background: #dcfce7; border-color: var(--success); color: #166534; box-shadow: 0 5px 0 #86efac; }
+.botao-opcao.errado { background: #fee2e2; border-color: var(--error); color: #991b1b; box-shadow: 0 5px 0 #fca5a5; }
+
+/* --- 6. TELA RESULTADO --- */
+#tela-resultado { text-align: center; padding-top: 30px; }
+.placar-final {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    width: 150px; height: 150px;
+    border-radius: 50%; margin: 20px auto;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: white; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+}
+#pontos-final { font-size: 3rem; font-weight: 800; line-height: 1; font-family: 'Fredoka', sans-serif; }
+#msg-motivacional { font-size: 1.4rem; font-weight: 700; margin-bottom: 30px; color: var(--text-main); }
+
+/* --- 7. PUBLICIDADE --- */
+.ad-banner-container {
+    background: #e2e8f0;
+    color: #94a3b8;
+    height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 20px 0; border-radius: 12px;
+    font-size: 0.8rem; border: 1px dashed #cbd5e1;
+}
+.retangulo-medio { height: 250px; }
+
+/* --- 8. RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 700px) {
+    .layout-dividido {
+        flex-direction: column-reverse; /* No celular, Quiz fica EM CIMA da lista */
+    }
+    .coluna-quiz {
+        width: 100%;
+        position: sticky;
+        top: 10px;
+        z-index: 100;
+    }
+    .card-quiz-flutuante {
+        padding: 15px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Sombra mais forte para destacar */
+        border: 2px solid var(--primary); /* Borda para separar visualmente */
+    }
+    .pergunta-destaque {
+        font-size: 2rem; margin-bottom: 15px; padding: 10px;
+    }
+    .btn-lateral { padding: 12px; font-size: 1.1rem; }
+    
+    /* Ajuste para a lista não ficar escondida */
+    .coluna-lista { width: 100%; margin-top: 10px; }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+/* --- TELA DE RESULTADO PREMIUM --- */
+#tela-resultado { padding: 20px; animation: slideUp 0.5s ease-out; }
+
+.resultado-header h2 { font-size: 1.8rem; color: var(--text-main); margin-bottom: 5px; }
+.subtitulo-resumo { color: var(--text-light); font-weight: 600; margin: 0; }
+
+/* Gráfico Circular (SVG) */
+.placar-circular {
+    width: 140px; margin: 25px auto;
+}
+.circular-chart { display: block; margin: 10px auto; max-width: 100%; max-height: 250px; }
+.circle-bg { fill: none; stroke: #e2e8f0; stroke-width: 2.5; }
+.circle { fill: none; stroke-width: 2.5; stroke-linecap: round; transition: stroke-dasharray 1s ease-out; }
+.percentage { fill: var(--text-main); font-family: 'Fredoka', sans-serif; font-weight: bold; font-size: 0.5em; text-anchor: middle; }
+
+/* Cores do Gráfico */
+.stroke-verde { stroke: var(--success); }
+.stroke-amarelo { stroke: #eab308; }
+.stroke-vermelho { stroke: var(--error); }
+
+/* Grid de Estatísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 15px 5px;
+    border-radius: 16px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.stat-valor { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
+.stat-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
+
+/* Cores dos Cards */
+.stat-card.verde .stat-valor { color: var(--success); }
+.stat-card.vermelho .stat-valor { color: var(--error); }
+.stat-card.azul .stat-valor { color: var(--primary); }
+
+#msg-motivacional {
+    font-size: 1.3rem; margin-bottom: 25px; font-weight: 700; color: var(--text-main);
+}
+
+/* --- ESTILO PARA O BOTÃO NEUTRO (Menu Inicial) --- */
+.btn-menu.neutro {
+    background: white;
+    color: var(--text-main); /* Cor escura */
+    border: 2px solid #cbd5e1; /* Borda cinza */
+    box-shadow: 0 4px 0 #cbd5e1; /* Sombra cinza */
+}
+
+.btn-menu.neutro:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.btn-menu.neutro:active {
+    box-shadow: 0 2px 0 #cbd5e1;
+    transform: translateY(2px);
+}
+/* --- TELA DE SELEÇÃO PREMIUM (Botões de Nível) --- */
+
+/* Ajuste do Grid */
+#lista-numeros-tabuada {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    gap: 20px;
+    padding: 10px;
+}
+
+/* O Botão de Nível */
+.btn-nivel {
+    background: white;
+    border: 2px solid white; /* Borda invisível para alinhar */
+    border-radius: 24px;
+    height: 120px; /* Mais alto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06); /* Sombra suave premium */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efeito elástico */
+    opacity: 0; /* Começa invisível para a animação */
+    animation: popIn 0.5s forwards; /* Animação de entrada */
+}
+
+/* Efeito Hover (Mouse ou Toque) */
+.btn-nivel:active, .btn-nivel:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+    border-color: #e0e7ff;
+}
+
+/* O Número Grande e Colorido */
+.num-grande {
+    font-size: 3.5rem;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 800;
+    line-height: 1;
+    /* Gradiente no Texto */
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* O Texto "Tabuada" pequeno */
+.label-pequeno {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-top: 5px;
+    letter-spacing: 1.5px;
+}
+
+/* Decoração de Fundo (Bolinhas sutis) */
+.btn-nivel::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    opacity: 0.05;
+    border-radius: 50%;
+}
+
+/* Animação de Entrada */
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.5) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+
+
+
+/* --- 9. ANIMAÇÕES PREMIUM (Adicione ao final do style.css) --- */
+
+/* Efeito de Treme-Treme (Erro) */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.animacao-erro {
+    animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+    border-color: var(--error) !important;
+}
+
+/* Efeito de Pulso (Acerto) */
+@keyframes pulse-green {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.animacao-acerto {
+    animation: pulse-green 0.4s ease-out;
+    z-index: 10;
+}
+/* --- 9. EFEITOS PREMIUM (Adicione no final do style.css) --- */
+
+/* Treme-Treme (Quando errar) */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+.animacao-erro {
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    background-color: #fee2e2 !important;
+    border-color: var(--error) !important;
+}
+
+/* Pulso Verde (Quando acertar) */
+@keyframes pulse-green {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.animacao-acerto {
+    animation: pulse-green 0.5s ease-out;
+    background-color: #dcfce7 !important;
+    border-color: var(--success) !important;
+    color: var(--success) !important;
+    z-index: 10;
+}
+
+.btn-voltar {
+    background: var(--surface);
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    padding: 8px 20px; /* Aumentei um pouquinho a área de toque */
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.05); /* Sombra 3D leve */
+    
+    /* --- CORREÇÃO DE CAMADA --- */
+    position: relative; 
+    z-index: 9999; /* Garante que fique acima de tudo */
+}
+
+.btn-voltar:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* --- ESTILO DO NOVO PAINEL GERAL DE TABUADAS --- */
+
+/* O container que segura tudo */
+#container-grade-completa {
+    display: grid;
+    /* Cria 2 colunas automáticas no celular */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    padding: 10px;
+    padding-bottom: 80px; /* Espaço extra no final pra não cortar */
+}
+
+/* O cartão individual de cada tabuada */
+.card-tabuada-resumo {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow: hidden; /* Pra borda redonda funcionar no cabeçalho */
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.card-tabuada-resumo:hover {
+    border-color: var(--primary-light);
+    transform: translateY(-3px);
+}
+
+/* Cabeçalho do cartão (Ex: "Tabuada do 5") */
+.card-header-tab {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    text-align: center;
+    font-weight: 800;
+    padding: 8px;
+    font-size: 1.1rem;
+}
+
+/* O corpo onde ficam as continhas */
+.card-body-tab {
+    padding: 10px;
+    font-family: 'Roboto Mono', monospace; /* Fonte monoespaçada fica melhor pra alinhar números */
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* As linhas individuais (ex: 5 x 1 = 5) */
+.linha-resumo-item {
+    display: flex;
+    justify-content: space-between; /* Separa a conta do resultado */
+    border-bottom: 1px dashed #eee;
+    padding: 2px 0;
+}
+.linha-resumo-item strong {
+    color: var(--primary);
+}
+
+/* O mini botão de praticar no final do cartão */
+.btn-mini-praticar {
+    width: 100%;
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-family: 'Fredoka', sans-serif;
+}
+.btn-mini-praticar:hover {
+    background: var(--primary-dark);
+}
+/* --- NOVO LAYOUT: LOUSA INTERATIVA --- */
+
+/* 1. O Card da Lousa (A "Quadro Negro" moderna) */
+.card-lousa-container {
+    background: #1e293b; /* Azul escuro quase preto (Lousa moderna) */
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.3);
+    border: 4px solid #334155;
+}
+
+#titulo-lousa-dinamico {
+    text-align: center;
+    color: #38bdf8; /* Azul cyan neon */
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* O Grid de 2 Colunas */
+.grid-lousa-bipartida {
+    display: grid;
+    
+    /* Define 2 colunas com larguras iguais */
+    grid-template-columns: 1fr 1fr;
+    
+    /* TRUQUE NOVO: Força ter exatamente 5 linhas */
+    grid-template-rows: repeat(5, auto);
+    
+    /* TRUQUE NOVO: Preenche em COLUNA (de cima pra baixo) e não linha */
+    grid-auto-flow: column;
+    
+    /* Espaçamentos */
+    column-gap: 30px; /* Aumentei um pouco pra separar bem as contas */
+    row-gap: 10px;
+}
+
+.item-lousa {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: space-between; /* Alinha números nas pontas */
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+
+.destaque-resultado { color: #4ade80; font-weight: 800; }
+
+/* 2. Seletores (Bolinhas) */
+.area-seletores-container p {
+    text-align: center; color: var(--text-light); font-weight: 700; margin-bottom: 10px;
+}
+
+.scroll-horizontal-seletores {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Quebra linha se precisar */
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.btn-seletor-redondo {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: white;
+    color: var(--text-light);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 0 #cbd5e1;
+}
+
+.btn-seletor-redondo:active { transform: translateY(4px); box-shadow: none; }
+
+/* Estado Ativo (Selecionado) */
+.btn-seletor-redondo.ativo {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-dark);
+    box-shadow: 0 4px 0 var(--primary-dark);
+    transform: scale(1.1);
+}
+
+/* Botão Praticar Fixo Embaixo */
+.area-acao-fixa {
+    position: sticky;
+    bottom: 20px;
+}
+/* 1. CABEÇALHO ALINHADO (Botão e Título na mesma linha) */
+.header-tela {
+    display: flex;               /* Ativa o modo linha */
+    align-items: center;         /* Centraliza verticalmente */
+    justify-content: flex-start; /* Alinha tudo à esquerda */
+    gap: 15px;                   /* Espaço entre o botão e o título */
+    margin-bottom: 15px;
+    padding: 0 5px;
+}
+
+.header-tela h2 {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin: 0;
+    /* Truque para o título não quebrar linha em tela pequena */
+    white-space: nowrap; 
+}
+
+
+/* 2. LOUSA COMPACTA (Contas centralizadas) */
+.item-lousa {
+    font-family: 'Fredoka', sans-serif; /* Fonte arredondada fica melhor aqui */
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    
+    /* MUDANÇA AQUI: Centralizar e Juntar */
+    display: flex;
+    justify-content: center; /* Junta tudo no centro */
+    align-items: center;
+    gap: 8px;                /* Espacinho pequeno entre a conta e o resultado */
+    
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+
+/* Tiramos a cor diferente só do resultado para ficar uniforme,
+   ou mantemos se você gostar. Vou manter sutil. */
+.destaque-resultado { 
+    color: #4ade80; /* Verde neon suave */
+    font-weight: 700;
+}
+
+/* --- ESTILO DO QUIZ NA LOUSA (Visual Card Retomado) --- */
+
+.card-pergunta-focada {
+    background: white;
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra mais forte */
+    text-align: center;
+    border: 2px solid #e2e8f0;
+    animation: slideUp 0.3s ease-out;
+    
+    /* Centraliza na tela se precisar */
+    max-width: 400px;
+    margin: 20px auto 0 auto; 
+}
+
+.pergunta-texto-grande {
+    font-size: 2.8rem; /* Aumentei a fonte */
+    font-family: 'Fredoka', sans-serif;
+    color: var(--text-main);
+    margin-bottom: 25px;
+    
+    /* O visual de "Caixa Tracejada" do antigo */
+    background: #f8fafc;
+    border-radius: 18px;
+    padding: 15px;
+    border: 3px dashed #cbd5e1;
+}
+
+/* Feedback de Texto (Muito Bem!) */
+.feedback-texto {
+    min-height: 30px; /* Garante espaço fixo pra não pular a tela */
+    margin-top: 20px; 
+    font-weight: 800;
+    font-size: 1.2rem;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.3s;
+}
+
+/* DESTAQUE NA LOUSA (Linha Ativa) */
+.item-lousa.ativa-no-quiz {
+    background: rgba(37, 99, 235, 0.3); /* Azul mais visível */
+    border: 2px solid #60a5fa;
+    border-radius: 8px;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
+    z-index: 10;
+    padding: 5px 10px; /* Ajuste para o texto não colar na borda */
+}
