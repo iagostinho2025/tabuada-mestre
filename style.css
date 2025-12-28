@@ -1111,3 +1111,59 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     0% { transform: scale(0.5); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
+/* --- SLIDER DE QUANTIDADE PERSONALIZADA --- */
+
+.container-slider-qtd {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.label-slider {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+}
+
+#valor-slider-display {
+    color: var(--primary);
+    font-size: 1.4rem;
+}
+
+/* Estilo da Barra (Range Input) */
+input[type=range] {
+    -webkit-appearance: none; /* Remove estilo padrão */
+    width: 100%;
+    background: transparent;
+    margin: 10px 0;
+}
+
+input[type=range]:focus { outline: none; }
+
+/* O Trilho (Caminho cinza) */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    background: #e2e8f0;
+    border-radius: 6px;
+}
+
+/* A Bolinha (Thumb) */
+input[type=range]::-webkit-slider-thumb {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -8px; /* Centraliza no trilho */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: 3px solid white;
+}

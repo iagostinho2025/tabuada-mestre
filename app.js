@@ -1,5 +1,6 @@
 /**
- * APP.JS - VERSÃO FINAL: 4 MODOS DE JOGO
+ * APP.JS - VERSÃO FINAL COMPLETA
+ * Inclui: Lousa, Slider de Quantidade, Teclado Customizado e Novos Modos de Jogo.
  */
 
 // --- 1. ESTADO GLOBAL ---
@@ -68,17 +69,19 @@ function setupEventos() {
         mostrarTela('estudo'); 
     };
     
+    // Botão Praticar -> Vai para a tela de configuração
     document.getElementById('btn-treino').onclick = () => {
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
         mostrarTela('config'); 
     };
 
+    // Botão Desafio -> Vai direto para o jogo
     document.getElementById('btn-desafio').onclick = () => {
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
         iniciarJogoTelaCheia('desafio'); 
     };
     
-    // Botão Iniciar na Tela de Configuração
+    // Botão "Começar Jogo" na Tela de Configuração
     const btnStartCustom = document.getElementById('btn-iniciar-treino-custom');
     if(btnStartCustom) {
         btnStartCustom.onclick = () => {
@@ -87,20 +90,26 @@ function setupEventos() {
         };
     }
 
-    // Botões Voltar
+    // Botões Voltar (Gerais)
     document.querySelectorAll('.btn-voltar').forEach(btn => {
         btn.onclick = null; 
         btn.addEventListener('click', (e) => {
             e.preventDefault(); 
             if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            
             pararJogoTelaCheia(); 
             
-            if(estado.modo === 'estudo-lousa') iniciarModoLousa(); 
+            // Se estiver na lousa e voltar, garante que reseta o visual
+            if(estado.modo === 'estudo-lousa') {
+                iniciarModoLousa(); 
+            }
+
             const destino = btn.getAttribute('data-destino');
             if (destino) mostrarTela(destino);
         });
     });
 
+    // Botão de Sair/Voltar DENTRO DO JOGO (Será configurado no iniciarJogoTelaCheia)
     const btnSair = document.getElementById('btn-sair-jogo');
     if(btnSair) {
         btnSair.onclick = () => {
@@ -110,10 +119,12 @@ function setupEventos() {
 
     document.getElementById('btn-reiniciar').onclick = () => {
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+        
         if (estado.modo === 'estudo-lousa') {
             iniciarDesafioLousa(); 
             mostrarTela('estudo');
         } else {
+            // Reinicia com as mesmas configurações
             iniciarJogoTelaCheia(estado.modo);
         }
     };
@@ -121,31 +132,56 @@ function setupEventos() {
     document.getElementById('btn-home-resultado').onclick = () => mostrarTela('inicial');
 }
 
-// --- FUNÇÕES DE CONFIGURAÇÃO ---
+// --- FUNÇÕES DE CONFIGURAÇÃO (MODOS E SLIDER) ---
+
 window.escolherModoInput = function(modo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     configTreino.modoInput = modo;
     
-    // Visual
+    // Atualiza Visual (Borda azul)
     document.querySelectorAll('.card-opcao-treino').forEach(c => c.classList.remove('selecionado'));
     const btnAlvo = document.getElementById(`opt-${modo}`);
     if(btnAlvo) btnAlvo.classList.add('selecionado');
 }
 
+// Função do Slider (Arrastar a barrinha)
+window.atualizarValorSlider = function(val) {
+    document.getElementById('valor-slider-display').textContent = val;
+    configTreino.qtdQuestoes = parseInt(val);
+}
+
 window.escolherQtd = function(qtd) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
-    configTreino.qtdQuestoes = qtd;
-
-    // Visual
+    
+    // Reset visual dos botões
     document.querySelectorAll('.btn-qtd-redondo').forEach(b => b.classList.remove('selecionado'));
-    let idBtn = `qtd-${qtd}`;
-    if(qtd === Infinity) idBtn = 'qtd-inf';
-    const btn = document.getElementById(idBtn);
-    if(btn) btn.classList.add('selecionado');
+    const sliderWrapper = document.getElementById('wrapper-slider');
+    
+    if (qtd === 'custom') {
+        // Se clicou no Lápis
+        document.getElementById('qtd-custom').classList.add('selecionado');
+        sliderWrapper.classList.remove('oculto'); // Mostra a barra
+        
+        // Pega o valor atual que está na barra
+        const valAtual = document.getElementById('slider-qtd').value;
+        configTreino.qtdQuestoes = parseInt(valAtual);
+        
+    } else {
+        // Se clicou em 10, 20, 50 ou Infinito
+        let idBtn = `qtd-${qtd}`;
+        if(qtd === Infinity) idBtn = 'qtd-inf';
+        
+        const btn = document.getElementById(idBtn);
+        if(btn) btn.classList.add('selecionado');
+        
+        sliderWrapper.classList.add('oculto'); // Esconde a barra
+        configTreino.qtdQuestoes = qtd;
+    }
 }
 
 
 function mostrarTela(nomeTela) {
+    // Esconde tudo
     document.querySelectorAll('#app > div').forEach(el => el.classList.add('oculto'));
     telas.jogo.header.classList.add('oculto');
     telas.jogo.container.classList.add('oculto');
@@ -163,7 +199,8 @@ function mostrarTela(nomeTela) {
     }
 }
 
-// --- 4. MODO ESTUDO: LOUSA ---
+// --- 4. MODO ESTUDO: LOUSA INTERATIVA ---
+
 function iniciarModoLousa() {
     estado.modo = 'visualizacao';
     document.querySelector('.area-seletores-container').classList.remove('oculto');
@@ -213,6 +250,7 @@ function atualizarLousa(numero) {
     }
 }
 
+// B. O JOGO DA LOUSA
 function iniciarDesafioLousa() {
     if(typeof AudioMestre !== 'undefined' && AudioMestre.ctx.state === 'suspended') AudioMestre.ctx.resume();
     estado.modo = 'estudo-lousa';
@@ -249,6 +287,7 @@ function proximaPerguntaLousa() {
     document.getElementById('texto-pergunta-quiz').textContent = `${quizLousa.numero} x ${fator} = ?`;
     document.getElementById('feedback-quiz').textContent = '';
     
+    // GERA BOTÕES
     const containerBotoes = document.getElementById('opcoes-quiz-lousa');
     containerBotoes.innerHTML = '';
     let opcoes = new Set([respostaCerta]);
@@ -300,10 +339,12 @@ function iniciarJogoTelaCheia(modo) {
     estado.totalQuestoes = 0;
     estado.emAndamento = true;
     
+    // Configura o botão de navegação (Sair ou Voltar)
     const btnNav = document.getElementById('btn-sair-jogo');
     btnNav.className = 'btn-voltar'; 
 
     if (modo === 'treino') {
+        // MODO TREINO (Pega configs)
         btnNav.innerHTML = "⬅ Voltar"; 
         btnNav.onclick = () => {
             if(typeof AudioMestre !== 'undefined') AudioMestre.click();
@@ -317,14 +358,14 @@ function iniciarJogoTelaCheia(modo) {
         telas.jogo.barra.parentElement.classList.add('oculto');
 
     } else {
-        // Desafio Relâmpago
+        // DESAFIO RELÂMPAGO (Padrão)
         btnNav.innerHTML = "✕ Sair";
         btnNav.onclick = () => {
             if(confirm("Sair do jogo?")) { pararJogoTelaCheia(); mostrarTela('inicial'); }
         };
         estado.tempo = 45; 
         estado.maxQuestoes = Infinity;
-        estado.modoInput = 'botoes';
+        estado.modoInput = 'botoes'; // Desafio é sempre botão
         
         telas.jogo.timer.classList.remove('oculto');
         telas.jogo.barra.parentElement.classList.remove('oculto');
@@ -344,6 +385,7 @@ function pararJogoTelaCheia() {
 function proximaQuestaoTelaCheia() {
     if (!estado.emAndamento) return;
 
+    // Verifica limite de questões
     if (estado.modo === 'treino' && estado.maxQuestoes !== Infinity && estado.totalQuestoes >= estado.maxQuestoes) {
         finalizarJogoTelaCheia();
         return;
@@ -356,12 +398,12 @@ function proximaQuestaoTelaCheia() {
     
     estado.questaoAtual = { a, b, respostaCorreta };
 
-    // Limpa a área da pergunta para reconstruir conforme o modo
+    // Limpa a área da pergunta
     const areaPergunta = document.querySelector('.area-pergunta');
-    areaPergunta.innerHTML = ''; // Reseta HTML interno
-    elOpcoes.innerHTML = '';     // Reseta botões
+    areaPergunta.innerHTML = ''; 
+    elOpcoes.innerHTML = '';    
 
-    // --- SELETOR DE MODOS ---
+    // --- SELETOR DE MODOS (Renderização) ---
     
     if (estado.modoInput === 'inverso') {
         // MODO INVERSO (Mostra Resultado, Pede Conta)
@@ -373,11 +415,10 @@ function proximaQuestaoTelaCheia() {
 
     } else if (estado.modoInput === 'verdadeiro-falso') {
         // MODO VERDADEIRO OU FALSO
-        // 50% chance de ser verdade
         const isVerdade = Math.random() > 0.5;
         const valorMostrado = isVerdade ? respostaCorreta : gerarErroPlausivel(respostaCorreta);
         
-        estado.questaoAtual.respostaVF = isVerdade; // Salva se é true/false
+        estado.questaoAtual.respostaVF = isVerdade;
 
         areaPergunta.innerHTML = `
             <span style="font-size:3rem">${a}</span>
@@ -422,12 +463,12 @@ function gerarBotoesVF(isVerdade) {
     const btnV = document.createElement('button');
     btnV.className = 'btn-vf verdadeiro';
     btnV.innerHTML = '👍<span>VERDADE</span>';
-    btnV.onclick = (e) => verificarRespostaTelaCheia(true, e.currentTarget); // true = botão verdade
+    btnV.onclick = (e) => verificarRespostaTelaCheia(true, e.currentTarget); 
 
     const btnF = document.createElement('button');
     btnF.className = 'btn-vf falso';
     btnF.innerHTML = '👎<span>MENTIRA</span>';
-    btnF.onclick = (e) => verificarRespostaTelaCheia(false, e.currentTarget); // false = botão mentira
+    btnF.onclick = (e) => verificarRespostaTelaCheia(false, e.currentTarget);
 
     grid.appendChild(btnV);
     grid.appendChild(btnF);
@@ -442,7 +483,6 @@ function gerarBotoesInverso(a, b, respostaCorreta) {
     while(opcoes.size < 4) {
         const fa = Math.floor(Math.random() * 9) + 2;
         const fb = Math.floor(Math.random() * 10) + 1;
-        // Evita gerar outra conta que dê o mesmo resultado (ex: 4x5 e 2x10)
         if (fa * fb !== respostaCorreta) {
             opcoes.add(`${fa} × ${fb}`);
         }
@@ -452,7 +492,6 @@ function gerarBotoesInverso(a, b, respostaCorreta) {
         const btn = document.createElement('button');
         btn.className = 'botao-opcao';
         btn.textContent = txtConta;
-        // Se o texto for igual a conta certa, é a resposta
         const isCorrect = (txtConta === contaCertaStr); 
         btn.onclick = (e) => verificarRespostaTelaCheia(isCorrect, e.target);
         elOpcoes.appendChild(btn);
@@ -462,7 +501,7 @@ function gerarBotoesInverso(a, b, respostaCorreta) {
 function gerarBotoesOpcoes(respostaCorreta) {
     let alternativas = new Set([respostaCorreta]);
     while (alternativas.size < 4) {
-        let erro = gerarErroPlausivel(respostaCorreta); // Reusa função de erro
+        let erro = gerarErroPlausivel(respostaCorreta); 
         if (erro !== respostaCorreta) alternativas.add(erro);
         else alternativas.add(Math.floor(Math.random() * 80) + 1);
     }
@@ -490,6 +529,7 @@ function gerarInputTeclado(respostaCorreta) {
     const grid = document.createElement('div');
     grid.className = 'grid-teclado-num';
 
+    // Teclas do teclado numérico estilo caixa eletrônico
     const teclas = [7, 8, 9, 4, 5, 6, 1, 2, 3, '', 0, 'del'];
 
     teclas.forEach(tecla => {
@@ -547,7 +587,7 @@ function gerarInputTeclado(respostaCorreta) {
     elOpcoes.appendChild(wrapper);
 }
 
-// --- VERIFICAÇÃO UNIFICADA ---
+// --- VERIFICAÇÃO UNIFICADA (Para todos os modos) ---
 function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     if (!estado.emAndamento) return;
     
@@ -558,14 +598,11 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     estado.totalQuestoes++;
     let acertou = false;
 
-    // LÓGICA DE ACERTO POR MODO
+    // LÓGICA DE ACERTO
     if (estado.modoInput === 'verdadeiro-falso') {
-        // valorEscolhido é true/false (o que o usuario clicou)
-        // estado.questaoAtual.respostaVF é a verdade (true/false)
         acertou = (valorEscolhido === estado.questaoAtual.respostaVF);
     
     } else if (estado.modoInput === 'inverso') {
-        // valorEscolhido é booleano (true se clicou na conta certa)
         acertou = (valorEscolhido === true);
         
     } else {
@@ -579,7 +616,7 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         if(typeof AudioMestre !== 'undefined') AudioMestre.acerto();
         btnClicado.classList.add('animacao-acerto'); 
         
-        // Se for teclado
+        // Se for teclado, pinta o visor
         if(visor) {
             visor.classList.add('sucesso');
             visor.textContent = `✔ ${valorEscolhido}`;
@@ -606,13 +643,14 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
             // Em VF e Inverso, não precisa mostrar qual era o certo pq é obvio
             if(estado.modoInput === 'botoes') {
                 btnClicado.classList.add('errado');
+                // Mostra o certo
                 elOpcoes.querySelectorAll('button').forEach(b => {
                     if (parseInt(b.textContent) === estado.questaoAtual.respostaCorreta) b.classList.add('correto');
                 });
             }
             if(estado.modoInput === 'inverso') {
                 btnClicado.classList.add('errado');
-                // Acha o botão com a conta certa
+                // Mostra o certo
                 const a = estado.questaoAtual.a;
                 const b = estado.questaoAtual.b;
                 const txtCerto = `${a} × ${b}`;
@@ -628,7 +666,8 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     document.getElementById('placar-display').textContent = `⭐ ${estado.pontos}`;
 }
 
-// --- TIMER, FINALIZAÇÃO E RESULTADO (Mantido igual) ---
+// --- TIMER, FINALIZAÇÃO E RESULTADO ---
+
 function iniciarTimer() {
     atualizarTimerUI();
     estado.timerInterval = setInterval(() => {

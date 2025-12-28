@@ -142,12 +142,22 @@
 
         </div>
 
-        <h3 class="titulo-secao-config" style="margin-top: 30px;">Quantas perguntas?</h3>
+<h3 class="titulo-secao-config" style="margin-top: 30px;">Quantas perguntas?</h3>
+        
         <div class="grid-config-qtd">
             <button class="btn-qtd-redondo selecionado" id="qtd-10" onclick="escolherQtd(10)">10</button>
             <button class="btn-qtd-redondo" id="qtd-20" onclick="escolherQtd(20)">20</button>
             <button class="btn-qtd-redondo" id="qtd-50" onclick="escolherQtd(50)">50</button>
             <button class="btn-qtd-redondo" id="qtd-inf" onclick="escolherQtd(Infinity)">∞</button>
+            
+            <button class="btn-qtd-redondo" id="qtd-custom" onclick="escolherQtd('custom')">✏️</button>
+        </div>
+
+        <div id="wrapper-slider" class="oculto">
+            <div class="container-slider-qtd">
+                <span class="label-slider">Questões: <span id="valor-slider-display">30</span></span>
+                <input type="range" id="slider-qtd" min="1" max="100" value="30" oninput="atualizarValorSlider(this.value)">
+            </div>
         </div>
 
     </div>
