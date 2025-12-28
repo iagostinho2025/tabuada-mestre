@@ -825,3 +825,30 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     z-index: 10;
     padding: 5px 10px; /* Ajuste para o texto não colar na borda */
 }
+/* --- AJUSTE DE LAYOUT (Preencher a tela toda) --- */
+#tela-estudo {
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh; /* Força a tela a ter altura mínima */
+    justify-content: space-between; /* Distribui os itens (Topo, Meio, Fim) */
+}
+
+/* --- O SUPER BOTÃO VERDE --- */
+#btn-acao-praticar-dinamico {
+    flex-direction: row; /* Ícone ao lado do texto, não em cima */
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Espaço entre o ícone e o texto */
+    
+    font-size: 1.4rem !important; /* Texto bem maior */
+    padding: 25px 20px; /* Mais "gordinho" */
+    width: 100%;
+    
+    box-shadow: 0 8px 0 #15803d; /* Sombra 3D mais grossa pra dar peso */
+    transform: translateY(-2px);
+}
+
+#btn-acao-praticar-dinamico:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
