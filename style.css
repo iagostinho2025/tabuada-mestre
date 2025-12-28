@@ -852,3 +852,262 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     transform: translateY(4px);
     box-shadow: none;
 }
+
+/* --- TELA DE CONFIGURAÇÃO DE TREINO --- */
+
+.titulo-secao-config {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-left: 5px;
+}
+
+/* 1. CARDS DE MODO (Botões vs Teclado) */
+.grid-config-modo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.card-opcao-treino {
+    background: white;
+    border: 3px solid transparent;
+    border-radius: 20px;
+    padding: 20px 10px;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+
+.card-opcao-treino .icon-grande { font-size: 2.5rem; }
+.card-opcao-treino strong { display: block; font-size: 1.1rem; color: var(--text-main); }
+.card-opcao-treino small { color: var(--text-light); font-size: 0.8rem; }
+.card-opcao-treino .check-icon { 
+    position: absolute; top: 10px; right: 10px; 
+    background: var(--success); color: white; border-radius: 50%; 
+    width: 20px; height: 20px; font-size: 0.8rem; 
+    display: none; justify-content: center; align-items: center;
+}
+
+/* Estado Selecionado */
+.card-opcao-treino.selecionado {
+    border-color: var(--primary);
+    background: #eff6ff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+}
+.card-opcao-treino.selecionado .check-icon { display: flex; }
+
+
+/* 2. BOTÕES DE QUANTIDADE */
+.grid-config-qtd {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-qtd-redondo {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: 2px solid #e2e8f0;
+    background: white;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-qtd-redondo.selecionado {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-dark);
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+}
+/* --- PADRONIZAÇÃO DE TELAS (Estudo + Config) --- */
+#tela-estudo, #tela-config-treino {
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh; /* Garante altura para empurrar o rodapé */
+    justify-content: space-between;
+}
+/* Aplica o mesmo estilo do botão de Praticar ao botão de Iniciar Jogo */
+#btn-acao-praticar-dinamico, 
+#btn-iniciar-treino-custom {
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center;
+    gap: 15px;
+    
+    font-size: 1.4rem !important; /* Texto grande */
+    padding: 25px 20px;           /* Botão alto */
+    width: 100%;
+    
+    box-shadow: 0 8px 0 #15803d;  /* Sombra 3D grossa */
+    transform: translateY(-2px);
+    margin-bottom: 15px; /* Espaço para a publicidade embaixo */
+}
+
+#btn-acao-praticar-dinamico:active, 
+#btn-iniciar-treino-custom:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+/* --- TECLADO NUMÉRICO PERSONALIZADO --- */
+
+.teclado-custom-wrapper {
+    width: 100%;
+    max-width: 320px; /* Largura ideal para não ficar gigante em tablet */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* O Visor (Tela onde o número aparece) */
+.visor-resposta {
+    font-size: 3.5rem; /* Número bem grande */
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    color: var(--text-main);
+    background: white;
+    border: 3px solid #cbd5e1;
+    border-radius: 20px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.05); /* Sombra interna */
+    transition: all 0.3s;
+}
+
+/* Estados do Visor */
+.visor-resposta.ativo { border-color: var(--primary); }
+.visor-resposta.sucesso { background: #dcfce7; color: var(--success); border-color: var(--success); }
+.visor-resposta.erro { background: #fee2e2; color: var(--error); border-color: var(--error); font-size: 2rem; } /* Diminui fonte pra caber mensagem de erro se precisar */
+
+/* O Grid das Teclas */
+.grid-teclado-num {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Colunas iguais */
+    gap: 12px;
+}
+
+/* Botões Numéricos */
+.btn-num {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-bottom-width: 5px; /* Efeito 3D */
+    border-radius: 16px;
+    
+    font-size: 2rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    color: var(--text-main);
+    
+    padding: 15px 0;
+    cursor: pointer;
+    transition: all 0.1s;
+    touch-action: manipulation; /* Melhora resposta ao toque */
+}
+
+.btn-num:active {
+    transform: translateY(3px); /* Afunda quando clica */
+    border-bottom-width: 2px;
+    background: #f1f5f9;
+}
+
+/* Botão Apagar (Diferente dos números) */
+.btn-num.acao-apagar {
+    background: #fef2f2;
+    color: var(--error);
+    border-color: #fecaca;
+    font-size: 1.5rem;
+}
+/* Garante que o texto dos botões menus esteja sempre no meio */
+.btn-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+/* --- AJUSTE: Botão Voltar dentro do Cabeçalho do Jogo --- */
+#header-jogo .btn-voltar {
+    margin: 0;           /* Remove margens externas */
+    padding: 6px 15px;   /* Um pouco mais compacto que o normal */
+    font-size: 0.9rem;   /* Texto levemente menor para alinhar com o placar */
+    background: white;   /* Garante fundo branco */
+    color: var(--text-main);
+    box-shadow: 0 2px 0 #e2e8f0; /* Sombra sutil */
+    height: auto;
+}
+/* --- NOVOS MODOS DE JOGO --- */
+
+/* 1. MODO VERDADEIRO OU FALSO */
+.grid-vf {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-vf {
+    padding: 20px 0;
+    border-radius: 20px;
+    border: none;
+    font-size: 2.5rem; /* Ícone Grande */
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.1);
+    color: white;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+.btn-vf span { font-size: 1rem; margin-top: 5px; opacity: 0.9; }
+
+.btn-vf.verdadeiro { background: #22c55e; box-shadow: 0 6px 0 #15803d; }
+.btn-vf.verdadeiro:active { transform: translateY(6px); box-shadow: none; }
+
+.btn-vf.falso { background: #ef4444; box-shadow: 0 6px 0 #b91c1c; }
+.btn-vf.falso:active { transform: translateY(6px); box-shadow: none; }
+
+
+/* 2. MODO INVERSO (Qual é a Conta?) */
+.visor-inverso-numero {
+    font-size: 5rem; /* Número GIGANTE */
+    color: var(--primary);
+    font-weight: 800;
+    text-align: center;
+    text-shadow: 3px 3px 0px rgba(37, 99, 235, 0.1);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.subtitulo-inverso {
+    text-align: center;
+    color: var(--text-light);
+    font-weight: 700;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+/* Animaçãozinha de entrada */
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

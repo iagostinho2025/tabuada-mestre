@@ -92,6 +92,76 @@
             </div>
 
         </div>
+		<div id="tela-config-treino" class="tela oculto">
+    
+    <div class="header-tela">
+        <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+        <h2>Personalizar</h2>
+    </div>
+
+    <div class="container-scroll" style="padding-bottom: 100px;">
+        
+<h3 class="titulo-secao-config">Dinâmica do Jogo</h3>
+        <div class="grid-config-modo">
+            
+            <button class="card-opcao-treino selecionado" id="opt-botoes" onclick="escolherModoInput('botoes')">
+                <div class="icon-grande">🔘</div>
+                <div class="texto-opt">
+                    <strong>Clássico</strong>
+                    <small>Múltipla Escolha</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+            <button class="card-opcao-treino" id="opt-teclado" onclick="escolherModoInput('teclado')">
+                <div class="icon-grande">⌨</div>
+                <div class="texto-opt">
+                    <strong>Teclado</strong>
+                    <small>Digitar resposta</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+            <button class="card-opcao-treino" id="opt-verdadeiro-falso" onclick="escolherModoInput('verdadeiro-falso')">
+                <div class="icon-grande">⚡</div>
+                <div class="texto-opt">
+                    <strong>Rápido</strong>
+                    <small>Verdade ou Falso</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+            <button class="card-opcao-treino" id="opt-inverso" onclick="escolherModoInput('inverso')">
+                <div class="icon-grande">🧠</div>
+                <div class="texto-opt">
+                    <strong>Inverso</strong>
+                    <small>Ache a conta</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+        </div>
+
+        <h3 class="titulo-secao-config" style="margin-top: 30px;">Quantas perguntas?</h3>
+        <div class="grid-config-qtd">
+            <button class="btn-qtd-redondo selecionado" id="qtd-10" onclick="escolherQtd(10)">10</button>
+            <button class="btn-qtd-redondo" id="qtd-20" onclick="escolherQtd(20)">20</button>
+            <button class="btn-qtd-redondo" id="qtd-50" onclick="escolherQtd(50)">50</button>
+            <button class="btn-qtd-redondo" id="qtd-inf" onclick="escolherQtd(Infinity)">∞</button>
+        </div>
+
+    </div>
+
+    <div class="area-acao-fixa">
+        <button id="btn-iniciar-treino-custom" class="btn-menu verde">
+            🚀 Começar Jogo
+        </button>
+		<div class="ad-banner-container" style="margin-top: 0;">
+            <p>Publicidade</p>
+        </div>
+    </div>
+
+</div>
 
         <header id="header-jogo" class="oculto">
             <div class="topo-info">
