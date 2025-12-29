@@ -2,10 +2,9 @@ import { estado, configTreino, configDesafio, quizLousa, tabuadaSelecionadaId } 
 import * as UI from './modules/ui.js';
 import * as Lousa from './modules/lousa.js';
 import * as Game from './modules/game.js';
-// Importação atualizada para incluir a nova função de detalhes
 import { obterDadosDesempenho, limparDados, gerarDadosGrafico, obterDetalhesPorModo } from './modules/stats.js';
 
-// --- EXPOR FUNÇÕES GLOBAIS (Necessário para o HTML acessar) ---
+// --- EXPOR FUNÇÕES GLOBAIS ---
 window.escolherModoInput = UI.escolherModoInput;
 window.atualizarValorSlider = UI.atualizarValorSlider;
 window.escolherQtd = UI.escolherQtd;
@@ -13,18 +12,14 @@ window.escolherModoDesafio = UI.escolherModoDesafio;
 window.escolherDificuldade = UI.escolherDificuldade;
 window.limparTudo = limparDados;
 
-// --- FUNÇÃO DO HISTÓRICO POR MODO (NOVA) ---
+// --- FUNÇÃO DO HISTÓRICO POR MODO ---
 window.verHistoricoModo = function(modo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
-    // 1. Pega os dados filtrados desse modo
     const dados = obterDetalhesPorModo(modo);
-    
-    // 2. Mostra o painel de detalhes
     const painel = document.getElementById('painel-detalhes-historico');
     painel.classList.remove('oculto');
     
-    // 3. Preenche Título e Recorde
     const nomes = { 
         'classico': '⏱️ Clássico', 
         'morte': '💣 Morte Súbita', 
@@ -34,7 +29,6 @@ window.verHistoricoModo = function(modo) {
     document.getElementById('titulo-modo-historico').textContent = nomes[modo] || modo;
     document.getElementById('valor-recorde-modo').textContent = `${dados.recorde} pts`;
     
-    // 4. Preenche a lista de últimas partidas
     const listaEl = document.getElementById('lista-historico-especifica');
     listaEl.innerHTML = '';
     
@@ -58,50 +52,42 @@ window.verHistoricoModo = function(modo) {
             listaEl.innerHTML += html;
         });
     }
-    
-    // Scroll suave até o painel para o usuário ver
     painel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Fecha o painel de detalhes
 window.fecharHistoricoModo = function() {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     document.getElementById('painel-detalhes-historico').classList.add('oculto');
 }
 
-// --- FUNÇÃO DO GRÁFICO (Mantida e melhorada) ---
+// --- FUNÇÃO DO GRÁFICO ---
 window.atualizarGrafico = function(periodo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
-    // 1. Atualiza botões visuais
     document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('ativo'));
-    // Encontra o botão correto pelo texto (simplificação robusta)
     const botoes = Array.from(document.querySelectorAll('.btn-filtro'));
     const botaoAlvo = botoes.find(b => b.textContent.toLowerCase().includes(periodo === 'dia' ? 'dia' : periodo === 'mes' ? 'mês' : 'ano'));
     if(botaoAlvo) botaoAlvo.classList.add('ativo');
 
-    // 2. Pega dados
     const info = gerarDadosGrafico(periodo);
     const container = document.getElementById('container-barras');
-    container.innerHTML = ''; // Limpa
+    if(container) {
+        container.innerHTML = ''; 
 
-    // 3. Renderiza barras (1 a 10)
-    for (let i = 1; i <= 10; i++) {
-        const valor = info.dados[i];
-        // Calcula altura % (evita divisão por zero)
-        let altura = info.max > 0 ? (valor / info.max) * 100 : 0;
-        // Altura mínima visual de 4% pra barra aparecer se tiver valor, ou 2% se for zero (só pra marcar)
-        if (valor > 0 && altura < 5) altura = 5;
-        if (valor === 0) altura = 2;
-        
-        // Tooltip com quantidade exata
-        const html = `
-            <div class="barra-wrapper">
-                <div class="barra" style="height: ${altura}%; opacity: ${valor===0 ? 0.3 : 1}" title="${valor} acertos"></div>
-                <span>x${i}</span>
-            </div>
-        `;
-        container.innerHTML += html;
+        for (let i = 1; i <= 10; i++) {
+            const valor = info.dados[i];
+            let altura = info.max > 0 ? (valor / info.max) * 100 : 0;
+            if (valor > 0 && altura < 5) altura = 5;
+            if (valor === 0) altura = 2;
+            
+            const html = `
+                <div class="barra-wrapper">
+                    <div class="barra" style="height: ${altura}%; opacity: ${valor===0 ? 0.3 : 1}" title="${valor} acertos"></div>
+                    <span>x${i}</span>
+                </div>
+            `;
+            container.innerHTML += html;
+        }
     }
 }
 
@@ -109,7 +95,6 @@ window.atualizarGrafico = function(periodo) {
 document.addEventListener('DOMContentLoaded', () => {
     Game.carregarRecorde();
     
-    // Atualiza o recorde visualmente na hora
     const recorde = localStorage.getItem('tabuada_recorde') || 0;
     const el = document.getElementById('home-recorde');
     if(el) el.textContent = `${recorde} pts`;
@@ -139,18 +124,14 @@ function setupEventos() {
     document.getElementById('btn-desempenho').onclick = () => {
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
         
-        // 1. Pega os dados gerais
         const dados = obterDadosDesempenho();
         
-        // 2. Preenche o topo
         document.getElementById('dash-total-jogos').textContent = dados.totalJogos;
         document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
         document.getElementById('dash-pior-tabuada').textContent = dados.piorTabuada ? `Tabuada do ${dados.piorTabuada}` : "Nenhuma";
         
-        // 3. Garante que o painel de detalhes comece fechado
+        // Garante estado inicial limpo
         document.getElementById('painel-detalhes-historico').classList.add('oculto');
-
-        // 4. Inicializa o gráfico (Padrão: Dia)
         window.atualizarGrafico('dia');
 
         UI.mostrarTela('tela-desempenho'); 
@@ -174,8 +155,11 @@ function setupEventos() {
         };
     }
 
-    // Voltar
+    // Voltar (Lógica Global com Exceção)
     document.querySelectorAll('.btn-voltar').forEach(btn => {
+        // --- CORREÇÃO AQUI: IGNORA O BOTÃO DO JOGO PARA EVITAR CONFLITO ---
+        if (btn.id === 'btn-sair-jogo') return; 
+
         btn.onclick = null; 
         btn.addEventListener('click', (e) => {
             e.preventDefault(); 
@@ -189,11 +173,10 @@ function setupEventos() {
         });
     });
 
-    // Sair Jogo
+    // Sair Jogo (Este botão é controlado pelo game.js, mas adicionamos aqui um fallback)
     const btnSair = document.getElementById('btn-sair-jogo');
-    if(btnSair) {
-        btnSair.onclick = () => { if(confirm("Sair do jogo?")) { Game.pararJogoTelaCheia(); UI.mostrarTela('inicial'); } };
-    }
+    // Nota: O clique dele é sobrescrito no game.js dependendo do modo (Treino ou Desafio),
+    // por isso removemos ele do loop acima.
 
     // Reiniciar
     document.getElementById('btn-reiniciar').onclick = () => {

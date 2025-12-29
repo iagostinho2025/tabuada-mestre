@@ -12,7 +12,7 @@ export function iniciarJogoTelaCheia(modo) {
     
     // Zera rastreadores específicos desta partida
     estado.errosMap = {}; 
-    estado.acertosMap = {}; // Novo: Rastreia acertos para o gráfico
+    estado.acertosMap = {}; 
 
     const btnNav = document.getElementById('btn-sair-jogo');
     btnNav.className = 'btn-voltar'; 
@@ -20,7 +20,11 @@ export function iniciarJogoTelaCheia(modo) {
     if (modo === 'treino') {
         // --- MODO TREINO ---
         btnNav.innerHTML = "⬅ Voltar"; 
-        btnNav.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); pararJogoTelaCheia(); mostrarTela('config'); };
+        btnNav.onclick = () => { 
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click(); 
+            pararJogoTelaCheia(); 
+            mostrarTela('config'); 
+        };
         
         estado.maxQuestoes = configTreino.qtdQuestoes;
         estado.modoInput = configTreino.modoInput;
@@ -34,12 +38,13 @@ export function iniciarJogoTelaCheia(modo) {
 
     } else {
         // --- MODO DESAFIO ---
-        btnNav.innerHTML = "⬅ Voltar"; // Alterado para Voltar
+        btnNav.innerHTML = "⬅ Voltar"; 
+        
+        // CORREÇÃO: Removemos o confirm() para voltar direto
         btnNav.onclick = () => { 
-            if(confirm("Sair do desafio atual?")) { 
-                pararJogoTelaCheia(); 
-                mostrarTela('configDesafio'); 
-            } 
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            pararJogoTelaCheia(); 
+            mostrarTela('configDesafio'); 
         };
         
         estado.subModo = configDesafio.modo;
@@ -258,7 +263,6 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     const visor = document.getElementById('visor-usuario'); 
     const feedbackEl = document.getElementById('feedback-jogo-tela-cheia');
     const numA = estado.questaoAtual.a;
-    // numB removido da lógica de estatística (Lógica Mandante)
 
     if (acertou) {
         if(typeof AudioMestre !== 'undefined') AudioMestre.acerto();
@@ -271,7 +275,6 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         
         estado.pontos += 10; estado.acertos++;
         
-        // --- MUDANÇA: SÓ CONTA O PRIMEIRO NÚMERO (MANDANTE) ---
         if (!estado.acertosMap[numA]) estado.acertosMap[numA] = 0;
         estado.acertosMap[numA]++; 
 
@@ -303,7 +306,6 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         
         estado.erros++;
         
-        // --- MUDANÇA: ERRO TAMBÉM SÓ NO MANDANTE ---
         if (!estado.errosMap[numA]) estado.errosMap[numA] = 0;
         estado.errosMap[numA]++;
         
