@@ -1297,83 +1297,85 @@ input[type=range]::-webkit-slider-thumb {
 .badge-laranja { background: #ffedd5; color: #ea580c; border: 1px solid #fed7aa; }
 .badge-rosa    { background: #fce7f3; color: #db2777; border: 1px solid #fbcfe8; }
 
-/* --- CORREÇÃO DE LAYOUT MOBILE (Versão Super Compacta) --- */
+/* --- CORREÇÃO DE LAYOUT MOBILE (Forçada) --- */
+
+/* Aplica em qualquer tela com largura de celular/tablet (até 768px) */
 @media (max-width: 768px) {
 
-    /* 1. CARD DA PERGUNTA: Bem menor */
-    .area-pergunta {
-        padding: 8px !important; /* Menos borda interna */
-        margin-bottom: 5px !important; /* Cola no teclado */
-        border-radius: 12px !important; /* Cantos menos arredondados economizam espaço visual */
-        min-height: auto !important;
-    }
-    
-    /* Fonte da conta (10 x 3 = ?) reduzida */
-    .linha-equacao span {
-        font-size: 1.8rem !important; /* Era gigante, agora médio */
-    }
-    
-    /* Etiqueta (Badge) menorzinha */
-    .badge-pilula {
-        padding: 2px 8px !important;
-        font-size: 0.6rem !important;
-        margin-bottom: 5px !important;
-    }
-
-    /* 2. TECLADO NUMÉRICO: Apertadinho */
-    .teclado-custom-wrapper {
-        gap: 5px !important; /* Menos espaço entre visor e teclas */
-        max-width: 100% !important;
-    }
-    
-    /* Espaço entre os botões (O que você pediu!) */
-    .grid-teclado-num {
-        gap: 5px !important; /* Era 12px ou mais */
-    }
-
-    /* Visor de resposta */
-    .visor-resposta {
-        height: 50px !important; /* Mais fino */
-        font-size: 1.8rem !important;
-        border-radius: 10px !important;
-        margin-bottom: 5px !important;
-    }
-
-    /* Botões (0-9) */
-    .btn-num {
-        padding: 6px 0 !important; /* Botão mais "magro" na altura */
-        font-size: 1.4rem !important;
-        border-bottom-width: 2px !important; /* Efeito 3D menor */
-        border-radius: 8px !important;
-    }
-    
-    /* Botão CONFIRMAR */
-    .btn-menu.verde {
-        padding: 10px !important;
-        margin-top: 5px !important;
-        font-size: 0.9rem !important;
-        border-radius: 10px !important;
-    }
-
-    /* 3. MODO INVERSO E OUTROS AJUSTES */
+    /* 1. MODO INVERSO: Número menor e margens reduzidas */
     .visor-inverso-numero {
-        font-size: 3rem !important;
-        margin: 0 !important;
+        font-size: 3.5rem !important; /* Força diminuição */
+        line-height: 1;
+        margin-bottom: 5px !important;
+        margin-top: 5px !important;
     }
     
     .subtitulo-inverso {
-        font-size: 0.8rem !important;
-        margin-bottom: 5px !important;
+        font-size: 0.9rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* 2. TECLADO NUMÉRICO: Compactação total */
+    .teclado-custom-wrapper {
+        gap: 6px !important; /* Junta mais as teclas */
+        max-width: 100% !important; /* Garante que usa a largura toda */
     }
     
-    /* Header do jogo mais fino */
+    .visor-resposta {
+        height: 60px !important; /* Visor mais baixo */
+        font-size: 2.2rem !important;
+        margin-bottom: 5px !important;
+    }
+
+    .btn-num {
+        padding: 8px 0 !important; /* Teclas mais finas */
+        font-size: 1.5rem !important; /* Fonte menor */
+        border-bottom-width: 3px !important; /* Borda 3D menor */
+        border-radius: 12px !important;
+    }
+    
+    /* Ajuste especial para o botão CONFIRMAR caber na tela */
+    .btn-menu.verde {
+        padding: 12px !important;
+        margin-top: 5px !important;
+        font-size: 1rem !important;
+    }
+
+    /* 3. CARD DA PERGUNTA: Remove gorduras */
+    .area-pergunta {
+        padding: 10px !important;
+        margin-bottom: 10px !important;
+        gap: 2px !important;
+    }
+    
+    /* Fonte da conta (4 x 4) menor */
+    .linha-equacao span {
+        font-size: 2.2rem !important; /* Era 3rem */
+    }
+
+    .badge-pilula {
+        margin-bottom: 5px !important;
+        padding: 3px 8px !important;
+        font-size: 0.65rem !important;
+    }
+    
+    /* Feedback (Muito bem) menor */
+    .feedback-texto {
+        min-height: 20px !important;
+        font-size: 0.9rem !important;
+        margin-top: 2px !important;
+    }
+
+    /* 4. BOTÕES DE OPÇÃO (Múltipla escolha / Inverso) */
+    .botao-opcao {
+        padding: 12px !important;
+        font-size: 1.3rem !important;
+    }
+    
+    /* 5. HEADER (Barra de progresso e voltar) mais compactos */
     #header-jogo {
-        padding: 5px 10px !important;
-        margin-bottom: 5px !important;
+        padding: 10px 15px !important;
+        margin-bottom: 10px !important;
     }
-    
-    /* Garante que o container principal não tenha margens extras */
-    #container-jogo {
-        padding-top: 0 !important;
-    }
+    .texto-contador { font-size: 0.8rem !important; }
 }
