@@ -3,7 +3,7 @@ import * as UI from './modules/ui.js';
 import * as Lousa from './modules/lousa.js';
 import * as Game from './modules/game.js';
 import { obterDadosDesempenho, limparDados, gerarDadosGrafico, obterDetalhesPorModo } from './modules/stats.js';
-import * as Store from './modules/store.js'; // <--- NOVO: Importação da Loja
+import * as Store from './modules/store.js'; 
 
 // --- EXPOR FUNÇÕES GLOBAIS ---
 window.escolherModoInput = UI.escolherModoInput;
@@ -115,7 +115,7 @@ window.atualizarGrafico = function(periodo) {
 // --- INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
     Game.carregarRecorde();
-    Store.initStore(); // <--- NOVO: Inicia a loja e carrega o saldo/avatar
+    Store.initStore(); // Inicia a loja e carrega o saldo/avatar
     
     const recorde = localStorage.getItem('tabuada_recorde') || 0;
     const el = document.getElementById('home-recorde');
@@ -125,7 +125,58 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupEventos() {
-    // Menu
+    
+    // --- MENU LATERAL (NOVO) ---
+    
+    // Abrir Menu (Hambúrguer)
+    const btnMenu = document.getElementById('btn-abrir-menu');
+    if(btnMenu) {
+        btnMenu.onclick = () => {
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            UI.toggleMenu(true);
+        };
+    }
+
+    // Fechar Menu (Overlay)
+    const overlay = document.getElementById('overlay-menu');
+    if(overlay) {
+        overlay.onclick = () => UI.toggleMenu(false);
+    }
+
+    // Botão LOJA (Dentro do Menu)
+    const menuLoja = document.getElementById('menu-loja');
+    if(menuLoja) {
+        menuLoja.onclick = () => {
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            UI.toggleMenu(false); // Fecha o menu primeiro
+            Store.renderizarLoja();
+            UI.mostrarTela('tela-loja');
+        };
+    }
+
+    // Botão DESEMPENHO (Dentro do Menu)
+    const menuDesempenho = document.getElementById('menu-desempenho');
+    if(menuDesempenho) {
+        menuDesempenho.onclick = () => {
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            UI.toggleMenu(false); // Fecha o menu primeiro
+            
+            // Carrega dados
+            const dados = obterDadosDesempenho();
+            document.getElementById('dash-total-jogos').textContent = dados.totalJogos;
+            document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
+            document.getElementById('dash-total-erros').textContent = dados.totalErros;
+            
+            // Reseta visualização
+            document.getElementById('painel-detalhes-historico').classList.add('oculto');
+            window.atualizarGrafico('dia');
+
+            UI.mostrarTela('tela-desempenho'); 
+        };
+    }
+
+    // --- BOTÕES PRINCIPAIS DA HOME ---
+    
     document.getElementById('btn-estudar').onclick = () => { 
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
         Lousa.iniciarModoLousa(); 
@@ -142,31 +193,7 @@ function setupEventos() {
         UI.mostrarTela('configDesafio'); 
     };
 
-    // --- BOTÃO MEU DESEMPENHO ---
-    document.getElementById('btn-desempenho').onclick = () => {
-        if(typeof AudioMestre !== 'undefined') AudioMestre.click();
-        
-        const dados = obterDadosDesempenho();
-        
-        document.getElementById('dash-total-jogos').textContent = dados.totalJogos;
-        document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
-        document.getElementById('dash-total-erros').textContent = dados.totalErros;
-        
-        document.getElementById('painel-detalhes-historico').classList.add('oculto');
-        window.atualizarGrafico('dia');
-
-        UI.mostrarTela('tela-desempenho'); 
-    };
-
-    // --- NOVO: BOTÃO LOJA ---
-    const btnLoja = document.getElementById('btn-loja');
-    if (btnLoja) {
-        btnLoja.onclick = () => {
-            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
-            Store.renderizarLoja();
-            UI.mostrarTela('tela-loja');
-        };
-    }
+    // --- BOTÕES INTERNOS DE AÇÃO ---
     
     // Iniciar Treino
     const btnStartTreino = document.getElementById('btn-iniciar-treino-custom');
@@ -186,9 +213,9 @@ function setupEventos() {
         };
     }
 
-    // Voltar
+    // Botão Voltar (Global)
     document.querySelectorAll('.btn-voltar').forEach(btn => {
-        if (btn.id === 'btn-sair-jogo') return; 
+        if (btn.id === 'btn-sair-jogo') return; // Ignora o botão de sair do jogo (Game.js cuida dele)
 
         btn.onclick = null; 
         btn.addEventListener('click', (e) => {

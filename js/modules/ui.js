@@ -127,3 +127,18 @@ export function escolherDificuldade(dif) {
         configDesafio.dificuldade = dif;
     }
 }
+// ... (código existente)
+
+// --- FUNÇÕES DO MENU LATERAL ---
+export function toggleMenu(abrir) {
+    const menu = document.getElementById('menu-lateral');
+    const overlay = document.getElementById('overlay-menu');
+    
+    if (abrir) {
+        menu.classList.add('aberto');
+        overlay.classList.remove('oculto');
+    } else {
+        menu.classList.remove('aberto');
+        overlay.classList.add('oculto');
+    }
+}

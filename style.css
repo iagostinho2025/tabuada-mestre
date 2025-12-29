@@ -1607,6 +1607,106 @@ input[type=range]::-webkit-slider-thumb {
 .btn-usar { background: white; border: 2px solid var(--primary); color: var(--primary); }
 .btn-equipado { background: var(--success); color: white; cursor: default; }
 .btn-caro { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
+/* --- MENU LATERAL (DRAWER) --- */
+
+/* Botão Hambúrguer no Header */
+.btn-hamburguer {
+    background: white;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--primary);
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Fundo Escuro (Overlay) */
+#overlay-menu {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1999;
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* A Gaveta do Menu */
+#menu-lateral {
+    position: fixed;
+    top: 0; left: 0;
+    width: 280px; /* Largura do menu */
+    height: 100%;
+    background: var(--bg-app);
+    z-index: 2000;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    transform: translateX(-100%); /* Começa escondido na esquerda */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+#menu-lateral.aberto {
+    transform: translateX(0); /* Desliza para dentro */
+}
+
+/* Conteúdo do Menu */
+.menu-header {
+    background: var(--primary);
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-bottom-right-radius: 30px;
+}
+
+.avatar-menu-grande {
+    font-size: 4rem;
+    background: white;
+    width: 90px; height: 90px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 4px solid #93c5fd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.menu-lista {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.btn-item-menu {
+    background: white;
+    border: 2px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: left;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    transition: all 0.2s;
+}
+
+.btn-item-menu:active {
+    background: #f1f5f9;
+    transform: scale(0.98);
+}
+
+.versao-app {
+    margin-top: auto;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
 
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 /* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */

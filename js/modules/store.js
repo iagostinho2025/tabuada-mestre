@@ -92,18 +92,23 @@ function salvarDados() {
 export function atualizarInterfaceAvatar() {
     // 1. Ícone na Home
     const avatarEl = document.getElementById('avatar-display-home');
+    // 2. Ícone no MENU LATERAL (Novo)
+    const avatarMenu = document.getElementById('avatar-menu-display');
+    
     const avatarObj = CATALOGO.find(a => a.id === dadosUsuario.avatarAtual);
-    if (avatarEl && avatarObj) {
-        avatarEl.textContent = avatarObj.icon;
+    if (avatarObj) {
+        if (avatarEl) avatarEl.textContent = avatarObj.icon;
+        if (avatarMenu) avatarMenu.textContent = avatarObj.icon;
     }
 
-    // 2. Saldo na Loja
+    // Atualiza saldos (Loja, Home e Menu)
     const saldoLoja = document.getElementById('saldo-estrelas-loja');
-    if (saldoLoja) saldoLoja.textContent = dadosUsuario.estrelas;
-    
-    // 3. Saldo na Home
     const saldoHome = document.getElementById('saldo-estrelas-home');
+    const saldoMenu = document.getElementById('saldo-menu'); // Novo no menu
+
+    if (saldoLoja) saldoLoja.textContent = dadosUsuario.estrelas;
     if (saldoHome) saldoHome.textContent = dadosUsuario.estrelas;
+    if (saldoMenu) saldoMenu.textContent = dadosUsuario.estrelas;
 }
 
 // Renderiza a grade de produtos na tela de Loja
