@@ -40,7 +40,12 @@
             
             <button id="btn-desafio" class="btn-menu roxo">
                 <span>🔥 Desafio Relâmpago</span>
-                <small>Corra contra o tempo (45s)</small>
+                <small>Corra contra o tempo</small>
+            </button>
+
+            <button id="btn-desempenho" class="btn-menu laranja">
+                <span>🏆 Meu Desempenho</span>
+                <small>Veja sua evolução e recordes</small>
             </button>
 
             <div class="ad-banner-container">
@@ -48,12 +53,11 @@
             </div>
 
             <div style="margin-top: 20px;">
-                <button class="btn-link" onclick="alert('App Educativo v1.0')">Sobre o App</button>
+                <button class="btn-link" onclick="alert('App Educativo v2.0 - MIB Digital')">Sobre o App</button>
             </div>
         </div>
 
         <div id="tela-estudo" class="tela oculto">
-            
             <div class="header-tela">
                 <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
                 <h2 id="titulo-pagina-estudo">Modo Estudo</h2>
@@ -65,201 +69,223 @@
 
             <div class="area-seletores-container">
                 <p>Selecione um número:</p>
-                <div id="lista-botoes-selecao" class="scroll-horizontal-seletores">
-                    </div>
+                <div id="lista-botoes-selecao" class="scroll-horizontal-seletores"></div>
             </div>
 
             <div class="area-acao-fixa">
                 <button id="btn-acao-praticar-dinamico" class="btn-menu verde">
                     🎮 Praticar Agora
                 </button>
-            
-						<div class="ad-banner-container" style="margin-top: auto; margin-bottom: 16px;">
-        <p>Publicidade</p>
-    </div>
-</div>
-            <div id="painel-quiz-lousa" class="oculto" style="margin-top: 20px;">
+                <div class="ad-banner-container" style="margin-top: auto; margin-bottom: 16px;">
+                    <p>Publicidade</p>
+                </div>
+            </div>
 
-			
+            <div id="painel-quiz-lousa" class="oculto" style="margin-top: 20px;">
                 <div class="card-pergunta-focada">
                     <div class="pergunta-texto-grande" id="texto-pergunta-quiz">Prepare-se...</div>
-                    
-                    <div id="opcoes-quiz-lousa" class="grid-opcoes-lateral">
-                        </div>
-                    
+                    <div id="opcoes-quiz-lousa" class="grid-opcoes-lateral"></div>
                     <div id="feedback-quiz" class="feedback-texto"></div>
                 </div>
             </div>
-
-        </div>
-		<div id="tela-config-treino" class="tela oculto">
-    
-    <div class="header-tela">
-        <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
-        <h2>Personalizar</h2>
-    </div>
-
-    <div class="container-scroll" style="padding-bottom: 100px;">
-        
-<h3 class="titulo-secao-config">Dinâmica do Jogo</h3>
-        <div class="grid-config-modo">
-            
-            <button class="card-opcao-treino selecionado" id="opt-botoes" onclick="escolherModoInput('botoes')">
-                <div class="icon-grande">🔘</div>
-                <div class="texto-opt">
-                    <strong>Clássico</strong>
-                    <small>Múltipla Escolha</small>
-                </div>
-                <div class="check-icon">✔</div>
-            </button>
-
-            <button class="card-opcao-treino" id="opt-teclado" onclick="escolherModoInput('teclado')">
-                <div class="icon-grande">⌨</div>
-                <div class="texto-opt">
-                    <strong>Teclado</strong>
-                    <small>Digitar resposta</small>
-                </div>
-                <div class="check-icon">✔</div>
-            </button>
-
-            <button class="card-opcao-treino" id="opt-verdadeiro-falso" onclick="escolherModoInput('verdadeiro-falso')">
-                <div class="icon-grande">⚡</div>
-                <div class="texto-opt">
-                    <strong>Rápido</strong>
-                    <small>Verdade ou Falso</small>
-                </div>
-                <div class="check-icon">✔</div>
-            </button>
-
-            <button class="card-opcao-treino" id="opt-inverso" onclick="escolherModoInput('inverso')">
-                <div class="icon-grande">🧠</div>
-                <div class="texto-opt">
-                    <strong>Inverso</strong>
-                    <small>Ache a conta</small>
-                </div>
-                <div class="check-icon">✔</div>
-            </button>
-
         </div>
 
-<h3 class="titulo-secao-config" style="margin-top: 30px;">Quantas perguntas?</h3>
-        
-        <div class="grid-config-qtd">
-            <button class="btn-qtd-redondo selecionado" id="qtd-10" onclick="escolherQtd(10)">10</button>
-            <button class="btn-qtd-redondo" id="qtd-20" onclick="escolherQtd(20)">20</button>
-            <button class="btn-qtd-redondo" id="qtd-50" onclick="escolherQtd(50)">50</button>
-            <button class="btn-qtd-redondo" id="qtd-inf" onclick="escolherQtd(Infinity)">∞</button>
-            
-            <button class="btn-qtd-redondo" id="qtd-custom" onclick="escolherQtd('custom')">✏️</button>
-        </div>
+        <div id="tela-config-treino" class="tela oculto">
+            <div class="header-tela">
+                <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+                <h2>Personalizar</h2>
+            </div>
 
-        <div id="wrapper-slider" class="oculto">
-            <div class="container-slider-qtd">
-                <span class="label-slider">Questões: <span id="valor-slider-display">30</span></span>
-                <input type="range" id="slider-qtd" min="1" max="100" value="30" oninput="atualizarValorSlider(this.value)">
+            <div class="container-scroll" style="padding-bottom: 100px;">
+                <h3 class="titulo-secao-config">Dinâmica do Jogo</h3>
+                <div class="grid-config-modo">
+                    <button class="card-opcao-treino selecionado" id="opt-botoes" onclick="escolherModoInput('botoes')">
+                        <div class="icon-grande">🔘</div>
+                        <div class="texto-opt"><strong>Clássico</strong><small>Múltipla Escolha</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
+                    <button class="card-opcao-treino" id="opt-teclado" onclick="escolherModoInput('teclado')">
+                        <div class="icon-grande">⌨</div>
+                        <div class="texto-opt"><strong>Teclado</strong><small>Digitar resposta</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
+                    <button class="card-opcao-treino" id="opt-verdadeiro-falso" onclick="escolherModoInput('verdadeiro-falso')">
+                        <div class="icon-grande">⚡</div>
+                        <div class="texto-opt"><strong>Rápido</strong><small>Verdade ou Falso</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
+                    <button class="card-opcao-treino" id="opt-inverso" onclick="escolherModoInput('inverso')">
+                        <div class="icon-grande">🧠</div>
+                        <div class="texto-opt"><strong>Inverso</strong><small>Ache a conta</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
+                </div>
+
+                <h3 class="titulo-secao-config" style="margin-top: 30px;">Quantas perguntas?</h3>
+                <div class="grid-config-qtd">
+                    <button class="btn-qtd-redondo selecionado" id="qtd-10" onclick="escolherQtd(10)">10</button>
+                    <button class="btn-qtd-redondo" id="qtd-20" onclick="escolherQtd(20)">20</button>
+                    <button class="btn-qtd-redondo" id="qtd-50" onclick="escolherQtd(50)">50</button>
+                    <button class="btn-qtd-redondo" id="qtd-inf" onclick="escolherQtd(Infinity)">∞</button>
+                    <button class="btn-qtd-redondo" id="qtd-custom" onclick="escolherQtd('custom')">✏️</button>
+                </div>
+
+                <div id="wrapper-slider" class="oculto">
+                    <div class="container-slider-qtd">
+                        <span class="label-slider">Questões: <span id="valor-slider-display">30</span></span>
+                        <input type="range" id="slider-qtd" min="1" max="100" value="30" oninput="atualizarValorSlider(this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="area-acao-fixa">
+                <button id="btn-iniciar-treino-custom" class="btn-menu verde">🚀 Começar Jogo</button>
+                <div class="ad-banner-container" style="margin-top: 0;"><p>Publicidade</p></div>
             </div>
         </div>
 
-    </div>
+        <div id="tela-config-desafio" class="tela oculto">
+            <div class="header-tela">
+                <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+                <h2>Modo Desafio</h2>
+            </div>
 
-    <div class="area-acao-fixa">
-        <button id="btn-iniciar-treino-custom" class="btn-menu verde">
-            🚀 Começar Jogo
-        </button>
-		<div class="ad-banner-container" style="margin-top: 0;">
-            <p>Publicidade</p>
-        </div>
-    </div>
-
-</div>
-
-<div id="tela-config-desafio" class="tela oculto">
-    
-    <div class="header-tela">
-        <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
-        <h2>Modo Desafio</h2>
-    </div>
-
-    <div class="container-scroll" style="padding-bottom: 100px;">
-        
-        <h3 class="titulo-secao-config">Escolha o Desafio</h3>
-        
-        <div class="grid-config-modo">
-            
-            <button class="card-opcao-treino selecionado" id="opt-desafio-classico" onclick="escolherModoDesafio('classico')">
-                <div class="icon-grande">⏱️</div>
-                <div class="texto-opt">
-                    <strong>Clássico</strong>
-                    <small>60 Segundos</small>
+            <div class="container-scroll" style="padding-bottom: 100px;">
+                <h3 class="titulo-secao-config">Escolha o Desafio</h3>
+                <div class="grid-config-modo">
+                    <button class="card-opcao-treino selecionado" id="opt-desafio-classico" onclick="escolherModoDesafio('classico')">
+                        <div class="icon-grande">⏱️</div>
+                        <div class="texto-opt"><strong>Clássico</strong><small>60 Segundos</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
+                    <button class="card-opcao-treino" id="opt-desafio-morte" onclick="escolherModoDesafio('morte')">
+                        <div class="icon-grande">💣</div>
+                        <div class="texto-opt"><strong>Morte Súbita</strong><small>5s ou Game Over</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
+                    <button class="card-opcao-treino" id="opt-desafio-recarga" onclick="escolherModoDesafio('recarga')">
+                        <div class="icon-grande">🔋</div>
+                        <div class="texto-opt"><strong>Recarga</strong><small>Ganhe tempo extra</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
+                    <button class="card-opcao-treino" id="opt-desafio-speedrun" onclick="escolherModoDesafio('speedrun')">
+                        <div class="icon-grande">🏁</div>
+                        <div class="texto-opt"><strong>Speedrun</strong><small>20 acertos rápidos</small></div>
+                        <div class="check-icon">✔</div>
+                    </button>
                 </div>
-                <div class="check-icon">✔</div>
-            </button>
 
-            <button class="card-opcao-treino" id="opt-desafio-morte" onclick="escolherModoDesafio('morte')">
-                <div class="icon-grande">💣</div>
-                <div class="texto-opt">
-                    <strong>Morte Súbita</strong>
-                    <small>5s ou Game Over</small>
+                <h3 class="titulo-secao-config" style="margin-top: 30px;">Dificuldade</h3>
+                <div class="grid-config-qtd">
+                    <button class="btn-qtd-redondo selecionado" id="dif-facil" onclick="escolherDificuldade('facil')">😀</button>
+                    <button class="btn-qtd-redondo" id="dif-medio" onclick="escolherDificuldade('medio')">😎</button>
+                    <button class="btn-qtd-redondo" id="dif-dificil" onclick="escolherDificuldade('dificil')">🔥</button>
                 </div>
-                <div class="check-icon">✔</div>
-            </button>
+            </div>
 
-            <button class="card-opcao-treino" id="opt-desafio-recarga" onclick="escolherModoDesafio('recarga')">
-                <div class="icon-grande">🔋</div>
-                <div class="texto-opt">
-                    <strong>Recarga</strong>
-                    <small>Ganhe tempo extra</small>
-                </div>
-                <div class="check-icon">✔</div>
-            </button>
-
-            <button class="card-opcao-treino" id="opt-desafio-speedrun" onclick="escolherModoDesafio('speedrun')">
-                <div class="icon-grande">🏁</div>
-                <div class="texto-opt">
-                    <strong>Speedrun</strong>
-                    <small>20 acertos rápidos</small>
-                </div>
-                <div class="check-icon">✔</div>
-            </button>
-
+            <div class="area-acao-fixa">
+                <button id="btn-iniciar-desafio-custom" class="btn-menu roxo">🔥 Iniciar Desafio</button>
+                <div class="ad-banner-container" style="margin-top: 0;"><p>Publicidade</p></div>
+            </div>
         </div>
 
-        <h3 class="titulo-secao-config" style="margin-top: 30px;">Dificuldade</h3>
-        <div class="grid-config-qtd">
-            <button class="btn-qtd-redondo selecionado" id="dif-facil" onclick="escolherDificuldade('facil')">😀</button>
-            <button class="btn-qtd-redondo" id="dif-medio" onclick="escolherDificuldade('medio')">😎</button>
-            <button class="btn-qtd-redondo" id="dif-dificil" onclick="escolherDificuldade('dificil')">🔥</button>
+        <div id="tela-desempenho" class="tela oculto">
+            <div class="header-tela">
+                <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+                <h2>Meu Progresso</h2>
+            </div>
+
+            <div class="container-scroll">
+                
+                <div class="stats-grid" style="margin-top: 10px;">
+                    <div class="stat-card azul">
+                        <span class="stat-valor" id="dash-total-jogos">0</span>
+                        <span class="stat-label">Partidas</span>
+                    </div>
+                    <div class="stat-card verde">
+                        <span class="stat-valor" id="dash-total-acertos">0</span>
+                        <span class="stat-label">Acertos</span>
+                    </div>
+                    <div class="stat-card vermelho">
+                        <span class="stat-valor" id="dash-pior-tabuada">-</span>
+                        <span class="stat-label">Dificuldade</span>
+                    </div>
+                </div>
+
+                <div class="card-grafico">
+                    <div class="grafico-header">
+                        <h3>Acertos por Tabuada</h3>
+                        <div class="botoes-filtro">
+                            <button class="btn-filtro" onclick="atualizarGrafico('ano')">Ano</button>
+                            <button class="btn-filtro" onclick="atualizarGrafico('mes')">Mês</button>
+                            <button class="btn-filtro ativo" onclick="atualizarGrafico('dia')">Dia</button>
+                        </div>
+                    </div>
+                    <div class="grafico-container">
+                        <div id="container-barras" class="area-barras">
+                            </div>
+                    </div>
+                </div>
+
+                <h3 class="titulo-secao-config" style="margin-top: 25px;">Histórico de Jogos</h3>
+                
+                <div class="grid-botoes-historico">
+                    <button class="btn-hist-modo roxo" onclick="verHistoricoModo('classico')">
+                        ⏱️ Clássico
+                    </button>
+                    <button class="btn-hist-modo laranja" onclick="verHistoricoModo('morte')">
+                        💣 Morte Súbita
+                    </button>
+                    <button class="btn-hist-modo verde" onclick="verHistoricoModo('recarga')">
+                        🔋 Recarga
+                    </button>
+                    <button class="btn-hist-modo azul" onclick="verHistoricoModo('speedrun')">
+                        🏁 Speedrun
+                    </button>
+                </div>
+
+                <div id="painel-detalhes-historico" class="painel-detalhes oculto">
+                    
+                    <div class="header-detalhes">
+                        <h4 id="titulo-modo-historico">Clássico</h4>
+                        <button class="btn-fechar-mini" onclick="fecharHistoricoModo()">✕</button>
+                    </div>
+
+                    <div class="card-recorde-destaque">
+                        <span>🏆 Melhor Pontuação</span>
+                        <strong id="valor-recorde-modo">0 pts</strong>
+                    </div>
+
+                    <h5 style="margin: 15px 0 10px 0; color:var(--text-light)">Últimas 10 Partidas:</h5>
+                    
+                    <div id="lista-historico-especifica" class="lista-simples">
+                        </div>
+                </div>
+
+                <div style="margin-top: 40px; text-align: center;">
+                    <button class="btn-link" onclick="limparTudo()" style="color: #ef4444; font-size: 0.8rem;">
+                        🗑️ Apagar todo meu histórico
+                    </button>
+                </div>
+                
+                <div class="ad-banner-container" style="margin-bottom: 20px;">
+                    <p>Publicidade</p>
+                </div>
+            </div>
         </div>
 
-    </div>
-
-    <div class="area-acao-fixa">
-        <button id="btn-iniciar-desafio-custom" class="btn-menu roxo">
-            🔥 Iniciar Desafio
-        </button>
-        <div class="ad-banner-container" style="margin-top: 0;">
-            <p>Publicidade</p>
-        </div>
-    </div>
-
-</div>
-
-<header id="header-jogo" class="oculto">
-            
+        <header id="header-jogo" class="oculto">
             <button id="btn-sair-jogo" class="btn-voltar">✕ Sair</button>
-
             <div class="info-progresso">
                 <span id="texto-contador" class="texto-contador">Questão 1</span>
                 <div id="container-barra-fixa" class="barra-fina-bg">
                     <div id="barra-fina-fill" class="barra-fina-fill"></div>
                 </div>
             </div>
-
             <div style="display:flex; gap:10px; align-items:center;">
                 <div id="timer-display" class="oculto" style="font-weight:bold; color:#ef4444">00:45</div>
                 <div id="placar-display" class="badge-pontos">⭐ 0</div>
             </div>
-
             <div class="barra-progresso oculto" id="container-barra-tempo">
                 <div id="barra-fill" style="width: 100%"></div>
             </div>
@@ -267,24 +293,15 @@
 
         <main id="container-jogo" class="oculto">
             <div class="area-pergunta">
-                <span id="fator-a">0</span>
-                <span class="sinal">×</span>
-                <span id="fator-b">0</span>
-                <span class="igual">=</span>
-                <span id="interrogacao">?</span>
-            </div>
-     
-           <div id="opcoes-resposta" class="grid-opcoes">
                 </div>
+            <div id="opcoes-resposta" class="grid-opcoes"></div>
         </main>
 
         <div id="tela-resultado" class="oculto">
-            
             <div class="resultado-header">
                 <h2>Resultado Final</h2>
                 <p class="subtitulo-resumo" id="subtitulo-resumo">Resumo</p>
             </div>
-
             <div class="placar-circular">
                 <svg viewBox="0 0 36 36" class="circular-chart">
                     <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
@@ -292,9 +309,7 @@
                     <text x="18" y="20.35" class="percentage" id="texto-percentual">0%</text>
                 </svg>
             </div>
-
             <p id="msg-motivacional">Calculando...</p>
-
             <div class="stats-grid">
                 <div class="stat-card verde">
                     <span class="stat-label">Acertos</span>
@@ -309,19 +324,13 @@
                     <span class="stat-valor" id="stat-total">0</span>
                 </div>
             </div>
-            
-            <div class="ad-banner-container retangulo-medio">
-                <p>Publicidade</p>
-            </div>
-
+            <div class="ad-banner-container retangulo-medio"><p>Publicidade</p></div>
             <button id="btn-reiniciar" class="btn-menu azul">🔄 Jogar Novamente</button>
             <button id="btn-home-resultado" class="btn-menu neutro">🏠 Menu Inicial</button>
         </div>
 
-    </div>
-
-    <script src="audio.js"></script> 
-	<script src="app.js"></script>
+    </div> <script src="audio.js"></script> 
+    <script type="module" src="js/app.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./service-worker.js')

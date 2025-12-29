@@ -1297,6 +1297,133 @@ input[type=range]::-webkit-slider-thumb {
 .badge-laranja { background: #ffedd5; color: #ea580c; border: 1px solid #fed7aa; }
 .badge-rosa    { background: #fce7f3; color: #db2777; border: 1px solid #fbcfe8; }
 
+/* --- NOVOS ESTILOS: HISTÓRICO E DETALHES (Adicionar ao final do style.css) --- */
+
+/* Grade de Botões dos Modos (4 botões quadrados) */
+.grid-botoes-historico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilo Base dos Botões de Modo */
+.btn-hist-modo {
+    border: none;
+    border-radius: 12px;
+    padding: 15px 10px;
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+    transition: transform 0.1s;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Ícone em cima do texto */
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.btn-hist-modo:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* Cores Específicas dos Botões */
+.btn-hist-modo.roxo { background: var(--accent, #8b5cf6); }
+.btn-hist-modo.laranja { background: var(--error, #ef4444); } /* Vermelho/Laranja */
+.btn-hist-modo.verde { background: var(--success, #22c55e); }
+.btn-hist-modo.azul { background: var(--primary, #2563eb); }
+
+/* Painel de Detalhes (Oculto por padrão, aparece ao clicar) */
+.painel-detalhes {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 15px;
+    animation: fadeIn 0.3s ease;
+    margin-top: 20px;
+    scroll-margin-top: 20px; /* Ajuda no scroll automático */
+}
+
+.header-detalhes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.header-detalhes h4 {
+    font-size: 1.2rem;
+    color: var(--text-main, #1e293b);
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 800;
+}
+
+.btn-fechar-mini {
+    background: #e2e8f0;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-light, #64748b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.btn-fechar-mini:hover {
+    background: #cbd5e1;
+}
+
+/* Card Dourado de Recorde */
+.card-recorde-destaque {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    margin-bottom: 20px;
+}
+.card-recorde-destaque span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+.card-recorde-destaque strong {
+    font-size: 1.5rem;
+    font-family: 'Fredoka', sans-serif;
+}
+
+/* Lista Simples de Partidas (Mini) */
+.lista-simples {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item-mini {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+}
+.item-mini span.pts {
+    font-weight: 800;
+    color: var(--primary, #2563eb);
+}
+
 /* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */
 
 @media (max-height: 800px) {
@@ -1412,4 +1539,127 @@ input[type=range]::-webkit-slider-thumb {
     }
 
 /* } FIM DO @media */
+/* Cor Laranja para o Menu */
+.laranja { background: var(--secondary); }
+.laranja:hover { background: #ea580c; }
 
+/* Estilo da Lista de Histórico */
+.lista-historico {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-historico {
+    background: white;
+    padding: 15px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-left: 5px solid #e2e8f0;
+}
+
+/* Cores da borda baseadas no desempenho */
+.item-historico.bom { border-left-color: var(--success); }
+.item-historico.medio { border-left-color: #eab308; }
+.item-historico.ruim { border-left-color: var(--error); }
+
+.hist-info strong { display: block; color: var(--text-main); font-size: 1rem; }
+.hist-info small { color: var(--text-light); font-size: 0.8rem; }
+
+.hist-placar {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.msg-vazio {
+    text-align: center; color: var(--text-light); font-style: italic; margin-top: 20px;
+}
+/* --- GRÁFICO DE DESEMPENHO --- */
+.card-grafico {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.grafico-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.grafico-header h3 {
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+/* Botões de Filtro (Pílulas Pretas/Escuras) */
+.botoes-filtro {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 30px;
+}
+
+.btn-filtro {
+    border: none;
+    background: transparent;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-filtro.ativo {
+    background: #1e293b; /* Preto/Cinza escuro */
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Área das Barras */
+.area-barras {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 180px; /* Altura do gráfico */
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.barra-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    width: 8%; /* Largura relativa pra caber 10 */
+}
+
+.barra {
+    width: 100%;
+    background: #67e8f9; /* Ciano bonito (imagem) */
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-height: 4px; /* Pra não sumir se for 0 */
+}
+
+/* Cores alternadas sutilmente ou gradiente se quiser */
+.barra:hover { opacity: 0.8; }
+
+.barra-wrapper span {
+    margin-top: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
