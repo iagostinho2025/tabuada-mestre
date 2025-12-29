@@ -173,13 +173,23 @@
 
 </div>
 
-        <header id="header-jogo" class="oculto">
-            <div class="topo-info">
-                <button id="btn-sair-jogo">✕ Sair</button>
-                <div id="timer-display" class="oculto">00:45</div>
-                <div id="placar-display">⭐ 0</div>
+<header id="header-jogo" class="oculto">
+            
+            <button id="btn-sair-jogo" class="btn-voltar">✕ Sair</button>
+
+            <div class="info-progresso">
+                <span id="texto-contador" class="texto-contador">Questão 1</span>
+                <div id="container-barra-fixa" class="barra-fina-bg">
+                    <div id="barra-fina-fill" class="barra-fina-fill"></div>
+                </div>
             </div>
-            <div class="barra-progresso">
+
+            <div style="display:flex; gap:10px; align-items:center;">
+                <div id="timer-display" class="oculto" style="font-weight:bold; color:#ef4444">00:45</div>
+                <div id="placar-display" class="badge-pontos">⭐ 0</div>
+            </div>
+
+            <div class="barra-progresso oculto" id="container-barra-tempo">
                 <div id="barra-fill" style="width: 100%"></div>
             </div>
         </header>
@@ -192,8 +202,8 @@
                 <span class="igual">=</span>
                 <span id="interrogacao">?</span>
             </div>
-            
-            <div id="opcoes-resposta" class="grid-opcoes">
+     
+           <div id="opcoes-resposta" class="grid-opcoes">
                 </div>
         </main>
 

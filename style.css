@@ -1167,3 +1167,132 @@ input[type=range]::-webkit-slider-thumb {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     border: 3px solid white;
 }
+/* --- AJUSTE: MENSAGEM DENTRO DO CARD --- */
+
+.area-pergunta {
+    /* Força o conteúdo a ficar um embaixo do outro */
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Espaço entre a conta e a mensagem */
+    
+    /* Garante o visual do Card Branco */
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Nova classe para manter a conta (4 x 4 = ?) na horizontal */
+.linha-equacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Ajuste no texto de feedback para caber bonito no card */
+#feedback-jogo-tela-cheia {
+    min-height: 25px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 5px;
+    text-align: center;
+}
+/* --- NOVO HEADER DO JOGO (Com Progresso) --- */
+.info-progresso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Ocupa o centro do header */
+}
+
+.texto-contador {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-light);
+    margin-bottom: 2px;
+}
+
+.barra-fina-bg {
+    width: 100px; /* Largura da barra de progresso */
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-fina-fill {
+    height: 100%;
+    background: var(--success);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* --- MELHORIA: BOTÕES VERDADEIRO / FALSO GIGANTES --- */
+.grid-vf {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+    /* Preenche o espaço que sobrava */
+    height: 180px; 
+}
+
+.btn-vf {
+    height: 100%; /* Força altura total */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    font-size: 3rem; /* Emojis gigantes */
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-vf span {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- BADGE DO MODO (Etiqueta no topo da pergunta) --- */
+.badge-modo {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.badge-modo.botoes { background: #e0f2fe; color: #0284c7; }
+.badge-modo.teclado { background: #f3e8ff; color: #9333ea; }
+.badge-modo.verdadeiro-falso { background: #ffedd5; color: #ea580c; }
+.badge-modo.inverso { background: #fce7f3; color: #db2777; }
+
+/* --- ETIQUETAS DE MODO DE JOGO (Estilo Pílula) --- */
+.badge-pilula {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px; /* Bem arredondado */
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px; /* Espaço até a conta */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Cores específicas para cada modo */
+.badge-azul    { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+.badge-roxo    { background: #f3e8ff; color: #9333ea; border: 1px solid #e9d5ff; }
+.badge-laranja { background: #ffedd5; color: #ea580c; border: 1px solid #fed7aa; }
+.badge-rosa    { background: #fce7f3; color: #db2777; border: 1px solid #fbcfe8; }
