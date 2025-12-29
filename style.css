@@ -1423,6 +1423,51 @@ input[type=range]::-webkit-slider-thumb {
     font-weight: 800;
     color: var(--primary, #2563eb);
 }
+/* --- Ajustes Botões Dificuldade --- */
+.grid-config-qtd {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    gap: 20px; /* Espaço menor entre os botões */
+    margin-bottom: 20px;
+}
+
+.btn-qtd-redondo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #e2e8f0;
+    background: white;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem; /* Aumentei um pouco o emoji */
+    font-weight: 700;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Caixa de Explicação da Dificuldade --- */
+#texto-explicacao-dificuldade {
+    background-color: #f0f9ff;
+    border: 1px solid #bae6fd;
+    color: #0369a1;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease-out;
+}
+
+#texto-explicacao-dificuldade strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: #0284c7;
+}
 
 /* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */
 

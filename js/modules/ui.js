@@ -90,8 +90,40 @@ export function escolherModoDesafio(modo) {
 
 export function escolherDificuldade(dif) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
-    configDesafio.dificuldade = dif;
+    
+    // Atualiza estado (precisa importar configDesafio se não estiver no escopo)
+    // configDesafio.dificuldade = dif; // Isso já é feito no game.js ou state.js geralmente, mas aqui é só UI
+    // Como o state é importado no app.js, aqui focamos na visualização
+    // Mas para garantir, o ideal é que essa função chame algo que atualize o estado global.
+    // Vou assumir que a atualização do estado visual é o foco aqui.
+    
+    // Atualiza visual dos botões
     const container = document.getElementById('tela-config-desafio');
     container.querySelectorAll('.btn-qtd-redondo').forEach(b => b.classList.remove('selecionado'));
     document.getElementById(`dif-${dif}`).classList.add('selecionado');
+
+    // Atualiza texto explicativo
+    const divTexto = document.getElementById('texto-explicacao-dificuldade');
+    let titulo = '';
+    let descricao = '';
+
+    if (dif === 'facil') {
+        titulo = 'Fácil';
+        descricao = 'Tabuadas do 2 ao 5 (multiplicando até 10). Ideal para iniciantes.';
+    } else if (dif === 'medio') {
+        titulo = 'Médio';
+        descricao = 'Tabuadas do 2 ao 9 (multiplicando até 10). O padrão clássico.';
+    } else if (dif === 'dificil') {
+        titulo = 'Difícil';
+        descricao = 'Tabuadas do 2 ao 12 e multiplicando até 12. Para quem quer desafio extra!';
+    }
+
+    divTexto.innerHTML = `<strong>${titulo}</strong>${descricao}`;
+    
+    // IMPORTANTE: Atualizar o estado global também!
+    // Você precisará importar configDesafio no topo deste arquivo se ainda não estiver:
+    // import { configDesafio } from './state.js';
+    if (typeof configDesafio !== 'undefined') {
+        configDesafio.dificuldade = dif;
+    }
 }

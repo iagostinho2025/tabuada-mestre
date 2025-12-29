@@ -4,15 +4,19 @@ import { salvarPartida } from './stats.js';
 
 const elOpcoes = document.getElementById('opcoes-resposta');
 
+// Memória local para evitar repetições imediatas (Guarda strings tipo "3x7")
+let historicoPerguntasRecentes = []; 
+
 // --- INÍCIO E CONTROLE ---
 export function iniciarJogoTelaCheia(modo) {
     estado.modo = modo;
     estado.pontos = 0; estado.acertos = 0; estado.erros = 0; estado.totalQuestoes = 0;
     estado.emAndamento = true;
     
-    // Zera rastreadores específicos desta partida
+    // Zera rastreadores e memória
     estado.errosMap = {}; 
     estado.acertosMap = {}; 
+    historicoPerguntasRecentes = []; // Limpa a memória de repetição ao começar
 
     const btnNav = document.getElementById('btn-sair-jogo');
     btnNav.className = 'btn-voltar'; 
@@ -40,7 +44,7 @@ export function iniciarJogoTelaCheia(modo) {
         // --- MODO DESAFIO ---
         btnNav.innerHTML = "⬅ Voltar"; 
         
-        // CORREÇÃO: Removemos o confirm() para voltar direto
+        // Sai direto sem pedir confirmação
         btnNav.onclick = () => { 
             if(typeof AudioMestre !== 'undefined') AudioMestre.click();
             pararJogoTelaCheia(); 
@@ -108,8 +112,35 @@ function proximaQuestaoTelaCheia() {
     const feedbackEl = document.getElementById('feedback-jogo-tela-cheia');
     if(feedbackEl) feedbackEl.textContent = '';
 
-    const a = Math.floor(Math.random() * 9) + 2; 
-    const b = Math.floor(Math.random() * 10) + 1;
+    // --- NOVA LÓGICA DE GERAÇÃO (DIFICULDADE + ANTI-REPETIÇÃO) ---
+    let a, b, chavePergunta;
+    let tentativas = 0;
+    
+    // Define limites baseados na dificuldade
+    let minA = 2, maxA = 9; // Padrão Médio
+    let minB = 1, maxB = 10;
+
+    if (estado.modo === 'desafio') {
+        if (configDesafio.dificuldade === 'facil') {
+            maxA = 5; // Tabuadas mais simples (2 a 5)
+        } else if (configDesafio.dificuldade === 'dificil') {
+            maxA = 12; // Tabuadas até o 12
+            maxB = 12; // Multiplica até o 12
+        }
+    }
+
+    // Loop para evitar repetição (tenta 10x, se não conseguir, aceita a repetida)
+    do {
+        a = Math.floor(Math.random() * (maxA - minA + 1)) + minA;
+        b = Math.floor(Math.random() * (maxB - minB + 1)) + minB;
+        chavePergunta = `${a}x${b}`;
+        tentativas++;
+    } while (historicoPerguntasRecentes.includes(chavePergunta) && tentativas < 10);
+
+    // Atualiza histórico (mantém as últimas 4)
+    historicoPerguntasRecentes.push(chavePergunta);
+    if (historicoPerguntasRecentes.length > 4) historicoPerguntasRecentes.shift();
+
     const respostaCorreta = a * b;
     estado.questaoAtual = { a, b, respostaCorreta };
 
@@ -275,6 +306,7 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         
         estado.pontos += 10; estado.acertos++;
         
+        // Contagem apenas do número mandante (a)
         if (!estado.acertosMap[numA]) estado.acertosMap[numA] = 0;
         estado.acertosMap[numA]++; 
 
@@ -306,6 +338,7 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         
         estado.erros++;
         
+        // Contagem erro mandante
         if (!estado.errosMap[numA]) estado.errosMap[numA] = 0;
         estado.errosMap[numA]++;
         
