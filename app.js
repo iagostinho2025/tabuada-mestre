@@ -318,16 +318,21 @@ function pararJogoTelaCheia() {
 
 // ATUALIZA O CABEÇALHO (Contador e Barra)
 function atualizarProgressoHeader() {
-    const atual = estado.totalQuestoes + 1; // Próxima questão (ex: Questão 1)
+    // MUDANÇA: Agora mostra as concluídas (começa em 0)
+    const concluidas = estado.totalQuestoes; 
+    const total = estado.maxQuestoes;
     
     // Texto do Contador
-    if (estado.maxQuestoes === Infinity) {
-        telas.jogo.contadorTexto.textContent = `Questão ${atual}`;
-        telas.jogo.barraFixaFill.style.width = '100%'; // Barra cheia no modo infinito
+    if (total === Infinity) {
+        // Modo Infinito ou Desafio
+        telas.jogo.contadorTexto.textContent = `Feitas: ${concluidas}`;
+        telas.jogo.barraFixaFill.style.width = '100%'; 
     } else {
-        telas.jogo.contadorTexto.textContent = `${atual} / ${estado.maxQuestoes}`;
-        // Porcentagem da barra
-        const pct = ((atual - 1) / estado.maxQuestoes) * 100;
+        // Modo Treino (ex: 0/10)
+        telas.jogo.contadorTexto.textContent = `${concluidas} / ${total}`;
+        
+        // Porcentagem da barra (Baseada nas concluídas)
+        const pct = (concluidas / total) * 100;
         telas.jogo.barraFixaFill.style.width = `${pct}%`;
     }
 }

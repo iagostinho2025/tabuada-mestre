@@ -1296,3 +1296,51 @@ input[type=range]::-webkit-slider-thumb {
 .badge-roxo    { background: #f3e8ff; color: #9333ea; border: 1px solid #e9d5ff; }
 .badge-laranja { background: #ffedd5; color: #ea580c; border: 1px solid #fed7aa; }
 .badge-rosa    { background: #fce7f3; color: #db2777; border: 1px solid #fbcfe8; }
+
+/* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */
+
+@media (max-height: 800px) {
+    /* 1. Diminui o número gigante do modo Inverso */
+    .visor-inverso-numero {
+        font-size: 3.5rem; /* Era 5rem */
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+
+    /* 2. Compacta o Teclado Numérico */
+    .teclado-custom-wrapper {
+        gap: 8px; /* Menos espaço entre visor e teclas */
+    }
+    
+    .visor-resposta {
+        height: 60px; /* Visor mais baixo */
+        font-size: 2.5rem;
+    }
+
+    .btn-num {
+        padding: 8px 0; /* Teclas mais finas */
+        font-size: 1.6rem;
+        border-bottom-width: 3px;
+    }
+
+    /* 3. Ajustes Gerais de Espaço no Card */
+    .area-pergunta {
+        padding: 10px;
+        margin-bottom: 10px;
+        min-height: auto; /* Remove altura forçada */
+    }
+
+    .badge-pilula {
+        margin-bottom: 5px;
+        padding: 4px 10px;
+        font-size: 0.7rem;
+    }
+
+    /* 4. Garante que se sobrar algo, dá pra rolar a tela */
+    #container-jogo {
+        overflow-y: auto;
+        padding-bottom: 80px; /* Espaço extra pro scroll */
+        max-height: 85vh;
+        display: block; /* Garante scroll */
+    }
+}
