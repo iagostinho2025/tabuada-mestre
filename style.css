@@ -1402,7 +1402,7 @@ input[type=range]::-webkit-slider-thumb {
     /* 3. BOTÕES DE OPÇÃO (Para garantir que caibam 4) */
     .botao-opcao {
         padding: 20px !important; /* Botões mais finos */
-        font-size: 1.3rem !important;
+        font-size: 1.9rem !important;
         margin-bottom: 0 !important; /* Remove margem extra se tiver */
     }
     
