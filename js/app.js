@@ -3,6 +3,7 @@ import * as UI from './modules/ui.js';
 import * as Lousa from './modules/lousa.js';
 import * as Game from './modules/game.js';
 import { obterDadosDesempenho, limparDados, gerarDadosGrafico, obterDetalhesPorModo } from './modules/stats.js';
+import * as Store from './modules/store.js'; // <--- NOVO: Importação da Loja
 
 // --- EXPOR FUNÇÕES GLOBAIS ---
 window.escolherModoInput = UI.escolherModoInput;
@@ -90,14 +91,13 @@ window.atualizarGrafico = function(periodo) {
             if (acertos > 0 && altura < 12) altura = 12; // Mínimo para não sumir
             if (acertos === 0) altura = 3; 
             
-            // Define a cor do texto (Vermelho se < 50%, Verde se 100%, Cinza normal)
+            // Define a cor do texto
             let corTexto = '';
             if (total > 0) {
                 if (percentual === 100) corTexto = 'color: #22c55e;'; 
                 else if (percentual < 50) corTexto = 'color: #ef4444;';
             }
 
-            // Se não jogou nada daquele número, mostra traço "-"
             const textoRotulo = total > 0 ? `${percentual}%` : '-';
 
             const html = `
@@ -115,6 +115,7 @@ window.atualizarGrafico = function(periodo) {
 // --- INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
     Game.carregarRecorde();
+    Store.initStore(); // <--- NOVO: Inicia a loja e carrega o saldo/avatar
     
     const recorde = localStorage.getItem('tabuada_recorde') || 0;
     const el = document.getElementById('home-recorde');
@@ -149,7 +150,6 @@ function setupEventos() {
         
         document.getElementById('dash-total-jogos').textContent = dados.totalJogos;
         document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
-        // ATUALIZADO: Mostra Erros Totais
         document.getElementById('dash-total-erros').textContent = dados.totalErros;
         
         document.getElementById('painel-detalhes-historico').classList.add('oculto');
@@ -157,6 +157,16 @@ function setupEventos() {
 
         UI.mostrarTela('tela-desempenho'); 
     };
+
+    // --- NOVO: BOTÃO LOJA ---
+    const btnLoja = document.getElementById('btn-loja');
+    if (btnLoja) {
+        btnLoja.onclick = () => {
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            Store.renderizarLoja();
+            UI.mostrarTela('tela-loja');
+        };
+    }
     
     // Iniciar Treino
     const btnStartTreino = document.getElementById('btn-iniciar-treino-custom');

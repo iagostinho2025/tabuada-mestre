@@ -18,6 +18,11 @@
     <div id="app">
         
         <div id="tela-inicial">
+            <div class="header-home-top">
+                <div class="avatar-circle-home" id="avatar-display-home">🙂</div>
+                <div class="saldo-badge">⭐ <span id="saldo-estrelas-home">0</span></div>
+            </div>
+
             <div class="logo-area">
                 <h1>✖️ Tabuada Mestre</h1>
                 <p>Torne-se um gênio da matemática!</p>
@@ -46,6 +51,11 @@
             <button id="btn-desempenho" class="btn-menu laranja">
                 <span>🏆 Meu Desempenho</span>
                 <small>Veja sua evolução e recordes</small>
+            </button>
+
+            <button id="btn-loja" class="btn-menu amarelo">
+                <span>🛍️ Loja de Mestres</span>
+                <small>Troque suas estrelas por novos visuais!</small>
             </button>
 
             <div class="ad-banner-container">
@@ -175,7 +185,7 @@
                     </button>
                 </div>
 
-<h3 class="titulo-secao-config" style="margin-top: 30px;">Dificuldade</h3>
+                <h3 class="titulo-secao-config" style="margin-top: 30px;">Dificuldade</h3>
                 <div class="grid-config-qtd">
                     <button class="btn-qtd-redondo" id="dif-facil" onclick="escolherDificuldade('facil')">😀</button>
                     <button class="btn-qtd-redondo selecionado" id="dif-medio" onclick="escolherDificuldade('medio')">😎</button>
@@ -279,6 +289,23 @@
             </div>
         </div>
 
+        <div id="tela-loja" class="tela oculto">
+            <div class="header-tela">
+                <button class="btn-voltar" data-destino="tela-inicial">⬅ Voltar</button>
+                <h2>Loja de Mestres</h2>
+            </div>
+            
+            <div class="container-scroll">
+                <div class="banner-saldo-loja">
+                    <span>Suas Estrelas:</span>
+                    <strong class="texto-dourado">⭐ <span id="saldo-estrelas-loja">0</span></strong>
+                </div>
+
+                <div id="grid-loja" class="grid-loja">
+                    </div>
+            </div>
+        </div>
+
         <header id="header-jogo" class="oculto">
             <button id="btn-sair-jogo" class="btn-voltar">✕ Sair</button>
             <div class="info-progresso">
@@ -334,7 +361,9 @@
             <button id="btn-home-resultado" class="btn-menu neutro">🏠 Menu Inicial</button>
         </div>
 
-    </div> <script src="audio.js"></script> 
+    </div> 
+
+    <script src="audio.js"></script> 
     <script type="module" src="js/app.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
