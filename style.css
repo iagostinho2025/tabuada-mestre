@@ -1344,4 +1344,72 @@ input[type=range]::-webkit-slider-thumb {
         display: block; /* Garante scroll */
     }
 }
+/* --- AJUSTES DO TECLADO INTEGRADO --- */
+
+/* Botão Confirmar (Dentro do Grid) */
+.btn-num.acao-ok {
+    background: var(--success);
+    color: white;
+    border-color: #15803d; /* Borda verde escura */
+    font-size: 1.8rem;
+}
+
+.btn-num.acao-ok:active {
+    background: #166534;
+    transform: translateY(3px);
+}
+
+/* Botão Apagar (Ajuste visual) */
+.btn-num.acao-apagar {
+    background: #fee2e2;
+    color: var(--error);
+    border-color: #fca5a5;
+}
+
+/* Garante que ícones fiquem centralizados */
+.btn-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove padding extra pra centralizar melhor */
+    height: 65px; /* Altura fixa para ficar uniforme */
+}
+/* DENTRO DE @media (max-width: 768px) { ... */
+
+    /* 1. CARD DA PERGUNTA (Geral) */
+    .area-pergunta {
+        padding: 16px !important; /* Padding reduzido */
+        margin-bottom: 5px !important;
+        border-radius: 16px !important;
+        min-height: auto !important;
+        gap: 0 !important; /* Remove espaços extras entre elementos internos */
+    }
+
+    /* 2. MODO INVERSO (O Grande Vilão) - Redução Drástica */
+    .visor-inverso-numero {
+        font-size: 4rem !important; /* Reduzi de 5rem para 3rem */
+        line-height: 2;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .subtitulo-inverso {
+        font-size: 2rem !important; /* Fonte menor */
+        margin-bottom: 5px !important; /* Cola no número */
+        line-height: 1.2;
+    }
+
+    /* 3. BOTÕES DE OPÇÃO (Para garantir que caibam 4) */
+    .botao-opcao {
+        padding: 20px !important; /* Botões mais finos */
+        font-size: 1.3rem !important;
+        margin-bottom: 0 !important; /* Remove margem extra se tiver */
+    }
+    
+    /* Grade de opções (container dos botões) */
+    .grid-opcoes {
+        gap: 8px !important; /* Aproxima os botões um do outro */
+    }
+
+/* } FIM DO @media */
 

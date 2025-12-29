@@ -467,29 +467,80 @@ function gerarBotoesOpcoes(respostaCorreta) {
     });
 }
 
+// Função auxiliar: Gera o TECLADO NUMÉRICO INTEGRADO
 function gerarInputTeclado(respostaCorreta) {
     elOpcoes.innerHTML = ''; 
-    const wrapper = document.createElement('div'); wrapper.className = 'teclado-custom-wrapper';
-    const visor = document.createElement('div'); visor.className = 'visor-resposta ativo'; visor.id = 'visor-usuario'; visor.textContent = '?';
+    
+    const wrapper = document.createElement('div');
+    wrapper.className = 'teclado-custom-wrapper';
+
+    // 1. Visor
+    const visor = document.createElement('div');
+    visor.className = 'visor-resposta ativo';
+    visor.id = 'visor-usuario';
+    visor.textContent = '?';
+    
     let numeroDigitado = '';
-    const grid = document.createElement('div'); grid.className = 'grid-teclado-num';
-    const teclas = [7, 8, 9, 4, 5, 6, 1, 2, 3, '', 0, 'del'];
+
+    // 2. Grid Numérico
+    const grid = document.createElement('div');
+    grid.className = 'grid-teclado-num';
+
+    // NOVA ORDEM: 7-8-9, 4-5-6, 1-2-3, DEL-0-OK
+    const teclas = [
+        7, 8, 9, 
+        4, 5, 6, 
+        1, 2, 3, 
+        'del', 0, 'ok'
+    ];
+
     teclas.forEach(tecla => {
-        if (tecla === '') { grid.appendChild(document.createElement('div')); return; }
-        const btn = document.createElement('button'); btn.className = 'btn-num';
+        const btn = document.createElement('button');
+        btn.className = 'btn-num';
+        
         if (tecla === 'del') {
-            btn.innerHTML = '⌫'; btn.classList.add('acao-apagar');
-            btn.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); numeroDigitado = numeroDigitado.slice(0, -1); atualizarVisor(); };
+            // BOTÃO APAGAR (Esquerda do 0)
+            btn.innerHTML = '⌫'; 
+            btn.classList.add('acao-apagar');
+            btn.onclick = () => {
+                if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+                numeroDigitado = numeroDigitado.slice(0, -1);
+                atualizarVisor();
+            };
+
+        } else if (tecla === 'ok') {
+            // BOTÃO CONFIRMAR (Direita do 0 - Verde)
+            btn.innerHTML = '✔'; 
+            btn.classList.add('acao-ok');
+            btn.onclick = () => {
+                if (numeroDigitado === '') return;
+                const valorInt = parseInt(numeroDigitado);
+                verificarRespostaTelaCheia(valorInt, btn);
+            };
+
         } else {
+            // NÚMEROS
             btn.textContent = tecla;
-            btn.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); if (numeroDigitado.length < 5) { numeroDigitado += tecla; atualizarVisor(); } };
+            btn.onclick = () => {
+                if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+                if (numeroDigitado.length < 5) { 
+                    numeroDigitado += tecla;
+                    atualizarVisor();
+                }
+            };
         }
         grid.appendChild(btn);
     });
-    function atualizarVisor() { visor.textContent = numeroDigitado === '' ? '?' : numeroDigitado; visor.classList.remove('erro', 'sucesso'); }
-    const btnConfirmar = document.createElement('button'); btnConfirmar.className = 'btn-menu verde'; btnConfirmar.innerHTML = 'CONFIRMAR'; btnConfirmar.style.marginTop = '10px'; btnConfirmar.style.display = 'flex'; btnConfirmar.style.justifyContent = 'center'; btnConfirmar.style.alignItems = 'center';
-    btnConfirmar.onclick = () => { if (numeroDigitado === '') return; verificarRespostaTelaCheia(parseInt(numeroDigitado), btnConfirmar); };
-    wrapper.appendChild(visor); wrapper.appendChild(grid); wrapper.appendChild(btnConfirmar); elOpcoes.appendChild(wrapper);
+
+    function atualizarVisor() {
+        visor.textContent = numeroDigitado === '' ? '?' : numeroDigitado;
+        visor.classList.remove('erro', 'sucesso');
+    }
+
+    // Monta a tela (Sem botão extra embaixo!)
+    wrapper.appendChild(visor);
+    wrapper.appendChild(grid);
+    elOpcoes.appendChild(wrapper);
 }
 
 // --- VERIFICAÇÃO UNIFICADA ---
