@@ -173,6 +173,77 @@
 
 </div>
 
+<div id="tela-config-desafio" class="tela oculto">
+    
+    <div class="header-tela">
+        <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+        <h2>Modo Desafio</h2>
+    </div>
+
+    <div class="container-scroll" style="padding-bottom: 100px;">
+        
+        <h3 class="titulo-secao-config">Escolha o Desafio</h3>
+        
+        <div class="grid-config-modo">
+            
+            <button class="card-opcao-treino selecionado" id="opt-desafio-classico" onclick="escolherModoDesafio('classico')">
+                <div class="icon-grande">⏱️</div>
+                <div class="texto-opt">
+                    <strong>Clássico</strong>
+                    <small>60 Segundos</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+            <button class="card-opcao-treino" id="opt-desafio-morte" onclick="escolherModoDesafio('morte')">
+                <div class="icon-grande">💣</div>
+                <div class="texto-opt">
+                    <strong>Morte Súbita</strong>
+                    <small>5s ou Game Over</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+            <button class="card-opcao-treino" id="opt-desafio-recarga" onclick="escolherModoDesafio('recarga')">
+                <div class="icon-grande">🔋</div>
+                <div class="texto-opt">
+                    <strong>Recarga</strong>
+                    <small>Ganhe tempo extra</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+            <button class="card-opcao-treino" id="opt-desafio-speedrun" onclick="escolherModoDesafio('speedrun')">
+                <div class="icon-grande">🏁</div>
+                <div class="texto-opt">
+                    <strong>Speedrun</strong>
+                    <small>20 acertos rápidos</small>
+                </div>
+                <div class="check-icon">✔</div>
+            </button>
+
+        </div>
+
+        <h3 class="titulo-secao-config" style="margin-top: 30px;">Dificuldade</h3>
+        <div class="grid-config-qtd">
+            <button class="btn-qtd-redondo selecionado" id="dif-facil" onclick="escolherDificuldade('facil')">😀</button>
+            <button class="btn-qtd-redondo" id="dif-medio" onclick="escolherDificuldade('medio')">😎</button>
+            <button class="btn-qtd-redondo" id="dif-dificil" onclick="escolherDificuldade('dificil')">🔥</button>
+        </div>
+
+    </div>
+
+    <div class="area-acao-fixa">
+        <button id="btn-iniciar-desafio-custom" class="btn-menu roxo">
+            🔥 Iniciar Desafio
+        </button>
+        <div class="ad-banner-container" style="margin-top: 0;">
+            <p>Publicidade</p>
+        </div>
+    </div>
+
+</div>
+
 <header id="header-jogo" class="oculto">
             
             <button id="btn-sair-jogo" class="btn-voltar">✕ Sair</button>

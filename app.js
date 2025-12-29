@@ -1,23 +1,42 @@
 /**
- * APP.JS - VERSÃO FINAL: VISUAL POLIDO + CONTADOR DE PROGRESSO
+ * APP.JS - VERSÃO FINAL: DESAFIOS E JOGABILIDADE COMPLETA
  */
 
 // --- 1. ESTADO GLOBAL ---
 let estado = {
-    modo: null,         
+    modo: null,         // 'treino', 'desafio', 'visualizacao', 'estudo-lousa'
+    subModo: null,      // Para os tipos de desafio ('classico', 'morte', 'recarga', 'speedrun')
     pontos: 0,
     acertos: 0, 
     erros: 0,   
     totalQuestoes: 0, 
-    tempo: 30,
-    maxQuestoes: Infinity, 
-    modoInput: 'botoes',   
+    
+    // Timer
+    tempo: 0,
     timerInterval: null,
+    
+    // Controle
     emAndamento: false,
-    questaoAtual: {}
+    questaoAtual: {},
+    
+    // Configurações herdadas
+    maxQuestoes: Infinity, 
+    modoInput: 'botoes'
 };
 
-let configTreino = { modoInput: 'botoes', qtdQuestoes: 10 };
+// Configuração do Treino (Praticar Agora)
+let configTreino = {
+    modoInput: 'botoes',
+    qtdQuestoes: 10
+};
+
+// Configuração do Desafio (Novo!)
+let configDesafio = {
+    modo: 'classico',   // classico, morte, recarga, speedrun
+    dificuldade: 'medio'
+};
+
+// Variáveis da Lousa
 let tabuadaSelecionadaId = 1;
 let quizLousa = { numero: 1, fila: [], atual: null, acertos: 0, erros: 0 };
 
@@ -26,13 +45,14 @@ const telas = {
     inicial: document.getElementById('tela-inicial'),
     estudo: document.getElementById('tela-estudo'),
     config: document.getElementById('tela-config-treino'),
+    configDesafio: document.getElementById('tela-config-desafio'),
     jogo: { 
         header: document.getElementById('header-jogo'),
         container: document.getElementById('container-jogo'),
         timer: document.getElementById('timer-display'),
         placar: document.getElementById('placar-display'),
         
-        // Novos elementos de progresso
+        // Elementos de progresso
         contadorTexto: document.getElementById('texto-contador'),
         barraFixaContainer: document.getElementById('container-barra-fixa'),
         barraFixaFill: document.getElementById('barra-fina-fill'),
@@ -51,36 +71,70 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupEventos() {
-    // Menu
-    document.getElementById('btn-estudar').onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); iniciarModoLousa(); mostrarTela('estudo'); };
-    document.getElementById('btn-treino').onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); mostrarTela('config'); };
-    document.getElementById('btn-desafio').onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); iniciarJogoTelaCheia('desafio'); };
+    // --- NAVEGAÇÃO PRINCIPAL ---
     
-    // Config
-    const btnStartCustom = document.getElementById('btn-iniciar-treino-custom');
-    if(btnStartCustom) {
-        btnStartCustom.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); iniciarJogoTelaCheia('treino'); };
+    // 1. Estudar
+    document.getElementById('btn-estudar').onclick = () => { 
+        if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+        iniciarModoLousa(); 
+        mostrarTela('estudo'); 
+    };
+    
+    // 2. Praticar (Vai para config de treino)
+    document.getElementById('btn-treino').onclick = () => {
+        if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+        mostrarTela('config'); 
+    };
+
+    // 3. Desafio (Vai para config de desafio)
+    document.getElementById('btn-desafio').onclick = () => {
+        if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+        mostrarTela('configDesafio'); 
+    };
+    
+    // --- BOTÕES DE INÍCIO (AÇÃO) ---
+    
+    // Iniciar TREINO
+    const btnStartTreino = document.getElementById('btn-iniciar-treino-custom');
+    if(btnStartTreino) {
+        btnStartTreino.onclick = () => {
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            iniciarJogoTelaCheia('treino');
+        };
     }
 
-    // Voltar
+    // Iniciar DESAFIO
+    const btnStartDesafio = document.getElementById('btn-iniciar-desafio-custom');
+    if(btnStartDesafio) {
+        btnStartDesafio.onclick = () => {
+            if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+            iniciarJogoTelaCheia('desafio'); 
+        };
+    }
+
+    // --- NAVEGAÇÃO GERAL ---
     document.querySelectorAll('.btn-voltar').forEach(btn => {
         btn.onclick = null; 
         btn.addEventListener('click', (e) => {
             e.preventDefault(); 
             if(typeof AudioMestre !== 'undefined') AudioMestre.click();
             pararJogoTelaCheia(); 
+            
+            // Retornos inteligentes
             if(estado.modo === 'estudo-lousa') iniciarModoLousa(); 
+            
             const destino = btn.getAttribute('data-destino');
             if (destino) mostrarTela(destino);
         });
     });
 
-    // Sair Jogo
+    // Botão Sair dentro do Jogo
     const btnSair = document.getElementById('btn-sair-jogo');
     if(btnSair) {
         btnSair.onclick = () => { if(confirm("Sair do jogo?")) { pararJogoTelaCheia(); mostrarTela('inicial'); } };
     }
 
+    // Botão Reiniciar (Resultado)
     document.getElementById('btn-reiniciar').onclick = () => {
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
         if (estado.modo === 'estudo-lousa') { iniciarDesafioLousa(); mostrarTela('estudo'); } 
@@ -90,13 +144,12 @@ function setupEventos() {
     document.getElementById('btn-home-resultado').onclick = () => mostrarTela('inicial');
 }
 
-// --- FUNÇÕES AUXILIARES ---
+// --- FUNÇÕES DE CONFIGURAÇÃO (TREINO) ---
 window.escolherModoInput = function(modo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     configTreino.modoInput = modo;
-    document.querySelectorAll('.card-opcao-treino').forEach(c => c.classList.remove('selecionado'));
-    const btn = document.getElementById(`opt-${modo}`);
-    if(btn) btn.classList.add('selecionado');
+    document.querySelectorAll('#tela-config-treino .card-opcao-treino').forEach(c => c.classList.remove('selecionado'));
+    document.getElementById(`opt-${modo}`).classList.add('selecionado');
 }
 
 window.atualizarValorSlider = function(val) {
@@ -123,24 +176,45 @@ window.escolherQtd = function(qtd) {
     }
 }
 
+// --- FUNÇÕES DE CONFIGURAÇÃO (DESAFIO) ---
+window.escolherModoDesafio = function(modo) {
+    if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+    configDesafio.modo = modo;
+    const container = document.getElementById('tela-config-desafio');
+    container.querySelectorAll('.card-opcao-treino').forEach(c => c.classList.remove('selecionado'));
+    document.getElementById(`opt-desafio-${modo}`).classList.add('selecionado');
+}
+
+window.escolherDificuldade = function(dif) {
+    if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+    configDesafio.dificuldade = dif;
+    const container = document.getElementById('tela-config-desafio');
+    container.querySelectorAll('.btn-qtd-redondo').forEach(b => b.classList.remove('selecionado'));
+    document.getElementById(`dif-${dif}`).classList.add('selecionado');
+}
+
+// --- CONTROLE DE TELAS ---
 function mostrarTela(nomeTela) {
+    // Esconde tudo
     document.querySelectorAll('#app > div').forEach(el => el.classList.add('oculto'));
     telas.jogo.header.classList.add('oculto');
     telas.jogo.container.classList.add('oculto');
+
     if (nomeTela === 'jogo') {
         telas.jogo.header.classList.remove('oculto');
         telas.jogo.container.classList.remove('oculto');
     } else {
+        // Resolve nome da tela
         let telaAlvo = telas[nomeTela];
-        if (!telaAlvo && typeof nomeTela === 'string' && nomeTela.startsWith('tela-')) {
-            const nomeCorrigido = nomeTela.replace('tela-', ''); 
-            telaAlvo = telas[nomeCorrigido];
+        if (!telaAlvo && typeof nomeTela === 'string') {
+            if (nomeTela.startsWith('tela-')) telaAlvo = document.getElementById(nomeTela);
+            else telaAlvo = telas[nomeTela];
         }
         if (telaAlvo) telaAlvo.classList.remove('oculto');
     }
 }
 
-// --- MODO ESTUDO ---
+// --- MODO ESTUDO: LOUSA INTERATIVA ---
 function iniciarModoLousa() {
     estado.modo = 'visualizacao';
     document.querySelector('.area-seletores-container').classList.remove('oculto');
@@ -198,6 +272,8 @@ function iniciarDesafioLousa() {
     quizLousa.numero = tabuadaSelecionadaId;
     quizLousa.acertos = 0; quizLousa.erros = 0;
     quizLousa.fila = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].sort(() => Math.random() - 0.5);
+    
+    // Limpa a lousa visualmente
     const container = document.getElementById('lousa-conteudo');
     container.querySelectorAll('.item-lousa').forEach((div, index) => {
         const multiplicador = index + 1;
@@ -216,6 +292,7 @@ function proximaPerguntaLousa() {
     quizLousa.atual = quizLousa.fila.pop();
     const fator = quizLousa.atual;
     const respostaCerta = quizLousa.numero * fator;
+    
     document.querySelectorAll('.item-lousa').forEach(l => l.classList.remove('ativa-no-quiz'));
     const linhaDaVez = document.getElementById(`linha-quiz-${fator}`);
     if(linhaDaVez) {
@@ -271,37 +348,48 @@ function iniciarJogoTelaCheia(modo) {
     estado.pontos = 0; estado.acertos = 0; estado.erros = 0; estado.totalQuestoes = 0;
     estado.emAndamento = true;
     
+    // Configura o botão de navegação (Sair ou Voltar)
     const btnNav = document.getElementById('btn-sair-jogo');
     btnNav.className = 'btn-voltar'; 
 
     if (modo === 'treino') {
-        // MODO TREINO (Com contador 1/20)
+        // --- MODO TREINO ---
         btnNav.innerHTML = "⬅ Voltar"; 
         btnNav.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); pararJogoTelaCheia(); mostrarTela('config'); };
         
         estado.maxQuestoes = configTreino.qtdQuestoes;
         estado.modoInput = configTreino.modoInput;
+        estado.subModo = null;
         
         telas.jogo.timer.classList.add('oculto');
-        telas.jogo.barraTempoContainer.classList.add('oculto'); // Esconde barra de tempo
+        telas.jogo.barraTempoContainer.classList.add('oculto');
         
-        // Mostra barra de progresso fixa (se não for infinito)
-        if (estado.maxQuestoes !== Infinity) {
-            telas.jogo.barraFixaContainer.classList.remove('oculto');
-        } else {
-            telas.jogo.barraFixaContainer.classList.add('oculto');
-        }
+        // Barra Verde (Progresso)
+        if (estado.maxQuestoes !== Infinity) telas.jogo.barraFixaContainer.classList.remove('oculto');
+        else telas.jogo.barraFixaContainer.classList.add('oculto');
 
     } else {
-        // MODO DESAFIO (Com timer)
+        // --- MODO DESAFIO (4 Variações) ---
         btnNav.innerHTML = "✕ Sair";
         btnNav.onclick = () => { if(confirm("Sair do jogo?")) { pararJogoTelaCheia(); mostrarTela('inicial'); } };
         
-        estado.tempo = 45; estado.maxQuestoes = Infinity; estado.modoInput = 'botoes';
+        estado.subModo = configDesafio.modo;
+        estado.modoInput = 'botoes'; // Desafios usam botões (por enquanto)
+        estado.maxQuestoes = Infinity; // Padrão, mas muda no speedrun
         
+        // Lógica de Tempo por SubModo
+        if (estado.subModo === 'classico') estado.tempo = 60;
+        else if (estado.subModo === 'morte') estado.tempo = 5;
+        else if (estado.subModo === 'recarga') estado.tempo = 10;
+        else if (estado.subModo === 'speedrun') {
+            estado.tempo = 0; // Conta pra cima
+            estado.maxQuestoes = 20; // Meta fixa
+        }
+
+        // UI do Desafio
         telas.jogo.timer.classList.remove('oculto');
-        telas.jogo.barraTempoContainer.classList.remove('oculto'); // Mostra barra vermelha
-        telas.jogo.barraFixaContainer.classList.add('oculto');    // Esconde barra verde
+        telas.jogo.barraTempoContainer.classList.remove('oculto'); 
+        telas.jogo.barraFixaContainer.classList.add('oculto');    
         
         iniciarTimer();
     }
@@ -318,20 +406,15 @@ function pararJogoTelaCheia() {
 
 // ATUALIZA O CABEÇALHO (Contador e Barra)
 function atualizarProgressoHeader() {
-    // MUDANÇA: Agora mostra as concluídas (começa em 0)
     const concluidas = estado.totalQuestoes; 
     const total = estado.maxQuestoes;
     
     // Texto do Contador
     if (total === Infinity) {
-        // Modo Infinito ou Desafio
         telas.jogo.contadorTexto.textContent = `Feitas: ${concluidas}`;
         telas.jogo.barraFixaFill.style.width = '100%'; 
     } else {
-        // Modo Treino (ex: 0/10)
         telas.jogo.contadorTexto.textContent = `${concluidas} / ${total}`;
-        
-        // Porcentagem da barra (Baseada nas concluídas)
         const pct = (concluidas / total) * 100;
         telas.jogo.barraFixaFill.style.width = `${pct}%`;
     }
@@ -340,12 +423,25 @@ function atualizarProgressoHeader() {
 function proximaQuestaoTelaCheia() {
     if (!estado.emAndamento) return;
 
-    if (estado.modo === 'treino' && estado.maxQuestoes !== Infinity && estado.totalQuestoes >= estado.maxQuestoes) {
+    // --- REGRAS DE FIM DE JOGO ---
+    
+    // Treino ou Speedrun atingiram a meta
+    if (estado.maxQuestoes !== Infinity && estado.totalQuestoes >= estado.maxQuestoes) {
         finalizarJogoTelaCheia();
         return;
     }
 
-    // ATUALIZA VISUAL DO HEADER
+    // Desafio Morte Súbita: Reinicia o timer a cada pergunta
+    if (estado.modo === 'desafio' && estado.subModo === 'morte') {
+        estado.tempo = 5; 
+        atualizarTimerUI(); // Atualiza visual na hora
+        // A barra de tempo precisa resetar visualmente
+        telas.jogo.barraTempoFill.style.transition = 'none';
+        telas.jogo.barraTempoFill.style.width = '100%';
+        setTimeout(() => telas.jogo.barraTempoFill.style.transition = 'width 1s linear', 50);
+    }
+
+    // --- GERAÇÃO DA QUESTÃO ---
     atualizarProgressoHeader();
 
     const feedbackEl = document.getElementById('feedback-jogo-tela-cheia');
@@ -360,24 +456,25 @@ function proximaQuestaoTelaCheia() {
     areaPergunta.innerHTML = ''; 
     elOpcoes.innerHTML = '';    
 
-    // --- 1. DEFINE A ETIQUETA (BADGE) PARA CADA MODO ---
-    let badgeHtml = '';
+    // --- RENDERIZAÇÃO ---
     
-    if (estado.modoInput === 'botoes') {
-        badgeHtml = '<span class="badge-pilula badge-azul">🔘 Múltipla Escolha</span>';
-    } 
-    else if (estado.modoInput === 'teclado') {
-        badgeHtml = '<span class="badge-pilula badge-roxo">⌨ Teclado Numérico</span>';
-    } 
-    else if (estado.modoInput === 'verdadeiro-falso') {
-        badgeHtml = '<span class="badge-pilula badge-laranja">⚡ Raciocínio Rápido</span>';
-    } 
-    else if (estado.modoInput === 'inverso') {
-        badgeHtml = '<span class="badge-pilula badge-rosa">🧠 Lógica Inversa</span>';
+    // 1. Badge do Modo
+    let badgeHtml = '';
+    if (estado.modo === 'desafio') {
+        // Badges Especiais de Desafio
+        if (estado.subModo === 'morte') badgeHtml = '<span class="badge-pilula badge-laranja">💣 Morte Súbita</span>';
+        else if (estado.subModo === 'recarga') badgeHtml = '<span class="badge-pilula badge-verde">🔋 Recarga</span>';
+        else if (estado.subModo === 'speedrun') badgeHtml = '<span class="badge-pilula badge-azul">🏁 Speedrun</span>';
+        else badgeHtml = '<span class="badge-pilula badge-roxo">⏱️ Clássico</span>';
+    } else {
+        // Badges de Treino
+        if (estado.modoInput === 'botoes') badgeHtml = '<span class="badge-pilula badge-azul">🔘 Múltipla Escolha</span>';
+        else if (estado.modoInput === 'teclado') badgeHtml = '<span class="badge-pilula badge-roxo">⌨ Teclado Numérico</span>';
+        else if (estado.modoInput === 'verdadeiro-falso') badgeHtml = '<span class="badge-pilula badge-laranja">⚡ Raciocínio Rápido</span>';
+        else if (estado.modoInput === 'inverso') badgeHtml = '<span class="badge-pilula badge-rosa">🧠 Lógica Inversa</span>';
     }
 
-    // --- 2. RENDERIZAÇÃO DA PERGUNTA (Com a badge no topo) ---
-    
+    // 2. Monta HTML da Pergunta
     if (estado.modoInput === 'inverso') {
         areaPergunta.innerHTML = `
             ${badgeHtml}
@@ -406,7 +503,7 @@ function proximaQuestaoTelaCheia() {
         gerarBotoesVF(isVerdade);
 
     } else {
-        // MODO CLÁSSICO E TECLADO
+        // Padrão
         areaPergunta.innerHTML = `
             ${badgeHtml}
             <div class="linha-equacao">
@@ -424,16 +521,16 @@ function proximaQuestaoTelaCheia() {
     }
 }
 
+// --- GERADORES DE BOTÕES ---
+
 function gerarErroPlausivel(correta) {
     let erro = correta + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random() * 3) + 1);
-    if(erro < 0) erro = 0;
-    if(erro === correta) erro = correta + 1;
+    if(erro < 0) erro = 0; if(erro === correta) erro = correta + 1;
     return erro;
 }
 
 function gerarBotoesVF(isVerdade) {
     const grid = document.createElement('div'); grid.className = 'grid-vf';
-    // Botões gigantes!
     const btnV = document.createElement('button'); btnV.className = 'btn-vf verdadeiro'; btnV.innerHTML = '👍<span>VERDADE</span>'; btnV.onclick = (e) => verificarRespostaTelaCheia(true, e.currentTarget);
     const btnF = document.createElement('button'); btnF.className = 'btn-vf falso'; btnF.innerHTML = '👎<span>MENTIRA</span>'; btnF.onclick = (e) => verificarRespostaTelaCheia(false, e.currentTarget);
     grid.appendChild(btnV); grid.appendChild(btnF); elOpcoes.appendChild(grid);
@@ -467,85 +564,41 @@ function gerarBotoesOpcoes(respostaCorreta) {
     });
 }
 
-// Função auxiliar: Gera o TECLADO NUMÉRICO INTEGRADO
+// TECLADO INTEGRADO (Atualizado com Delete e OK no grid)
 function gerarInputTeclado(respostaCorreta) {
     elOpcoes.innerHTML = ''; 
-    
-    const wrapper = document.createElement('div');
-    wrapper.className = 'teclado-custom-wrapper';
-
-    // 1. Visor
-    const visor = document.createElement('div');
-    visor.className = 'visor-resposta ativo';
-    visor.id = 'visor-usuario';
-    visor.textContent = '?';
-    
+    const wrapper = document.createElement('div'); wrapper.className = 'teclado-custom-wrapper';
+    const visor = document.createElement('div'); visor.className = 'visor-resposta ativo'; visor.id = 'visor-usuario'; visor.textContent = '?';
     let numeroDigitado = '';
-
-    // 2. Grid Numérico
-    const grid = document.createElement('div');
-    grid.className = 'grid-teclado-num';
-
-    // NOVA ORDEM: 7-8-9, 4-5-6, 1-2-3, DEL-0-OK
-    const teclas = [
-        7, 8, 9, 
-        4, 5, 6, 
-        1, 2, 3, 
-        'del', 0, 'ok'
-    ];
+    const grid = document.createElement('div'); grid.className = 'grid-teclado-num';
+    
+    const teclas = [7, 8, 9, 4, 5, 6, 1, 2, 3, 'del', 0, 'ok']; // Ordem otimizada
 
     teclas.forEach(tecla => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-num';
+        const btn = document.createElement('button'); btn.className = 'btn-num';
         
         if (tecla === 'del') {
-            // BOTÃO APAGAR (Esquerda do 0)
-            btn.innerHTML = '⌫'; 
-            btn.classList.add('acao-apagar');
-            btn.onclick = () => {
-                if(typeof AudioMestre !== 'undefined') AudioMestre.click();
-                numeroDigitado = numeroDigitado.slice(0, -1);
-                atualizarVisor();
-            };
-
+            btn.innerHTML = '⌫'; btn.classList.add('acao-apagar');
+            btn.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); numeroDigitado = numeroDigitado.slice(0, -1); atualizarVisor(); };
         } else if (tecla === 'ok') {
-            // BOTÃO CONFIRMAR (Direita do 0 - Verde)
-            btn.innerHTML = '✔'; 
-            btn.classList.add('acao-ok');
-            btn.onclick = () => {
-                if (numeroDigitado === '') return;
-                const valorInt = parseInt(numeroDigitado);
-                verificarRespostaTelaCheia(valorInt, btn);
-            };
-
+            btn.innerHTML = '✔'; btn.classList.add('acao-ok'); // Classe verde
+            btn.onclick = () => { if (numeroDigitado === '') return; verificarRespostaTelaCheia(parseInt(numeroDigitado), btn); };
         } else {
-            // NÚMEROS
             btn.textContent = tecla;
-            btn.onclick = () => {
-                if(typeof AudioMestre !== 'undefined') AudioMestre.click();
-                if (numeroDigitado.length < 5) { 
-                    numeroDigitado += tecla;
-                    atualizarVisor();
-                }
-            };
+            btn.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); if (numeroDigitado.length < 5) { numeroDigitado += tecla; atualizarVisor(); } };
         }
         grid.appendChild(btn);
     });
 
-    function atualizarVisor() {
-        visor.textContent = numeroDigitado === '' ? '?' : numeroDigitado;
-        visor.classList.remove('erro', 'sucesso');
-    }
-
-    // Monta a tela (Sem botão extra embaixo!)
-    wrapper.appendChild(visor);
-    wrapper.appendChild(grid);
-    elOpcoes.appendChild(wrapper);
+    function atualizarVisor() { visor.textContent = numeroDigitado === '' ? '?' : numeroDigitado; visor.classList.remove('erro', 'sucesso'); }
+    wrapper.appendChild(visor); wrapper.appendChild(grid); elOpcoes.appendChild(wrapper);
 }
 
 // --- VERIFICAÇÃO UNIFICADA ---
 function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     if (!estado.emAndamento) return;
+    
+    // Trava cliques
     const container = document.getElementById('opcoes-resposta');
     if (container) container.querySelectorAll('button').forEach(b => b.disabled = true);
 
@@ -567,10 +620,16 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         else { 
             if (estado.modoInput === 'botoes' || estado.modoInput === 'inverso') btnClicado.classList.add('correto');
         }
+        
         estado.pontos += 10; estado.acertos++;
         
-        // Atualiza a barra de progresso imediatamente ao acertar (opcional)
-        // atualizarProgressoHeader(); 
+        // BÔNUS DE TEMPO (RECARGA)
+        if(estado.modo === 'desafio' && estado.subModo === 'recarga') {
+            estado.tempo += 3; // Ganha 3 segundos
+            // Efeito visual no timer
+            const tDisplay = telas.jogo.timer;
+            tDisplay.style.color = '#22c55e'; setTimeout(()=>tDisplay.style.color='inherit', 300);
+        }
 
         setTimeout(proximaQuestaoTelaCheia, 800);
     } else {
@@ -591,32 +650,94 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
                 elOpcoes.querySelectorAll('button').forEach(btn => { if (btn.textContent === txtCerto) btn.classList.add('correto'); });
             }
         }
+        
         estado.erros++;
-        setTimeout(proximaQuestaoTelaCheia, 1500); 
+        
+        // PENALIDADE (RECARGA)
+        if(estado.modo === 'desafio' && estado.subModo === 'recarga') {
+            estado.tempo -= 3; // Perde 3 segundos
+            if(estado.tempo < 0) estado.tempo = 0;
+        }
+
+        // MORTE SÚBITA (GAME OVER IMEDIATO)
+        if(estado.modo === 'desafio' && estado.subModo === 'morte') {
+            setTimeout(finalizarJogoTelaCheia, 1000); // Game Over após ver o erro
+        } else {
+            setTimeout(proximaQuestaoTelaCheia, 1500); 
+        }
     }
     document.getElementById('placar-display').textContent = `⭐ ${estado.pontos}`;
 }
 
+// --- TIMER (LÓGICA COMPLEXA PARA DESAFIOS) ---
 function iniciarTimer() {
     atualizarTimerUI();
+    
     estado.timerInterval = setInterval(() => {
-        estado.tempo--;
-        atualizarTimerUI();
-        const porcentagem = (estado.tempo / 45) * 100;
-        telas.jogo.barraTempoFill.style.width = `${porcentagem}%`;
-        if (estado.tempo <= 0) finalizarJogoTelaCheia();
+        
+        if (estado.subModo === 'speedrun') {
+            // Speedrun: Conta pra CIMA
+            estado.tempo++;
+            atualizarTimerUI();
+            // Barra não tem limite, então fica cheia ou fazemos um loop visual? 
+            // Vamos deixar cheia fixa.
+            telas.jogo.barraTempoFill.style.width = '100%';
+
+        } else {
+            // Outros modos: Conta pra BAIXO
+            estado.tempo--;
+            atualizarTimerUI();
+            
+            // Lógica visual da barra
+            let maxTempo = 45;
+            if(estado.subModo === 'classico') maxTempo = 60;
+            if(estado.subModo === 'morte') maxTempo = 5;
+            if(estado.subModo === 'recarga') maxTempo = 20; // Escala relativa visual
+            
+            // Impede barra negativa
+            let porcentagem = (estado.tempo / maxTempo) * 100;
+            if(porcentagem > 100) porcentagem = 100;
+            if(porcentagem < 0) porcentagem = 0;
+            
+            telas.jogo.barraTempoFill.style.width = `${porcentagem}%`;
+
+            if (estado.tempo <= 0) {
+                estado.tempo = 0;
+                atualizarTimerUI();
+                finalizarJogoTelaCheia();
+            }
+        }
     }, 1000);
 }
 
 function atualizarTimerUI() {
-    telas.jogo.timer.textContent = `00:${estado.tempo.toString().padStart(2, '0')}`;
-    telas.jogo.timer.style.color = estado.tempo <= 10 ? '#ef4444' : 'inherit';
+    let t = estado.tempo;
+    let min = Math.floor(t / 60);
+    let sec = t % 60;
+    
+    // Formatação 00:00
+    const textoTempo = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+    
+    telas.jogo.timer.textContent = textoTempo;
+    
+    // Cores de alerta
+    if (estado.subModo !== 'speedrun' && t <= 5) telas.jogo.timer.style.color = '#ef4444';
+    else telas.jogo.timer.style.color = 'inherit';
 }
 
 function finalizarJogoTelaCheia() {
     pararJogoTelaCheia();
+    
     if (estado.modo === 'desafio') salvarRecorde(estado.pontos);
-    const titulo = estado.modo === 'desafio' ? 'Desafio Relâmpago' : 'Modo Prática';
+    
+    // Títulos Personalizados
+    let titulo = 'Modo Prática';
+    if (estado.modo === 'desafio') {
+        if(estado.subModo === 'morte') titulo = 'Fim da Morte Súbita';
+        else if(estado.subModo === 'speedrun') titulo = `Tempo: ${document.getElementById('timer-display').textContent}`;
+        else titulo = 'Desafio Concluído';
+    }
+    
     processarResultadoFinal(estado.acertos, estado.erros, estado.totalQuestoes, titulo);
 }
 
