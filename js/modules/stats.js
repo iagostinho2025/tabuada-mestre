@@ -17,7 +17,7 @@ export function salvarPartida(dados) {
 
     localStorage.setItem('tabuada_historico', JSON.stringify(historico));
     
-    // Atualiza estatísticas de erro
+    // Atualiza estatísticas de erro (Mapa de Calor)
     if (dados.errosMap) {
         const statsGeral = JSON.parse(localStorage.getItem('tabuada_stats_erros') || '{}');
         for (const [numero, qtd] of Object.entries(dados.errosMap)) {
@@ -28,33 +28,24 @@ export function salvarPartida(dados) {
     }
 }
 
-// Retorna dados para a tela de desempenho (Visão Geral)
+// Retorna dados gerais para a tela de desempenho
 export function obterDadosDesempenho() {
     const historico = JSON.parse(localStorage.getItem('tabuada_historico') || '[]');
-    const statsErros = JSON.parse(localStorage.getItem('tabuada_stats_erros') || '{}');
     
-    // Calcula totais
     let totalJogos = historico.length;
     let totalAcertos = 0;
+    let totalErros = 0; // Novo contador
     
-    historico.forEach(h => totalAcertos += h.acertos);
-
-    // Identifica a pior tabuada
-    let piorTabuada = null;
-    let maxErros = 0;
-    
-    for (const [num, qtd] of Object.entries(statsErros)) {
-        if (qtd > maxErros) {
-            maxErros = qtd;
-            piorTabuada = num;
-        }
-    }
+    historico.forEach(h => {
+        totalAcertos += h.acertos;
+        totalErros += h.erros;
+    });
 
     return {
         totalJogos,
         totalAcertos,
-        piorTabuada, 
-        historicoRecente: historico.slice(0, 5) // Mantido para compatibilidade, mas o foco agora são os botões
+        totalErros, // Retorna o total de erros agora
+        historicoRecente: historico.slice(0, 5)
     };
 }
 
@@ -68,18 +59,22 @@ export function limparDados() {
     }
 }
 
-// Gera dados para o Gráfico de Barras (1 a 10)
+// Gera dados para o Gráfico de Barras (Agora com Acertos E Erros para %)
 export function gerarDadosGrafico(periodo) {
     const historico = JSON.parse(localStorage.getItem('tabuada_historico') || '[]');
-    const dadosTabuada = {}; // Vai guardar { 1: 15, 2: 8 ... }
+    
+    // Estrutura: { 1: {acertos: 0, erros: 0}, ... }
+    const dadosTabuada = {}; 
 
-    // Inicializa do 1 ao 10 com zero
-    for (let i = 1; i <= 10; i++) dadosTabuada[i] = 0;
+    // Inicializa do 1 ao 10
+    for (let i = 1; i <= 10; i++) {
+        dadosTabuada[i] = { acertos: 0, erros: 0 };
+    }
 
     const agora = new Date();
 
     historico.forEach(partida => {
-        if (!partida.acertosMap) return; // Ignora partidas antigas sem esse dado
+        if (!partida.acertosMap && !partida.errosMap) return;
 
         const dataPartida = new Date(partida.data);
         let incluir = false;
@@ -97,39 +92,40 @@ export function gerarDadosGrafico(periodo) {
         }
 
         if (incluir) {
-            // Soma os acertos de cada número
-            for (const [num, qtd] of Object.entries(partida.acertosMap)) {
-                if (dadosTabuada[num] !== undefined) {
-                    dadosTabuada[num] += qtd;
+            // Soma ACERTOS
+            if (partida.acertosMap) {
+                for (const [num, qtd] of Object.entries(partida.acertosMap)) {
+                    if (dadosTabuada[num]) dadosTabuada[num].acertos += qtd;
+                }
+            }
+            // Soma ERROS (para o cálculo de %)
+            if (partida.errosMap) {
+                for (const [num, qtd] of Object.entries(partida.errosMap)) {
+                    if (dadosTabuada[num]) dadosTabuada[num].erros += qtd;
                 }
             }
         }
     });
 
-    // Descobre o valor máximo para calcular a altura das barras (escala)
+    // Descobre o valor máximo de ACERTOS para a escala da barra
     let maxValor = 0;
     for (let i = 1; i <= 10; i++) {
-        if (dadosTabuada[i] > maxValor) maxValor = dadosTabuada[i];
+        if (dadosTabuada[i].acertos > maxValor) maxValor = dadosTabuada[i].acertos;
     }
 
     return { dados: dadosTabuada, max: maxValor };
 }
 
-// --- NOVO: Função para o Painel de Detalhes ---
-// Filtra o histórico pelo modo clicado (ex: 'classico', 'speedrun')
+// Filtra histórico para um modo específico e retorna Recorde + Lista
 export function obterDetalhesPorModo(modoAlvo) {
     const historico = JSON.parse(localStorage.getItem('tabuada_historico') || '[]');
-    
-    // 1. Filtra apenas as partidas do modo selecionado
     const partidasDoModo = historico.filter(h => h.modo === modoAlvo);
     
-    // 2. Encontra o recorde (Maior pontuação) neste modo específico
     let recorde = 0;
     partidasDoModo.forEach(p => {
         if (p.pontos > recorde) recorde = p.pontos;
     });
 
-    // 3. Pega as últimas 10 partidas desse modo para a lista
     const ultimas10 = partidasDoModo.slice(0, 10);
 
     return {

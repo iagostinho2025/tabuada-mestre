@@ -60,7 +60,7 @@ window.fecharHistoricoModo = function() {
     document.getElementById('painel-detalhes-historico').classList.add('oculto');
 }
 
-// --- FUNÇÃO DO GRÁFICO ---
+// --- FUNÇÃO DO GRÁFICO (Com Rótulos de Porcentagem) ---
 window.atualizarGrafico = function(periodo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
@@ -75,14 +75,35 @@ window.atualizarGrafico = function(periodo) {
         container.innerHTML = ''; 
 
         for (let i = 1; i <= 10; i++) {
-            const valor = info.dados[i];
-            let altura = info.max > 0 ? (valor / info.max) * 100 : 0;
-            if (valor > 0 && altura < 5) altura = 5;
-            if (valor === 0) altura = 2;
+            const acertos = info.dados[i].acertos;
+            const erros = info.dados[i].erros;
+            const total = acertos + erros;
             
+            // Calcula Porcentagem
+            let percentual = 0;
+            if (total > 0) {
+                percentual = Math.round((acertos / total) * 100);
+            }
+
+            // Altura da barra baseada no volume de acertos
+            let altura = info.max > 0 ? (acertos / info.max) * 100 : 0;
+            if (acertos > 0 && altura < 12) altura = 12; // Mínimo para não sumir
+            if (acertos === 0) altura = 3; 
+            
+            // Define a cor do texto (Vermelho se < 50%, Verde se 100%, Cinza normal)
+            let corTexto = '';
+            if (total > 0) {
+                if (percentual === 100) corTexto = 'color: #22c55e;'; 
+                else if (percentual < 50) corTexto = 'color: #ef4444;';
+            }
+
+            // Se não jogou nada daquele número, mostra traço "-"
+            const textoRotulo = total > 0 ? `${percentual}%` : '-';
+
             const html = `
                 <div class="barra-wrapper">
-                    <div class="barra" style="height: ${altura}%; opacity: ${valor===0 ? 0.3 : 1}" title="${valor} acertos"></div>
+                    <span class="rotulo-barra" style="${corTexto}">${textoRotulo}</span>
+                    <div class="barra" style="height: ${altura}%; opacity: ${acertos===0 ? 0.3 : 1}" title="${acertos} acertos / ${erros} erros"></div>
                     <span>x${i}</span>
                 </div>
             `;
@@ -128,9 +149,9 @@ function setupEventos() {
         
         document.getElementById('dash-total-jogos').textContent = dados.totalJogos;
         document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
-        document.getElementById('dash-pior-tabuada').textContent = dados.piorTabuada ? `Tabuada do ${dados.piorTabuada}` : "Nenhuma";
+        // ATUALIZADO: Mostra Erros Totais
+        document.getElementById('dash-total-erros').textContent = dados.totalErros;
         
-        // Garante estado inicial limpo
         document.getElementById('painel-detalhes-historico').classList.add('oculto');
         window.atualizarGrafico('dia');
 
@@ -155,9 +176,8 @@ function setupEventos() {
         };
     }
 
-    // Voltar (Lógica Global com Exceção)
+    // Voltar
     document.querySelectorAll('.btn-voltar').forEach(btn => {
-        // --- CORREÇÃO AQUI: IGNORA O BOTÃO DO JOGO PARA EVITAR CONFLITO ---
         if (btn.id === 'btn-sair-jogo') return; 
 
         btn.onclick = null; 
@@ -172,11 +192,6 @@ function setupEventos() {
             if (destino) UI.mostrarTela(destino);
         });
     });
-
-    // Sair Jogo (Este botão é controlado pelo game.js, mas adicionamos aqui um fallback)
-    const btnSair = document.getElementById('btn-sair-jogo');
-    // Nota: O clique dele é sobrescrito no game.js dependendo do modo (Treino ou Desafio),
-    // por isso removemos ele do loop acima.
 
     // Reiniciar
     document.getElementById('btn-reiniciar').onclick = () => {

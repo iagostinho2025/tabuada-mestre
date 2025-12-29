@@ -1468,7 +1468,56 @@ input[type=range]::-webkit-slider-thumb {
     font-size: 1.1rem;
     color: #0284c7;
 }
+/* --- Rótulos do Gráfico (Porcentagem) --- */
+.barra-wrapper {
+    position: relative; /* Necessário para posicionar o texto */
+    overflow: visible; /* Deixa o texto sair pra fora se precisar */
+    justify-content: flex-end;
+}
 
+.rotulo-barra {
+    position: absolute;
+    bottom: 100%; /* Fica logo acima da barra */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--text-light);
+    margin-bottom: 2px;
+    z-index: 5;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* Ajuste para quando a barra é muito pequena */
+.barra-wrapper:hover .rotulo-barra {
+    color: var(--primary);
+    transform: translateX(-50%) scale(1.2);
+}
+/* --- Rótulos de Porcentagem no Gráfico --- */
+.barra-wrapper {
+    position: relative; /* Necessário para posicionar o texto flutuante */
+    overflow: visible;  /* Permite que o texto saia da caixa se necessário */
+    justify-content: flex-end;
+}
+
+.rotulo-barra {
+    position: absolute;
+    bottom: 100%; /* Posiciona exatamente acima da barra */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-light); /* Cor cinza suave */
+    margin-bottom: 4px;
+    z-index: 5;
+    white-space: nowrap;
+}
+
+/* Quando passar o mouse, dá um destaque */
+.barra-wrapper:hover .rotulo-barra {
+    color: var(--primary);
+    transform: translateX(-50%) scale(1.1);
+}
 /* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */
 
 @media (max-height: 800px) {
@@ -1638,7 +1687,7 @@ input[type=range]::-webkit-slider-thumb {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 45px;
 }
 
 .grafico-header h3 {
