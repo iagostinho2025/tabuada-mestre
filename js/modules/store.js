@@ -3,35 +3,48 @@
  */
 import { mostrarTela } from './ui.js';
 
-// Catálogo de Avatares (Emojis)
+// Catálogo de Avatares (Balanceado e Inclusivo)
 const CATALOGO = [
-    // Nível 1: Grátis
-    { id: 'ini_1', icon: '🙂', nome: 'Iniciante', preco: 0 },
-    
-    // Nível 2: Baratinhos (500)
-    { id: 'anim_1', icon: '🦊', nome: 'Raposa', preco: 500 },
-    { id: 'anim_2', icon: '🐱', nome: 'Gato', preco: 500 },
-    { id: 'anim_3', icon: '🐶', nome: 'Cachorro', preco: 500 },
-    { id: 'anim_4', icon: '🐸', nome: 'Sapo', preco: 500 },
+    // Nível 0: Iniciais (Grátis)
+    { id: 'neutral', icon: '🙂', nome: 'Padrão', preco: 0 },
+    { id: 'soldier_m', icon: '💂‍♂️', nome: 'Soldado', preco: 200 },
+    { id: 'soldier_f', icon: '💂‍♀️', nome: 'Soldada', preco: 200 },
 
-    // Nível 3: Intermediários (2000)
-    { id: 'esp_1', icon: '🥷', nome: 'Ninja', preco: 2000 },
-    { id: 'esp_2', icon: '🤖', nome: 'Robô', preco: 2000 },
-    { id: 'esp_3', icon: '👻', nome: 'Fantasma', preco: 2000 },
-    { id: 'esp_4', icon: '👽', nome: 'Alien', preco: 2000 },
+    // Nível 1: Bichinhos Fofos (500 estrelas)
+    { id: 'pet_dog', icon: '🐶', nome: 'Cachorro', preco: 500 },
+    { id: 'pet_cat', icon: '🐱', nome: 'Gato', preco: 500 },
+    { id: 'pet_fox', icon: '🦊', nome: 'Raposa', preco: 500 },
+    { id: 'pet_uni', icon: '🦄', nome: 'Unicórnio', preco: 500 },
 
-    // Nível 4: Lendários (5000)
-    { id: 'lend_1', icon: '🦁', nome: 'Rei Leão', preco: 5000 },
-    { id: 'lend_2', icon: '🦄', nome: 'Unicórnio', preco: 5000 },
-    { id: 'lend_3', icon: '🐉', nome: 'Dragão', preco: 5000 },
-    { id: 'lend_4', icon: '🦸', nome: 'Super', preco: 5000 }
+    // Nível 2: Heróis e Ação (2.000 estrelas)
+    { id: 'hero_m', icon: '🦸‍♂️', nome: 'Super-Herói', preco: 1000 },
+    { id: 'hero_f', icon: '🦸‍♀️', nome: 'Super-Heroína', preco: 1000 },
+    { id: 'police_m', icon: '👮‍♂️', nome: 'Policial', preco: 2000 },
+    { id: 'police_f', icon: '👮‍♀️', nome: 'Policial', preco: 2000 },
+	{ id: 'esp_1', icon: '🥷', nome: 'Ninja', preco: 2000 },
+    { id: 'astro_m', icon: '👨‍🚀', nome: 'Astronauta', preco: 2500 },
+    { id: 'astro_f', icon: '👩‍🚀', nome: 'Astronauta', preco: 2500 },
+    { id: 'esp_2', icon: '🤖', nome: 'Robô', preco: 4000 },
+    { id: 'esp_3', icon: '👻', nome: 'Fantasma', preco: 4000 },
+    { id: 'esp_4', icon: '👽', nome: 'Alien', preco: 4500 },
+
+    // Nível 3: Lendas e Realeza (5.000 estrelas)
+	{ id: 'lend_3', icon: '🐉', nome: 'Dragão', preco: 4500 },
+    { id: 'royal_m', icon: '🤴', nome: 'Príncipe', preco: 5000 },
+    { id: 'royal_f', icon: '👸', nome: 'Princesa', preco: 5000 },
+    { id: 'magic_m', icon: '🧙‍♂️', nome: 'Mago', preco: 7000 },
+    { id: 'magic_f', icon: '🧚‍♀️', nome: 'Fada', preco: 7000 },
+
+	// Nível 4: Gênios Supremos (10.000 estrelas)
+	{ id: 'genie_supreme', icon: '🧞', nome: 'Gênio Supremo', preco: 10000 }
+
 ];
 
-// Estado do Usuário (Carregado do localStorage)
+// Estado Padrão
 let dadosUsuario = {
     estrelas: 0,
-    desbloqueados: ['ini_1'],
-    avatarAtual: 'ini_1'
+    desbloqueados: ['neutral', 'boy', 'girl'], // Todos os iniciais liberados
+    avatarAtual: 'neutral'
 };
 
 // --- FUNÇÕES PRINCIPAIS ---
@@ -39,7 +52,27 @@ let dadosUsuario = {
 export function initStore() {
     const salvo = localStorage.getItem('tabuada_store_v1');
     if (salvo) {
-        dadosUsuario = JSON.parse(salvo);
+        try {
+            const dadosSalvos = JSON.parse(salvo);
+            // Mescla dados salvos com o estado padrão (preserva saldo e compras)
+            dadosUsuario = { ...dadosUsuario, ...dadosSalvos };
+
+            // Verificação de Segurança: Se o avatar salvo não existe mais no catálogo novo, volta pro padrão
+            const existe = CATALOGO.find(a => a.id === dadosUsuario.avatarAtual);
+            if (!existe) {
+                dadosUsuario.avatarAtual = 'neutral';
+            }
+
+            // Garante que os novos gratuitos estejam na lista de desbloqueados do usuário antigo
+            ['neutral', 'boy', 'girl'].forEach(id => {
+                if (!dadosUsuario.desbloqueados.includes(id)) {
+                    dadosUsuario.desbloqueados.push(id);
+                }
+            });
+
+        } catch (e) {
+            console.error("Erro ao carregar save da loja:", e);
+        }
     }
     atualizarInterfaceAvatar();
 }
@@ -49,38 +82,36 @@ export function adicionarEstrelas(qtd) {
     dadosUsuario.estrelas += qtd;
     salvarDados();
     atualizarInterfaceAvatar();
-    // Feedback visual (opcional)
-    console.log(`Ganhou ${qtd} estrelas! Total: ${dadosUsuario.estrelas}`);
 }
 
 function salvarDados() {
     localStorage.setItem('tabuada_store_v1', JSON.stringify(dadosUsuario));
 }
 
-// Atualiza o ícone na tela inicial e saldo
+// Atualiza os locais visuais onde o avatar e o saldo aparecem
 export function atualizarInterfaceAvatar() {
-    // Atualiza ícone na Home
+    // 1. Ícone na Home
     const avatarEl = document.getElementById('avatar-display-home');
     const avatarObj = CATALOGO.find(a => a.id === dadosUsuario.avatarAtual);
     if (avatarEl && avatarObj) {
         avatarEl.textContent = avatarObj.icon;
     }
 
-    // Atualiza saldo visual na loja
+    // 2. Saldo na Loja
     const saldoLoja = document.getElementById('saldo-estrelas-loja');
     if (saldoLoja) saldoLoja.textContent = dadosUsuario.estrelas;
     
-    // Atualiza saldo visual na Home (novo)
+    // 3. Saldo na Home
     const saldoHome = document.getElementById('saldo-estrelas-home');
     if (saldoHome) saldoHome.textContent = dadosUsuario.estrelas;
 }
 
-// Renderiza a grade de produtos
+// Renderiza a grade de produtos na tela de Loja
 export function renderizarLoja() {
     const grid = document.getElementById('grid-loja');
     if (!grid) return;
     
-    grid.innerHTML = ''; // Limpa
+    grid.innerHTML = ''; // Limpa grid atual
     document.getElementById('saldo-estrelas-loja').textContent = dadosUsuario.estrelas;
 
     CATALOGO.forEach(item => {
@@ -89,6 +120,7 @@ export function renderizarLoja() {
         const podeComprar = dadosUsuario.estrelas >= item.preco;
 
         const card = document.createElement('div');
+        // Adiciona classes para estilização (verde se equipado, cinza se bloqueado)
         card.className = `card-avatar ${desbloqueado ? 'desbloqueado' : 'bloqueado'} ${equipado ? 'equipado' : ''}`;
         
         let botaoHtml = '';
@@ -114,7 +146,8 @@ export function renderizarLoja() {
     });
 }
 
-// Funções globais para o HTML chamar
+// --- Funções Globais (Expostas para o HTML onclick) ---
+
 window.comprarAvatar = function(id) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
@@ -122,23 +155,24 @@ window.comprarAvatar = function(id) {
     if (!item) return;
 
     if (dadosUsuario.estrelas >= item.preco) {
-        if (confirm(`Comprar ${item.nome} por ${item.preco} estrelas?`)) {
+        if (confirm(`Desbloquear ${item.nome} por ${item.preco} estrelas?`)) {
             dadosUsuario.estrelas -= item.preco;
             dadosUsuario.desbloqueados.push(id);
-            dadosUsuario.avatarAtual = id; // Já equipa automaticamente
+            dadosUsuario.avatarAtual = id; // Já equipa automaticamente ao comprar
             
             salvarDados();
             renderizarLoja();
             atualizarInterfaceAvatar();
             
-            if(typeof AudioMestre !== 'undefined') AudioMestre.acerto(); // Som de sucesso
-            alert(`Parabéns! Você desbloqueou: ${item.icon} ${item.nome}`);
+            if(typeof AudioMestre !== 'undefined') AudioMestre.acerto();
+            alert(`Parabéns! Novo visual desbloqueado: ${item.icon}`);
         }
     }
 };
 
 window.equiparAvatar = function(id) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+    
     if (dadosUsuario.desbloqueados.includes(id)) {
         dadosUsuario.avatarAtual = id;
         salvarDados();
