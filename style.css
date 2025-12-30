@@ -2692,11 +2692,93 @@ body {
     /* Mantém uma sombra mínima de 1px na mesma cor da sombra original (#cbd5e1) */
     box-shadow: 0 1px 0 #cbd5e1 !important;
 }
-/* TESTE: Remover completamente as transformações durante o clique */
-.botao-opcao:active,
-.btn-menu:active,
+/* ======================================================= */
+/* CORREÇÃO DEFINITIVA: REMOVER LINHA CINZA FANTASMA */
+/* ======================================================= */
+
+/* 1. Para BOTÕES DE OPÇÃO (Tela de Jogo) */
+.botao-opcao {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.15s ease-out;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.botao-opcao:active {
+    transform: translateY(4px);
+    /* IMPORTANTE: Em vez de mudar a sombra, adicionamos um pseudo-elemento */
+    box-shadow: none !important;
+}
+
+/* Efeito de clique usando pseudo-elemento (mais estável) */
+.botao-opcao::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.05);
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.botao-opcao:active::after {
+    opacity: 1;
+}
+
+/* 2. Para BOTÕES DO MENU */
+.btn-menu {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.btn-menu:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #cbd5e1 !important; /* Mantém uma sombra pequena, mas visível */
+}
+
+.btn-menu::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opacity 0.1s;
+    z-index: 1;
+}
+
+.btn-menu:active::after {
+    opacity: 1;
+}
+
+/* 3. Para BOTÕES LATERAIS (quiz) */
 .btn-lateral:active {
-    transform: none !important;
-    box-shadow: var(--shadow) !important;
+    transform: translateY(4px);
+    border-bottom-width: 2px;
+    background: #f1f5f9;
+    /* Mantém uma sombra mínima para evitar artefatos */
+    box-shadow: 0 2px 0 rgba(0,0,0,0.05) !important;
+}
+
+/* 4. Reseta o outline em todos os botões */
+button, 
+.btn-menu, 
+.botao-opcao, 
+.btn-lateral, 
+.btn-vf, 
+.btn-num {
+    outline: none !important;
+    -webkit-appearance: none;
+}
+
+/* 5. Garante que o body não tenha overflow */
+body {
+    overflow-x: hidden;
 }
 
