@@ -2563,7 +2563,7 @@ body { background-color: #f1f5f9; }
 
 /* 1. Remove a "moldura" invisível de 15px que travava a tela */
 body {
-    padding: 1 !important; /* Zera o padding geral */
+    padding: 0.5 !important; /* Zera o padding geral */
 }
 
 /* 2. Ajusta o Topo para encostar mais nas bordas */
