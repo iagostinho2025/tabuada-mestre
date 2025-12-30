@@ -2230,3 +2230,23 @@ body { background-color: #f1f5f9; }
     font-weight: 700;
     color: var(--text-light);
 }
+@media (max-width: 480px) {
+
+  /* Estica os botões */
+  .container-botoes-originais {
+      padding: 0 10px; /* era 20px */
+  }
+
+  /* Estica o card de boas-vindas */
+  .card-boas-vindas-topo {
+      margin-left: 10px;
+      margin-right: 10px;
+  }
+
+  /* Estica o banner de publicidade */
+  .ad-banner-container {
+      margin-left: 10px !important;
+      margin-right: 10px !important;
+  }
+
+}
