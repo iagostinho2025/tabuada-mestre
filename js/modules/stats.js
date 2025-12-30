@@ -1,72 +1,87 @@
 /**
- * Módulo responsável por salvar e analisar o desempenho do aluno.
+ * Módulo de Estatísticas e Persistência de Dados
  */
 
-// Salva o resultado de uma partida no histórico
-export function salvarPartida(dados) {
-    const historico = JSON.parse(localStorage.getItem('tabuada_historico') || '[]');
-    
-    // Adiciona a nova partida no início
-    historico.unshift({
-        ...dados,
-        data: new Date().toISOString()
-    });
+const STORAGE_KEY = 'tabuada_historico_v1';
 
-    // Mantém apenas as últimas 50 partidas
-    if (historico.length > 50) historico.pop();
-
-    localStorage.setItem('tabuada_historico', JSON.stringify(historico));
+// Salva uma nova partida no histórico
+export function salvarPartida(dadosPartida) {
+    // A CORREÇÃO ESTÁ AQUI: O "|| []" garante que se for null, cria um array vazio
+    const historico = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     
-    // Atualiza estatísticas de erro (Mapa de Calor)
-    if (dados.errosMap) {
-        const statsGeral = JSON.parse(localStorage.getItem('tabuada_stats_erros') || '{}');
-        for (const [numero, qtd] of Object.entries(dados.errosMap)) {
-            if (!statsGeral[numero]) statsGeral[numero] = 0;
-            statsGeral[numero] += qtd;
-        }
-        localStorage.setItem('tabuada_stats_erros', JSON.stringify(statsGeral));
+    // Adiciona data/hora se não tiver
+    if (!dadosPartida.data) {
+        dadosPartida.data = new Date().toISOString();
+    }
+    
+    historico.push(dadosPartida);
+    
+    // Limite de segurança: Guarda apenas as últimas 100 partidas para não pesar
+    if (historico.length > 100) {
+        historico.shift(); // Remove a mais antiga
+    }
+
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(historico));
+    } catch (e) {
+        console.error("Erro ao salvar no localStorage (cotas excedidas?):", e);
     }
 }
 
-// Retorna dados gerais para a tela de desempenho
+// Recupera todo o histórico com segurança
+export function obterHistorico() {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+// Gera os dados para o Dashboard (Cards Coloridos)
 export function obterDadosDesempenho() {
-    const historico = JSON.parse(localStorage.getItem('tabuada_historico') || '[]');
+    const historico = obterHistorico();
     
     let totalJogos = historico.length;
     let totalAcertos = 0;
-    let totalErros = 0; // Novo contador
-    
-    historico.forEach(h => {
-        totalAcertos += h.acertos;
-        totalErros += h.erros;
+    let totalErros = 0;
+
+    historico.forEach(partida => {
+        totalAcertos += (partida.acertos || 0);
+        totalErros += (partida.erros || 0);
     });
 
+    return { totalJogos, totalAcertos, totalErros };
+}
+
+// Filtra detalhes para o histórico de um modo específico (Ex: Speedrun)
+export function obterDetalhesPorModo(modoAlvo) {
+    const historico = obterHistorico();
+    
+    // Filtra pelo modo (ex: 'speedrun', 'classico')
+    // Nota: 'treino' no game.js salva como 'treino', desafio salva pelo submodo
+    const filtradas = historico.filter(p => p.modo === modoAlvo).reverse(); // Reverse para mostrar as mais recentes primeiro
+
+    // Acha o recorde desse modo
+    let recorde = 0;
+    filtradas.forEach(p => {
+        if (p.pontos > recorde) recorde = p.pontos;
+    });
+
+    // Pega as últimas 10 para exibir na lista
+    const ultimas10 = filtradas.slice(0, 10);
+
     return {
-        totalJogos,
-        totalAcertos,
-        totalErros, // Retorna o total de erros agora
-        historicoRecente: historico.slice(0, 5)
+        recorde: recorde,
+        lista: ultimas10
     };
 }
 
-export function limparDados() {
-    if(confirm("Tem certeza? Isso apagará seu recorde e histórico.")) {
-        localStorage.removeItem('tabuada_historico');
-        localStorage.removeItem('tabuada_stats_erros');
-        localStorage.removeItem('tabuada_recorde');
-        alert('Histórico apagado!');
-        location.reload();
-    }
-}
-
-// Gera dados para o Gráfico de Barras (Agora com Acertos E Erros para %)
+// Gera dados para o Gráfico de Barras
 export function gerarDadosGrafico(periodo) {
-    const historico = JSON.parse(localStorage.getItem('tabuada_historico') || '[]');
+    const historico = obterHistorico();
+    const dadosTabuada = {};
     
-    // Estrutura: { 1: {acertos: 0, erros: 0}, ... }
-    const dadosTabuada = {}; 
-
-    // Inicializa do 1 ao 10
+    // Inicializa estrutura (tabuadas do 1 ao 10)
     for (let i = 1; i <= 10; i++) {
         dadosTabuada[i] = { acertos: 0, erros: 0 };
     }
@@ -74,31 +89,29 @@ export function gerarDadosGrafico(periodo) {
     const agora = new Date();
 
     historico.forEach(partida => {
-        if (!partida.acertosMap && !partida.errosMap) return;
-
         const dataPartida = new Date(partida.data);
         let incluir = false;
 
-        // Filtro de Data
+        // Filtro de Tempo
         if (periodo === 'dia') {
-            incluir = dataPartida.getDate() === agora.getDate() && 
-                      dataPartida.getMonth() === agora.getMonth() &&
-                      dataPartida.getFullYear() === agora.getFullYear();
+            // Mesmo dia, mês e ano
+            incluir = (dataPartida.toDateString() === agora.toDateString());
         } else if (periodo === 'mes') {
-            incluir = dataPartida.getMonth() === agora.getMonth() && 
-                      dataPartida.getFullYear() === agora.getFullYear();
+            // Mesmo mês e ano
+            incluir = (dataPartida.getMonth() === agora.getMonth() && dataPartida.getFullYear() === agora.getFullYear());
         } else {
-            incluir = true; 
+            // Ano (sempre inclui tudo do histórico recente, ou filtra por ano se quiser)
+            incluir = true;
         }
 
         if (incluir) {
-            // Soma ACERTOS
+            // Processa Acertos por Número (Mapas salvos na partida)
             if (partida.acertosMap) {
                 for (const [num, qtd] of Object.entries(partida.acertosMap)) {
                     if (dadosTabuada[num]) dadosTabuada[num].acertos += qtd;
                 }
             }
-            // Soma ERROS (para o cálculo de %)
+            // Processa Erros por Número
             if (partida.errosMap) {
                 for (const [num, qtd] of Object.entries(partida.errosMap)) {
                     if (dadosTabuada[num]) dadosTabuada[num].erros += qtd;
@@ -107,30 +120,25 @@ export function gerarDadosGrafico(periodo) {
         }
     });
 
-    // Descobre o valor máximo de ACERTOS para a escala da barra
-    let maxValor = 0;
+    // Calcula o máximo para escala do gráfico
+    let maxVolume = 0;
     for (let i = 1; i <= 10; i++) {
-        if (dadosTabuada[i].acertos > maxValor) maxValor = dadosTabuada[i].acertos;
+        const total = dadosTabuada[i].acertos + dadosTabuada[i].erros;
+        if (total > maxVolume) maxVolume = total;
     }
 
-    return { dados: dadosTabuada, max: maxValor };
+    return {
+        dados: dadosTabuada,
+        max: maxVolume
+    };
 }
 
-// Filtra histórico para um modo específico e retorna Recorde + Lista
-export function obterDetalhesPorModo(modoAlvo) {
-    const historico = JSON.parse(localStorage.getItem('tabuada_historico') || '[]');
-    const partidasDoModo = historico.filter(h => h.modo === modoAlvo);
-    
-    let recorde = 0;
-    partidasDoModo.forEach(p => {
-        if (p.pontos > recorde) recorde = p.pontos;
-    });
-
-    const ultimas10 = partidasDoModo.slice(0, 10);
-
-    return {
-        recorde: recorde,
-        lista: ultimas10,
-        totalJogadas: partidasDoModo.length
-    };
+// Apaga tudo (Reset)
+export function limparDados() {
+    if (confirm("Tem certeza? Isso apagará todo seu histórico e recordes.")) {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem('tabuada_recorde');
+        alert("Histórico apagado com sucesso!");
+        window.location.reload();
+    }
 }

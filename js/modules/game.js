@@ -400,24 +400,31 @@ function atualizarTimerUI() {
 function finalizarJogoTelaCheia() {
     pararJogoTelaCheia();
     
-    // SALVAR ESTATÍSTICAS COMPLETAS
-    salvarPartida({
-        modo: estado.modo === 'desafio' ? estado.subModo : 'treino',
-        acertos: estado.acertos,
-        erros: estado.erros,
-        pontos: estado.pontos,
-        errosMap: estado.errosMap || {},
-        acertosMap: estado.acertosMap || {}
-    });
+    try {
+        // SALVAR ESTATÍSTICAS
+        salvarPartida({
+            modo: estado.modo === 'desafio' ? estado.subModo : 'treino',
+            acertos: estado.acertos,
+            erros: estado.erros,
+            pontos: estado.pontos,
+            errosMap: estado.errosMap || {},
+            acertosMap: estado.acertosMap || {}
+        });
 
-    // --- CORREÇÃO DO BUG: PAGAMENTO DE ESTRELAS ---
-    // Agora o jogo realmente deposita as estrelas na conta
-    if (estado.pontos > 0) {
-        adicionarEstrelas(estado.pontos);
+        // PAGAMENTO DE ESTRELAS
+        if (estado.pontos > 0) {
+            adicionarEstrelas(estado.pontos);
+        }
+
+        // RECORDE
+        if (estado.modo === 'desafio') salvarRecorde(estado.pontos);
+
+    } catch (erro) {
+        console.error("Erro crítico ao salvar dados:", erro);
+        // Mesmo com erro, o jogo continua para mostrar a tela de resultado
     }
-
-    if (estado.modo === 'desafio') salvarRecorde(estado.pontos);
     
+    // DEFINIR TÍTULO DA TELA DE RESULTADO
     let titulo = 'Modo Prática';
     if (estado.modo === 'desafio') {
         if(estado.subModo === 'morte') titulo = 'Fim da Morte Súbita';
@@ -425,6 +432,7 @@ function finalizarJogoTelaCheia() {
         else titulo = 'Desafio Concluído';
     }
     
+    // MOSTRAR TELA
     processarResultadoFinal(estado.acertos, estado.erros, estado.totalQuestoes, titulo);
 }
 
