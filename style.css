@@ -1736,7 +1736,7 @@ body { background-color: #f1f5f9; }
 .logo-header-texto {
     font-family: 'Fredoka', sans-serif;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.9rem;
     color: var(--primary);
     text-align: center;
 }
@@ -1815,6 +1815,180 @@ body { background-color: #f1f5f9; }
     transition: transform 0.1s;
 }
 .btn-menu:active { transform: translateY(2px); box-shadow: none; }
+/* --- LAYOUT HOME (AJUSTE FINAL: ALINHAMENTO E CENTRALIZAÇÃO) --- */
+
+/* Fundo */
+body { background-color: #f1f5f9; }
+
+/* 1. Topo */
+.header-topo-limpo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; /* Margem padrão 20px */
+    margin-bottom: 5px;
+}
+
+.btn-icon-quadrado {
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: var(--primary);
+    width: 45px; height: 45px;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo-header-texto {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem; /* Aumentado */
+    color: var(--primary);
+    text-align: center;
+    letter-spacing: -0.5px;
+    flex-grow: 1; /* Ocupa o espaço central */
+}
+
+.saldo-badge-pill {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+    padding: 8px 12px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 2. Card Branco de Saudação */
+.card-boas-vindas-topo {
+    background: white;
+    margin: 10px 20px 25px 20px; /* Margem lateral 20px (igual publicidade) */
+    padding: 20px;
+    border-radius: 24px;
+    
+    /* Mágica da Centralização mantendo lado-a-lado */
+    display: flex;
+    flex-direction: row;       /* Avatar ao lado do texto */
+    justify-content: center;   /* Centraliza o conjunto no meio do card */
+    align-items: center;       /* Alinha verticalmente */
+    gap: 15px;                 /* Espaço entre avatar e texto */
+    
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.avatar-saudacao {
+    width: 60px; height: 60px;
+    font-size: 2.2rem;
+    background: #eff6ff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 3px solid #e2e8f0;
+    flex-shrink: 0; /* Impede que o avatar amasse */
+}
+
+.texto-saudacao-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Texto alinhado à esquerda do bloco dele */
+}
+
+.texto-saudacao-container strong {
+    font-size: 1.25rem;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.texto-saudacao-container span {
+    font-size: 1rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* 3. Label e Botões */
+.label-secao-home {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #64748b;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.container-botoes-originais {
+    padding: 0 20px; /* Garante o alinhamento com a margem do card branco */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Botões Largos */
+.btn-menu {
+    width: 100%; /* Ocupa todo o espaço disponível no container */
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: none;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Banner Publicidade - Forçar alinhamento */
+.ad-banner-container {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    width: auto !important;
+    border-radius: 18px;
+    
+    /* AQUI ESTÁ A CORREÇÃO: */
+    margin-top: 30px !important;    /* Empurra para baixo (descola dos botões) */
+    margin-bottom: 30px !important; /* Garante espaço no final da tela */
+}
+/* --- BOTÕES COM EFEITO 3D SÓLIDO (CAMADA CINZA) --- */
+
+/* Base do botão */
+.btn-menu {
+    width: 100%;
+    border-radius: 18px;
+    padding: 20px;
+    border: none;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    
+    /* O EFEITO 3D CINZA ESTÁ AQUI: */
+    box-shadow: 0 6px 0 #cbd5e1; 
+    
+    /* Importante: Transição suave ao clicar */
+    transition: transform 0.1s, box-shadow 0.1s;
+    margin-bottom: 5px; /* Espaço para a sombra não encavalar */
+}
+
+/* Efeito de clique (O botão "afunda") */
+.btn-menu:active {
+    transform: translateY(4px); /* Desce 4 pixels */
+    box-shadow: 0 2px 0 #cbd5e1; /* A sombra diminui */
+}
+
+/* As cores continuam as mesmas, mas sem a sombra colorida */
+.btn-menu.azul {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.btn-menu.verde {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+.btn-menu.roxo {
+    background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+}
+
 
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 /* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */
