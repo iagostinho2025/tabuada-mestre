@@ -1,7 +1,7 @@
 import { estado, configTreino, configDesafio } from './state.js';
 import { telas, mostrarTela } from './ui.js';
 import { salvarPartida } from './stats.js';
-import { adicionarEstrelas } from './store.js'; // <--- IMPORTANTE: Importa a função da loja
+import { adicionarEstrelas } from './store.js'; 
 
 const elOpcoes = document.getElementById('opcoes-resposta');
 
@@ -13,6 +13,13 @@ export function iniciarJogoTelaCheia(modo) {
     estado.modo = modo;
     estado.pontos = 0; estado.acertos = 0; estado.erros = 0; estado.totalQuestoes = 0;
     estado.emAndamento = true;
+    
+    // --- ETIQUETAR O MODO NO CONTAINER (Proteção de Layout) ---
+    const container = document.getElementById('container-jogo');
+    if (container) {
+        container.classList.remove('modo-treino', 'modo-desafio');
+        container.classList.add(modo === 'treino' ? 'modo-treino' : 'modo-desafio');
+    }
     
     // Zera rastreadores e memória
     estado.errosMap = {}; 
@@ -68,7 +75,12 @@ export function iniciarJogoTelaCheia(modo) {
     }
 
     document.getElementById('placar-display').textContent = `⭐ 0`;
+    
     mostrarTela('jogo');
+    
+    // --- RESTAURAÇÃO: Carrega o Rodapé do Mascote ---
+    atualizarRodapeMascote(); 
+    
     proximaQuestaoTelaCheia();
 }
 
@@ -112,7 +124,7 @@ function proximaQuestaoTelaCheia() {
     const feedbackEl = document.getElementById('feedback-jogo-tela-cheia');
     if(feedbackEl) feedbackEl.textContent = '';
 
-    // --- NOVA LÓGICA DE GERAÇÃO ---
+    // Lógica de Geração
     let a, b, chavePergunta;
     let tentativas = 0;
     
@@ -401,7 +413,7 @@ function finalizarJogoTelaCheia() {
     pararJogoTelaCheia();
     
     try {
-        // SALVAR ESTATÍSTICAS
+        // SALVAR ESTATÍSTICAS COMPLETAS
         salvarPartida({
             modo: estado.modo === 'desafio' ? estado.subModo : 'treino',
             acertos: estado.acertos,
@@ -416,15 +428,13 @@ function finalizarJogoTelaCheia() {
             adicionarEstrelas(estado.pontos);
         }
 
-        // RECORDE
         if (estado.modo === 'desafio') salvarRecorde(estado.pontos);
 
     } catch (erro) {
         console.error("Erro crítico ao salvar dados:", erro);
-        // Mesmo com erro, o jogo continua para mostrar a tela de resultado
+        // O jogo continua para mostrar o resultado, mesmo se falhar o salvamento
     }
     
-    // DEFINIR TÍTULO DA TELA DE RESULTADO
     let titulo = 'Modo Prática';
     if (estado.modo === 'desafio') {
         if(estado.subModo === 'morte') titulo = 'Fim da Morte Súbita';
@@ -432,7 +442,6 @@ function finalizarJogoTelaCheia() {
         else titulo = 'Desafio Concluído';
     }
     
-    // MOSTRAR TELA
     processarResultadoFinal(estado.acertos, estado.erros, estado.totalQuestoes, titulo);
 }
 
@@ -465,4 +474,44 @@ export function carregarRecorde() {
     const recorde = localStorage.getItem('tabuada_recorde') || 0;
     const el = document.getElementById('home-recorde');
     if(el) el.textContent = `${recorde} pts`;
+}
+
+// --- FUNÇÃO PARA O RODAPÉ DO MASCOTE (RESTAURADA) ---
+function atualizarRodapeMascote() {
+    // Tenta pegar o avatar atual
+    let avatarIcon = '🙂';
+    try {
+        const iconHome = document.getElementById('avatar-display-home');
+        if(iconHome) avatarIcon = iconHome.textContent;
+        
+        const storeData = JSON.parse(localStorage.getItem('tabuada_store_v1'));
+        if (storeData && storeData.avatarAtual) {
+           // Lógica de catálogo se tiver
+        }
+    } catch(e) {}
+
+    const avatarEl = document.querySelector('.avatar-game-footer');
+    if(avatarEl) avatarEl.textContent = avatarIcon;
+
+    // Frases Motivacionais
+    const frases = [
+        "Você consegue!",
+        "Concentre-se!",
+        "Vamos lá!",
+        "Respire fundo...",
+        "Você é capaz!",
+        "Mantenha o foco!",
+        "Pense rápido!",
+        "Acredite!",
+        "Vai que é tua!"
+    ];
+    
+    const fraseEl = document.getElementById('frase-mascote');
+    if(fraseEl) {
+        fraseEl.textContent = frases[Math.floor(Math.random() * frases.length)];
+        // Reinicia animação
+        fraseEl.classList.remove('animacao-digitacao');
+        void fraseEl.offsetWidth; // Força reflow
+        fraseEl.classList.add('animacao-digitacao');
+    }
 }

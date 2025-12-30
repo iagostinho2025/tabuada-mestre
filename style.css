@@ -2598,3 +2598,60 @@ body {
     padding: 0 10px !important;
 }
 
+/* =================================================
+   RODAPÉ DO MASCOTE (RESTAURAÇÃO)
+   ================================================= */
+
+.game-footer-mascote {
+    width: 100%;
+    max-width: 500px; /* Trava na largura de celular */
+    margin: 0 auto;   /* Centraliza se sobrar espaço */
+    
+    /* Configurações anti-bug da linha */
+    background: transparent; 
+    padding: 10px 15px 20px 15px;
+    flex-shrink: 0; /* Impede que seja esmagado */
+    
+    /* Ajuste de Altura (Mude aqui se quiser subir/descer) */
+    margin-bottom: 0px; 
+}
+
+.mascote-container {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    
+    /* Sombra e Borda Suaves */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 2px solid #e2e8f0;
+}
+
+.avatar-game-footer {
+    width: 50px; 
+    height: 50px;
+    font-size: 2rem;
+    background: #eff6ff;
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    border: 2px solid #e2e8f0;
+    flex-shrink: 0;
+}
+
+.texto-mascote-container {
+    font-family: 'Fredoka', sans-serif;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.2;
+}
+
+/* Animação suave no texto */
+.animacao-digitacao {
+    animation: fadeIn 0.5s ease-out;
+}
+
