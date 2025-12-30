@@ -519,17 +519,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border-color: var(--error) !important;
 }
 
-/* Efeito de Pulso (Acerto) */
-@keyframes pulse-green {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-}
 
-.animacao-acerto {
-    animation: pulse-green 0.4s ease-out;
-    z-index: 10;
-}
 /* --- 9. EFEITOS PREMIUM (Adicione no final do style.css) --- */
 
 /* Treme-Treme (Quando errar) */
@@ -545,20 +535,6 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border-color: var(--error) !important;
 }
 
-/* Pulso Verde (Quando acertar) */
-@keyframes pulse-green {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-}
-
-.animacao-acerto {
-    animation: pulse-green 0.5s ease-out;
-    background-color: #dcfce7 !important;
-    border-color: var(--success) !important;
-    color: var(--success) !important;
-    z-index: 10;
-}
 
 .btn-voltar {
     background: var(--surface);
@@ -2821,7 +2797,20 @@ html, body {
 .game-footer-mascote {
     flex-shrink: 0; /* Não deixa encolher */
     padding: 10px 15px 20px 15px; /* Padding extra embaixo p/ celulares modernos */
-    background: #f1f5f9; /* Fundo igual ao app para mesclar */
+    
+    /* Fundo transparente para não criar faixas no desktop */
+    background: transparent; 
+    
+    /* Centralização e Largura (Correção Desktop) */
+    width: 100%;
+    max-width: 5000px;
+    
+    /* --- AQUI ESTÁ O CONTROLE DE ALTURA --- */
+    /* Mude este valor para subir ou descer a barra inteira */
+    margin-bottom: 50px; 
+    
+    /* Suaviza o movimento se mudar via código */
+    transition: margin 0.3s ease;
 }
 
 .mascote-container {
@@ -2856,5 +2845,72 @@ html, body {
     .game-content-scroll { justify-content: flex-start; } /* Topo se for pequeno */
     .mascote-container { padding: 10px; }
     .avatar-game-footer { width: 40px; height: 40px; font-size: 1.5rem; }
+}
+/* =================================================
+   CORREÇÃO: CENTRALIZAÇÃO NO DESKTOP (V2)
+   Cole no FINAL do style.css
+   ================================================= */
+
+/* O container principal continua cobrindo a tela toda (para evitar a linha),
+   mas agora centraliza seus filhos horizontalmente */
+#container-jogo {
+    align-items: center; /* Centraliza os filhos no meio da tela */
+}
+
+/* Limita a largura do conteúdo (Perguntas) */
+.game-content-scroll {
+    width: 100%;
+    max-width: 500px; /* Trava na largura de celular */
+    
+    /* Garante que o conteúdo fique centralizado verticalmente se sobrar espaço */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+
+/* Limita a largura do Rodapé */
+.game-footer-mascote {
+    width: 100%;
+    max-width: 500px; /* Trava na largura de celular */
+    
+    /* Removemos o background daqui para não criar faixas estranhas no desktop,
+       já que o fundo geral já é da mesma cor */
+    background: transparent; 
+}
+
+/* Ajuste visual no Card do Mascote */
+.mascote-container {
+    width: 100%;
+    /* Sombra suave para destacar do fundo */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+/* --- CORREÇÃO: CABEÇALHO E ESTRELAS VISÍVEIS --- */
+
+#header-jogo {
+    position: relative;
+    z-index: 100; /* Garante que fique acima de tudo */
+    width: 100%;
+    max-width: 500px; /* Mantém alinhado com o jogo */
+    margin: 0 auto 15px auto;
+    padding: 0 10px;
+}
+
+.topo-info {
+    display: flex;
+    justify-content: space-between; /* Espalha: Timer na esq, Estrelas na dir */
+    align-items: center;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* O Segredo: Impede que as estrelas sejam esmagadas */
+#placar-display {
+    flex-shrink: 0; /* Não deixa encolher de jeito nenhum */
+    min-width: 70px; /* Garante um espaço mínimo */
+    text-align: right;
+    font-weight: 800;
+    color: #f59e0b; /* Amarelo ouro */
 }
 
