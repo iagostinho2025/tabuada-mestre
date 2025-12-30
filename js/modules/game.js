@@ -14,11 +14,21 @@ export function iniciarJogoTelaCheia(modo) {
     estado.pontos = 0; estado.acertos = 0; estado.erros = 0; estado.totalQuestoes = 0;
     estado.emAndamento = true;
     
-    // --- ETIQUETAR O MODO NO CONTAINER (Proteção de Layout) ---
-    const container = document.getElementById('container-jogo');
-    if (container) {
-        container.classList.remove('modo-treino', 'modo-desafio');
-        container.classList.add(modo === 'treino' ? 'modo-treino' : 'modo-desafio');
+    // --- NOVO: CONFIGURAÇÃO DE LAYOUT DO HEADER ---
+    const header = document.getElementById('header-jogo');
+    const areaTimer = document.getElementById('area-timer-desafio'); // O novo grupo do timer
+    
+    if (header) {
+        // Limpa classes antigas
+        header.classList.remove('modo-treino', 'modo-desafio');
+        
+        if (modo === 'treino') {
+            header.classList.add('modo-treino');
+            if(areaTimer) areaTimer.classList.add('oculto'); // Esconde o grupo timer no treino
+        } else {
+            header.classList.add('modo-desafio');
+            if(areaTimer) areaTimer.classList.remove('oculto'); // Mostra o grupo timer no desafio
+        }
     }
     
     // Zera rastreadores e memória
@@ -42,8 +52,8 @@ export function iniciarJogoTelaCheia(modo) {
         estado.modoInput = configTreino.modoInput;
         estado.subModo = null;
         
-        telas.jogo.timer.classList.add('oculto');
-        telas.jogo.barraTempoContainer.classList.add('oculto');
+        // Garante que elementos individuais também estejam ocultos se necessário
+        if(telas.jogo.timer) telas.jogo.timer.classList.add('oculto');
         
         if (estado.maxQuestoes !== Infinity) telas.jogo.barraFixaContainer.classList.remove('oculto');
         else telas.jogo.barraFixaContainer.classList.add('oculto');
@@ -67,8 +77,8 @@ export function iniciarJogoTelaCheia(modo) {
         else if (estado.subModo === 'recarga') estado.tempo = 10;
         else if (estado.subModo === 'speedrun') { estado.tempo = 0; estado.maxQuestoes = 20; }
 
-        telas.jogo.timer.classList.remove('oculto');
-        telas.jogo.barraTempoContainer.classList.remove('oculto'); 
+        // Garante que o timer dentro do grupo esteja visível
+        if(telas.jogo.timer) telas.jogo.timer.classList.remove('oculto');
         telas.jogo.barraFixaContainer.classList.add('oculto');    
         
         iniciarTimer();
@@ -78,7 +88,7 @@ export function iniciarJogoTelaCheia(modo) {
     
     mostrarTela('jogo');
     
-    // --- RESTAURAÇÃO: Carrega o Rodapé do Mascote ---
+    // --- Carrega o Rodapé do Mascote ---
     atualizarRodapeMascote(); 
     
     proximaQuestaoTelaCheia();
@@ -321,7 +331,7 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         if(estado.modo === 'desafio' && estado.subModo === 'recarga') {
             estado.tempo += 3; 
             const tDisplay = telas.jogo.timer;
-            tDisplay.style.color = '#22c55e'; setTimeout(()=>tDisplay.style.color='inherit', 300);
+            if(tDisplay) { tDisplay.style.color = '#22c55e'; setTimeout(()=>tDisplay.style.color='inherit', 300); }
         }
 
         setTimeout(proximaQuestaoTelaCheia, 800);
@@ -403,10 +413,12 @@ function atualizarTimerUI() {
     let sec = t % 60;
     const textoTempo = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
     
-    telas.jogo.timer.textContent = textoTempo;
-    
-    if (estado.subModo !== 'speedrun' && t <= 5) telas.jogo.timer.style.color = '#ef4444';
-    else telas.jogo.timer.style.color = 'inherit';
+    if(telas.jogo.timer) {
+        telas.jogo.timer.textContent = textoTempo;
+        
+        if (estado.subModo !== 'speedrun' && t <= 5) telas.jogo.timer.style.color = '#ef4444';
+        else telas.jogo.timer.style.color = 'inherit';
+    }
 }
 
 function finalizarJogoTelaCheia() {
@@ -432,13 +444,16 @@ function finalizarJogoTelaCheia() {
 
     } catch (erro) {
         console.error("Erro crítico ao salvar dados:", erro);
-        // O jogo continua para mostrar o resultado, mesmo se falhar o salvamento
     }
     
     let titulo = 'Modo Prática';
     if (estado.modo === 'desafio') {
+        // Verifica se o timer existe antes de tentar ler o textContent
+        const timerEl = document.getElementById('timer-display');
+        const tempoFinal = timerEl ? timerEl.textContent : "00:00";
+
         if(estado.subModo === 'morte') titulo = 'Fim da Morte Súbita';
-        else if(estado.subModo === 'speedrun') titulo = `Tempo: ${document.getElementById('timer-display').textContent}`;
+        else if(estado.subModo === 'speedrun') titulo = `Tempo: ${tempoFinal}`;
         else titulo = 'Desafio Concluído';
     }
     
@@ -476,18 +491,12 @@ export function carregarRecorde() {
     if(el) el.textContent = `${recorde} pts`;
 }
 
-// --- FUNÇÃO PARA O RODAPÉ DO MASCOTE (RESTAURADA) ---
+// --- FUNÇÃO PARA O RODAPÉ DO MASCOTE ---
 function atualizarRodapeMascote() {
-    // Tenta pegar o avatar atual
     let avatarIcon = '🙂';
     try {
         const iconHome = document.getElementById('avatar-display-home');
         if(iconHome) avatarIcon = iconHome.textContent;
-        
-        const storeData = JSON.parse(localStorage.getItem('tabuada_store_v1'));
-        if (storeData && storeData.avatarAtual) {
-           // Lógica de catálogo se tiver
-        }
     } catch(e) {}
 
     const avatarEl = document.querySelector('.avatar-game-footer');
@@ -509,7 +518,6 @@ function atualizarRodapeMascote() {
     const fraseEl = document.getElementById('frase-mascote');
     if(fraseEl) {
         fraseEl.textContent = frases[Math.floor(Math.random() * frases.length)];
-        // Reinicia animação
         fraseEl.classList.remove('animacao-digitacao');
         void fraseEl.offsetWidth; // Força reflow
         fraseEl.classList.add('animacao-digitacao');

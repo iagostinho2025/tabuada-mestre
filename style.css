@@ -2920,3 +2920,187 @@ input:checked + .slider:before {
     opacity: 0.6;
     line-height: 1.5;
 }
+/* =================================================
+   CORREÇÃO FINAL DE LAYOUT (SEPARAÇÃO DE MODOS)
+   ================================================= */
+
+/* Container Geral do Header */
+#header-jogo {
+    position: relative; /* Referência para os itens absolutos */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo principal (timer/contador) */
+    align-items: center;
+    width: 100%;
+    min-height: 60px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* 1. ITENS FIXOS NAS LATERAIS (Comuns aos dois modos) */
+
+/* Botão Voltar -> Fixo na Esquerda */
+#btn-sair-jogo {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    z-index: 20;
+}
+
+/* Estrelas -> Fixo na Direita */
+#placar-display {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    z-index: 20;
+    
+    /* Visual de Pílula Amarela */
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex; align-items: center; gap: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 2. AJUSTES ESPECÍFICOS DO MODO DESAFIO */
+
+/* Quando estiver no desafio, o header precisa ser um pouco mais alto */
+#header-jogo.modo-desafio {
+    padding-top: 15px; /* Espaço extra */
+}
+
+/* A área do Timer + Barra fica no centro exato */
+#area-timer-desafio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 200px; /* Limita largura pra barra não esticar demais */
+}
+
+#timer-display {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem; /* Timer Grande */
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.barra-progresso {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 3. AJUSTES DO MODO TREINO (Só pra garantir) */
+.modo-treino .info-progresso {
+    /* O contador já fica centralizado pelo justify-content: center do pai */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* ==========================================================
+   LAYOUT BLINDADO: MODO DESAFIO (BARRA 100% REAL)
+   ========================================================== */
+
+/* 1. Header no Desafio: Mais alto para caber os 2 andares */
+#header-jogo.modo-desafio {
+    height: 90px !important; 
+    padding: 0 !important;   /* Zera padding para a barra tocar as bordas */
+    margin-bottom: 0px !important; /* Cola no card de baixo */
+    position: relative !important; /* Referência para os itens soltos */
+}
+
+/* 2. Botão Voltar (Fixo Esquerda/Topo) */
+.modo-desafio #btn-sair-jogo {
+    position: absolute !important;
+    left: 20px !important;
+    top: 15px !important;
+    z-index: 20;
+}
+
+/* 3. Estrelas (Fixo Direita/Topo) */
+.modo-desafio #placar-display {
+    position: absolute !important;
+    right: 20px !important;
+    top: 15px !important;
+    z-index: 20;
+    
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+    border-radius: 20px;
+    padding: 5px 12px;
+    display: flex; gap: 5px;
+}
+
+/* 4. Contador "Feitas" (Fixo Centro/Topo) */
+.modo-desafio .info-progresso {
+    position: absolute !important;
+    left: 50% !important;
+    top: 20px !important;
+    transform: translateX(-50%) !important;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-light);
+    z-index: 10;
+}
+/* Esconde a barra cinza fina */
+.modo-desafio .barra-fina-bg { display: none !important; }
+
+/* 5. A ÁREA DO TIMER (Container invisível que segura o show) */
+/* Vamos tirar qualquer flexbox que possa estar encolhendo as coisas */
+.modo-desafio #area-timer-desafio {
+    position: static !important; /* Deixa os filhos se posicionarem pelo Header */
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+}
+
+/* 6. O CRONÔMETRO (Flutuando na esquerda inferior) */
+.modo-desafio #timer-display {
+    position: absolute !important;
+    left: 20px !important;  /* Alinhado com o botão voltar */
+    bottom: 12px !important; /* Logo acima da barra laranja */
+    
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.6rem !important;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+    z-index: 10;
+    text-align: left !important;
+    width: auto !important;
+    margin: 0 !important;
+}
+
+/* 7. A BARRA LARANJA (100% da tela, colada no chão) */
+.modo-desafio .barra-progresso {
+    position: absolute !important;
+    bottom: 0 !important;    /* Cola no chão */
+    left: 0 !important;      /* Cola na esquerda */
+    width: 100% !important;  /* Ocupa TUDO */
+    height: 8px !important;
+    
+    background: #f1f5f9;     /* Fundo cinza claro */
+    border-radius: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    z-index: 5;
+}
+
+.modo-desafio #barra-fill {
+    background: #f97316 !important; /* Laranja */
+    height: 100%;
+    display: block;
+    /* Borda arredondada só na ponta que avança */
+    border-radius: 0 4px 4px 0; 
+}

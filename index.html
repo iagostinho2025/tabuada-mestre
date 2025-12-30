@@ -472,22 +472,25 @@
             </div>
         </div>
 
-        <header id="header-jogo" class="oculto">
-            <button id="btn-sair-jogo" class="btn-voltar">✕ Sair</button>
-            <div class="info-progresso">
-                <span id="texto-contador" class="texto-contador">Questão 1</span>
-                <div id="container-barra-fixa" class="barra-fina-bg">
-                    <div id="barra-fina-fill" class="barra-fina-fill"></div>
-                </div>
-            </div>
-            <div style="display:flex; gap:10px; align-items:center;">
-                <div id="timer-display" class="oculto" style="font-weight:bold; color:#ef4444">00:45</div>
-                <div id="placar-display" class="badge-pontos">⭐ 0</div>
-            </div>
-            <div class="barra-progresso oculto" id="container-barra-tempo">
-                <div id="barra-fill" style="width: 100%"></div>
-            </div>
-        </header>
+<header id="header-jogo" class="oculto">
+    <button id="btn-sair-jogo" class="btn-voltar">✕ Sair</button>
+    
+    <div class="info-progresso">
+        <span id="texto-contador" class="texto-contador">Questão 1</span>
+        <div id="container-barra-fixa" class="barra-fina-bg">
+            <div id="barra-fina-fill" class="barra-fina-fill"></div>
+        </div>
+    </div>
+
+    <div id="area-timer-desafio" class="oculto">
+        <div id="timer-display">00:45</div>
+        <div class="barra-progresso" id="container-barra-tempo">
+            <div id="barra-fill" style="width: 100%"></div>
+        </div>
+    </div>
+
+    <div id="placar-display" class="badge-pontos">⭐ 0</div>
+</header>
 
         <main id="container-jogo" class="oculto">
             <div class="area-pergunta">
