@@ -2692,4 +2692,11 @@ body {
     /* Mantém uma sombra mínima de 1px na mesma cor da sombra original (#cbd5e1) */
     box-shadow: 0 1px 0 #cbd5e1 !important;
 }
+/* TESTE: Remover completamente as transformações durante o clique */
+.botao-opcao:active,
+.btn-menu:active,
+.btn-lateral:active {
+    transform: none !important;
+    box-shadow: var(--shadow) !important;
+}
 
