@@ -2533,3 +2533,27 @@ body { background-color: #f1f5f9; }
     margin-bottom: 30px !important;
 }
 
+/* --- 12. RESPONSIVIDADE (MOBILE / TELAS PEQUENAS) --- */
+@media (max-width: 768px) or (max-height: 800px) {
+    /* Ajustes para telas apertadas */
+    
+    /* Modo Inverso */
+    .visor-inverso-numero { font-size: 3.5rem !important; line-height: 1; margin: 0 !important; }
+    .subtitulo-inverso { font-size: 1.2rem !important; margin-bottom: 10px !important; }
+
+    /* Teclado Compacto */
+    .teclado-custom-wrapper { gap: 8px; }
+    .visor-resposta { height: 60px; font-size: 2.5rem; }
+    .btn-num { padding: 8px 0; font-size: 1.6rem; border-bottom-width: 3px; height: 55px; }
+
+    /* Área da Pergunta */
+    .area-pergunta { padding: 15px !important; margin-bottom: 10px !important; min-height: auto !important; }
+    
+    /* Botões de Opção */
+    .botao-opcao { padding: 15px !important; font-size: 1.6rem !important; }
+    .grid-opcoes { gap: 10px !important; }
+
+    /* Scroll */
+    #container-jogo { overflow-y: auto; padding-bottom: 80px; max-height: 85vh; display: block; }
+}
+
