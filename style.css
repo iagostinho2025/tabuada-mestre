@@ -2529,8 +2529,8 @@ body { background-color: #f1f5f9; }
     /* Ajustes para telas apertadas */
     
     /* Modo Inverso */
-    .visor-inverso-numero { font-size: 3.5rem !important; line-height: 1; margin: 0 !important; }
-    .subtitulo-inverso { font-size: 1.2rem !important; margin-bottom: 20px !important; }
+    .visor-inverso-numero { font-size: 3.5rem !important; line-height: 1; margin: 20px !important; }
+    .subtitulo-inverso { font-size: 1.2rem !important; margin-bottom: 10px !important; }
 
     /* Teclado Compacto */
     .teclado-custom-wrapper { gap: 8px; }
@@ -2597,6 +2597,7 @@ body {
     width: 100%;
     max-width: 500px; /* Trava na largura de celular */
     margin: 0 auto;   /* Centraliza se sobrar espaço */
+	margin-top: 30px !important;
     
     /* Configurações anti-bug da linha */
     background: transparent; 
