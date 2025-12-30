@@ -300,6 +300,8 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     box-shadow: 0 5px 0 #e2e8f0;
     cursor: pointer;
     width: 100%;
+	will-change: transform;
+	-webkit-tap-highlight-color: transparent;
 }
 .botao-opcao:active {
     transform: translateY(4px);
@@ -307,6 +309,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 }
 .botao-opcao.correto { background: #dcfce7; border-color: var(--success); color: #166534; box-shadow: 0 5px 0 #86efac; }
 .botao-opcao.errado { background: #fee2e2; border-color: var(--error); color: #991b1b; box-shadow: 0 5px 0 #fca5a5; }
+
 
 /* --- 6. TELA RESULTADO --- */
 #tela-resultado { text-align: center; padding-top: 30px; }
