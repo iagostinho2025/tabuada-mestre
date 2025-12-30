@@ -28,7 +28,7 @@ html {
 body {
     background-color: var(--bg-app);
     color: var(--text-main);
-    margin: 0;
+    margin: 1;
     padding: 0 !important;
     
     /* CORREÇÃO DO PROBLEMA DA LINHA: */
@@ -301,7 +301,10 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     cursor: pointer;
     width: 100%;
 }
-.botao-opcao:active { transform: translateY(4px); box-shadow: none; }
+.botao-opcao:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+}
 .botao-opcao.correto { background: #dcfce7; border-color: var(--success); color: #166534; box-shadow: 0 5px 0 #86efac; }
 .botao-opcao.errado { background: #fee2e2; border-color: var(--error); color: #991b1b; box-shadow: 0 5px 0 #fca5a5; }
 
