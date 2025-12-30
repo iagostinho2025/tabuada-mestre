@@ -2781,4 +2781,80 @@ button,
 body {
     overflow-x: hidden;
 }
+/* =================================================
+   SOLUÇÃO DEFINITIVA: LAYOUT DE JOGO COM RODAPÉ
+   ================================================= */
+
+/* 1. Blindagem do Fundo (Para a linha sumir se aparecer) */
+html, body {
+    background-color: #f1f5f9 !important; /* Mesma cor do fundo do app */
+    height: 100%;
+    overflow: hidden; /* Evita rolagem elástica global */
+}
+
+/* 2. O Container Principal do Jogo agora ocupa a tela toda */
+#container-jogo {
+    position: fixed; /* Fixa na tela para não "dançar" */
+    top: 80px; /* Logo abaixo do header */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empurra rodapé pro fim */
+    padding-bottom: 10px;
+    z-index: 50;
+    background-color: #f1f5f9; /* Garante que o fundo tape tudo */
+}
+
+/* 3. Área de Scroll (Onde ficam a pergunta e botões) */
+.game-content-scroll {
+    flex-grow: 1; /* Ocupa todo o espaço disponível */
+    overflow-y: auto; /* Permite rolar se a tela for muito pequena */
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza a pergunta na área livre */
+}
+
+/* 4. O NOVO RODAPÉ (Visual Card Branco) */
+.game-footer-mascote {
+    flex-shrink: 0; /* Não deixa encolher */
+    padding: 10px 15px 20px 15px; /* Padding extra embaixo p/ celulares modernos */
+    background: #f1f5f9; /* Fundo igual ao app para mesclar */
+}
+
+.mascote-container {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border: 2px solid #e2e8f0;
+}
+
+.avatar-game-footer {
+    width: 50px; height: 50px;
+    font-size: 2rem;
+    background: #eff6ff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #e2e8f0;
+}
+
+.balao-fala span {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1.1rem;
+}
+
+/* Ajuste Fino para telas pequenas */
+@media (max-height: 700px) {
+    .game-content-scroll { justify-content: flex-start; } /* Topo se for pequeno */
+    .mascote-container { padding: 10px; }
+    .avatar-game-footer { width: 40px; height: 40px; font-size: 1.5rem; }
+}
 
