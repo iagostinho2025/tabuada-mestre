@@ -2381,4 +2381,155 @@ body { background-color: #f1f5f9; }
     font-weight: 700;
     color: var(--text-light);
 }
+/* --- LAYOUT HOME (LARGURA TOTAL / MOBILE OTIMIZADO) --- */
+
+/* Fundo */
+body { background-color: #f1f5f9; }
+
+/* 1. Topo */
+.header-topo-limpo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* REDUZIDO de 20px para 12px nas laterais */
+    padding: 15px 12px; 
+    margin-bottom: 5px;
+}
+
+.btn-icon-quadrado {
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: var(--primary);
+    width: 45px; height: 45px;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo-header-texto {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--primary);
+    text-align: center;
+    letter-spacing: -0.5px;
+    flex-grow: 1;
+}
+
+.saldo-badge-pill {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+    padding: 8px 12px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 2. Card Branco de Saudação */
+.card-boas-vindas-topo {
+    background: white;
+    /* REDUZIDO margem lateral de 20px para 12px */
+    margin: 10px 12px 25px 12px; 
+    padding: 20px;
+    border-radius: 24px;
+    
+    display: flex;
+    flex-direction: row;     
+    justify-content: center; 
+    align-items: center;     
+    gap: 15px;               
+    
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.avatar-saudacao {
+    width: 60px; height: 60px;
+    font-size: 2.2rem;
+    background: #eff6ff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 3px solid #e2e8f0;
+    flex-shrink: 0;
+}
+
+.texto-saudacao-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.texto-saudacao-container strong {
+    font-size: 1.25rem;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.texto-saudacao-container span {
+    font-size: 1rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* 3. Label e Botões */
+.label-secao-home {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #64748b; 
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.container-botoes-originais {
+    /* REDUZIDO padding lateral de 20px para 12px */
+    padding: 0 12px; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Botões Largos */
+.btn-menu {
+    width: 100%;
+    border-radius: 18px;
+    padding: 20px;
+    border: none;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    
+    /* Efeito 3D Sólido Cinza */
+    box-shadow: 0 6px 0 #cbd5e1; 
+    transition: transform 0.1s, box-shadow 0.1s;
+    margin-bottom: 5px;
+}
+
+.btn-menu:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #cbd5e1;
+}
+
+/* Cores dos Botões */
+.btn-menu.azul { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+.btn-menu.verde { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+.btn-menu.roxo { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); }
+
+/* Banner Publicidade - Alinhado com o resto */
+.ad-banner-container {
+    /* REDUZIDO margem lateral de 20px para 12px */
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+    width: auto !important;
+    border-radius: 18px;
+    
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+}
 
