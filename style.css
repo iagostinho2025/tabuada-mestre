@@ -2615,4 +2615,81 @@ body {
 #tela-config-desafio {
     padding: 0 10px !important;
 }
+/* =======================================================
+   CORREÇÃO DEFINITIVA: ARTEFATOS VISUAIS (LINHA CINZA)
+   Cole isto no FINAL do arquivo para sobrescrever o anterior
+   ======================================================= */
+
+/* 1. Bloqueia efeitos de toque padrão do Android/iOS */
+* {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+}
+
+/* 2. Ajuste fino no BOTÃO DE OPÇÃO (O culpado) */
+.botao-opcao {
+    /* Avisa o navegador que este botão vai se mexer (melhora performance) */
+    will-change: transform;
+    /* Garante que não tenha outline padrão */
+    outline: none !important;
+}
+
+.botao-opcao:active {
+    transform: translateY(4px);
+    
+    /* O SEGREDO: Em vez de 'none', deixamos uma sombra invisível ou mínima.
+       Isso impede o navegador de "desligar" o renderizador de sombra,
+       evitando a linha fantasma. */
+    box-shadow: 0 1px 0 #e2e8f0 !important; 
+}
+
+/* 3. Vamos aplicar a mesma vacina nos botões do MENU também, por precaução */
+.btn-menu {
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.btn-menu:active {
+    transform: translateY(4px);
+    /* Mantém uma sombra mínima de 1px na mesma cor da sombra original (#cbd5e1) */
+    box-shadow: 0 1px 0 #cbd5e1 !important;
+}/* =======================================================
+   CORREÇÃO DEFINITIVA: ARTEFATOS VISUAIS (LINHA CINZA)
+   Cole isto no FINAL do arquivo para sobrescrever o anterior
+   ======================================================= */
+
+/* 1. Bloqueia efeitos de toque padrão do Android/iOS */
+* {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+}
+
+/* 2. Ajuste fino no BOTÃO DE OPÇÃO (O culpado) */
+.botao-opcao {
+    /* Avisa o navegador que este botão vai se mexer (melhora performance) */
+    will-change: transform;
+    /* Garante que não tenha outline padrão */
+    outline: none !important;
+}
+
+.botao-opcao:active {
+    transform: translateY(4px);
+    
+    /* O SEGREDO: Em vez de 'none', deixamos uma sombra invisível ou mínima.
+       Isso impede o navegador de "desligar" o renderizador de sombra,
+       evitando a linha fantasma. */
+    box-shadow: 0 1px 0 #e2e8f0 !important; 
+}
+
+/* 3. Vamos aplicar a mesma vacina nos botões do MENU também, por precaução */
+.btn-menu {
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.btn-menu:active {
+    transform: translateY(4px);
+    /* Mantém uma sombra mínima de 1px na mesma cor da sombra original (#cbd5e1) */
+    box-shadow: 0 1px 0 #cbd5e1 !important;
+}
 
