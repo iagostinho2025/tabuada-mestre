@@ -13,6 +13,56 @@ window.escolherModoDesafio = UI.escolherModoDesafio;
 window.escolherDificuldade = UI.escolherDificuldade;
 window.limparTudo = limparDados;
 
+// --- CONFIGURAÇÕES E PREFERÊNCIAS (NOVO) ---
+window.somLigado = true;      // Estado Global
+window.vibracaoLigada = true; // Estado Global
+
+// Função chamada pelo Switch de Som
+window.alternarSom = function(ativo) {
+    window.somLigado = ativo;
+    localStorage.setItem('tabuada_som', ativo);
+    // Toca um som de teste se ativou
+    if(ativo && typeof AudioMestre !== 'undefined') AudioMestre.click();
+}
+
+// Função chamada pelo Switch de Vibração
+window.alternarVibracao = function(ativo) {
+    window.vibracaoLigada = ativo;
+    localStorage.setItem('tabuada_vibracao', ativo);
+    // Vibra de teste se ativou (e se o dispositivo suportar)
+    if(ativo && navigator.vibrate) navigator.vibrate(50);
+}
+
+// Função chamada pelo Botão de Apagar Dados
+window.confirmarReset = function() {
+    if(confirm("Tem certeza? Isso apagará todas as suas estrelas, recordes e compras.")) {
+        // Remove apenas os dados de jogo, mantém configurações
+        localStorage.removeItem('tabuada_store_v1');
+        localStorage.removeItem('tabuada_stats_v1');
+        localStorage.removeItem('tabuada_recorde');
+        
+        alert("Dados apagados com sucesso! O app será reiniciado.");
+        window.location.reload();
+    }
+}
+
+// Carrega as preferências salvas ao iniciar
+function carregarPreferencias() {
+    const somSalvo = localStorage.getItem('tabuada_som');
+    const vibSalvo = localStorage.getItem('tabuada_vibracao');
+
+    // Se for null (primeira vez), considera true. Senão, converte string para boolean.
+    window.somLigado = (somSalvo === null || somSalvo === 'true');
+    window.vibracaoLigada = (vibSalvo === null || vibSalvo === 'true');
+
+    // Atualiza visualmente os Switches na tela de Configurações
+    const toggleSom = document.getElementById('toggle-som');
+    const toggleVib = document.getElementById('toggle-vibracao');
+
+    if(toggleSom) toggleSom.checked = window.somLigado;
+    if(toggleVib) toggleVib.checked = window.vibracaoLigada;
+}
+
 // --- FUNÇÃO DO HISTÓRICO POR MODO ---
 window.verHistoricoModo = function(modo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
@@ -117,6 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
     Game.carregarRecorde();
     Store.initStore(); // Inicia a loja e carrega o saldo/avatar
     
+    // --- NOVO: Carregar Configurações ---
+    carregarPreferencias();
+    atualizarSaudacao();
+
     const recorde = localStorage.getItem('tabuada_recorde') || 0;
     const el = document.getElementById('home-recorde');
     if(el) el.textContent = `${recorde} pts`;
@@ -126,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupEventos() {
     
-    // --- MENU LATERAL (NOVO) ---
+    // --- MENU LATERAL ---
     
     // Abrir Menu (Hambúrguer)
     const btnMenu = document.getElementById('btn-abrir-menu');
@@ -239,7 +293,8 @@ function setupEventos() {
     
     document.getElementById('btn-home-resultado').onclick = () => UI.mostrarTela('inicial');
 }
-// Função para atualizar a saudação (Bom dia/tarde/noite)
+
+// Função para atualizar a saudação
 function atualizarSaudacao() {
     const hora = new Date().getHours();
     const textoEl = document.getElementById('texto-horario');
@@ -254,14 +309,5 @@ function atualizarSaudacao() {
     } else {
         saudacao = "Boa noite,";
     }
-    
     textoEl.textContent = saudacao;
 }
-
-// Chame essa função na inicialização
-document.addEventListener('DOMContentLoaded', () => {
-    // ... seus outros inits ...
-    Store.initStore();
-    atualizarSaudacao(); // <--- CHAMA AQUI
-    setupEventos();
-});

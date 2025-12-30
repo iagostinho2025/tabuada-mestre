@@ -17,7 +17,8 @@
 
     <div id="app">
         
-        <div id="overlay-menu" class="oculto"></div> <aside id="menu-lateral">
+        <div id="overlay-menu" class="oculto"></div> 
+        <aside id="menu-lateral">
             <div class="menu-header">
                 <div class="avatar-menu-grande" id="avatar-menu-display">🙂</div>
                 <strong style="font-size: 1.2rem;">Olá, Mestre!</strong>
@@ -32,18 +33,25 @@
                 <button class="btn-item-menu" id="menu-loja">
                     🛍️ Loja de Mestres
                 </button>
-                <button class="btn-item-menu" onclick="alert('Regras: \n\n1. Treino: Sem tempo, ideal para aprender.\n2. Desafio: Valendo recorde e estrelas!\n3. Lousa: Estude a tabuada antes de jogar.')">
+                <button class="btn-item-menu" onclick="document.getElementById('tela-regras').classList.remove('oculto'); document.getElementById('tela-inicial').classList.add('oculto'); document.getElementById('menu-lateral').classList.remove('aberto'); document.getElementById('overlay-menu').classList.add('oculto');">
                     📜 Como Jogar
                 </button>
-                <button class="btn-item-menu" onclick="alert('App Tabuada Mestre v2.0\nDesenvolvido por MIB Digital\n\nTodos os direitos reservados.')">
-                    ℹ️ Sobre o App
+                <button class="btn-item-menu" onclick="document.getElementById('tela-termos').classList.remove('oculto'); document.getElementById('tela-inicial').classList.add('oculto'); document.getElementById('menu-lateral').classList.remove('aberto'); document.getElementById('overlay-menu').classList.add('oculto');">
+                    🔒 Termos e Privacidade
+                </button>
+                <button class="btn-item-menu" onclick="document.getElementById('tela-configuracoes').classList.remove('oculto'); document.getElementById('tela-inicial').classList.add('oculto'); document.getElementById('menu-lateral').classList.remove('aberto'); document.getElementById('overlay-menu').classList.add('oculto');">
+                    ⚙️ Configurações
                 </button>
             </nav>
-            <div class="versao-app">Versão 2.0.1 (Beta)</div>
+            
+            <div class="versao-app">
+                Tabuada Mestre v2.0<br>
+                <span style="font-size: 0.75rem; opacity: 0.8">Desenvolvido por <strong>MIB Digital</strong></span><br>
+                <span style="font-size: 0.7rem; opacity: 0.6">Todos os direitos reservados.</span>
+            </div>
         </aside>
 
         <div id="tela-inicial">
-            
             <div class="header-topo-limpo">
                 <button class="btn-icon-quadrado" id="btn-abrir-menu">☰</button>
                 
@@ -262,6 +270,205 @@
             <div class="area-acao-fixa">
                 <button id="btn-iniciar-desafio-custom" class="btn-menu roxo">🔥 Iniciar Desafio</button>
                 <div class="ad-banner-container" style="margin-top: 0;"><p>Publicidade</p></div>
+            </div>
+        </div>
+
+        <div id="tela-regras" class="tela oculto">
+            <div class="header-tela">
+                <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+                <h2>Manual do Mestre</h2>
+            </div>
+
+            <div class="container-scroll" style="padding-bottom: 40px;">
+                <div class="intro-regras">
+                    <p>Domine cada modo de jogo para se tornar o verdadeiro Mestre da Tabuada!</p>
+                </div>
+
+                <h3 class="titulo-secao-regras">🎮 Modos de Prática</h3>
+                <p class="desc-secao">Sem pressão de tempo. Ideal para aprender.</p>
+
+                <div class="grid-regras">
+                    <div class="card-regra azul">
+                        <div class="header-regra">
+                            <div class="icon-regra">🔘</div>
+                            <strong>Clássico</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>4 opções de resposta.</li>
+                            <li>Apenas uma está correta.</li>
+                            <li>Foco: Memorização visual.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-regra roxo">
+                        <div class="header-regra">
+                            <div class="icon-regra">⌨</div>
+                            <strong>Teclado</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>Sem opções de chute.</li>
+                            <li>Digite o número no teclado virtual.</li>
+                            <li>Foco: Fixação total da resposta.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-regra laranja">
+                        <div class="header-regra">
+                            <div class="icon-regra">⚡</div>
+                            <strong>Rápido (V ou F)</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>O jogo mostra uma conta e um resultado.</li>
+                            <li>Diga se é Verdadeiro ou Falso.</li>
+                            <li>Foco: Raciocínio ágil.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-regra rosa">
+                        <div class="header-regra">
+                            <div class="icon-regra">🧠</div>
+                            <strong>Lógica Inversa</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>Mostramos o <b>Resultado</b> (Ex: 20).</li>
+                            <li>Você escolhe a conta (Ex: 4 x 5).</li>
+                            <li>Foco: Pensamento profundo.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="divisor-secao"></div>
+                <h3 class="titulo-secao-regras destaque">🔥 Modos de Desafio</h3>
+                <p class="desc-secao">Tudo contra o tempo. Aqui o bicho pega!</p>
+
+                <div class="grid-regras">
+                    <div class="card-regra premium">
+                        <div class="header-regra">
+                            <div class="icon-regra">⏱️</div>
+                            <strong>Relâmpago</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>Você tem exatos <b>60 segundos</b>.</li>
+                            <li>Acerte o máximo que conseguir.</li>
+                            <li>Erros não tiram tempo, mas quebram o combo.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-regra perigo">
+                        <div class="header-regra">
+                            <div class="icon-regra">💣</div>
+                            <strong>Morte Súbita</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>Apenas <b>5 segundos</b> por pergunta.</li>
+                            <li>Errou uma? <b>Game Over</b> imediato.</li>
+                            <li>Para quem tem nervos de aço.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-regra recarga">
+                        <div class="header-regra">
+                            <div class="icon-regra">🔋</div>
+                            <strong>Recarga</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>Começa com 20 segundos.</li>
+                            <li>Acertou? Ganha <b>+2 segundos</b>.</li>
+                            <li>Errou? Perde <b>-4 segundos</b>.</li>
+                            <li>Sobreviva o máximo possível!</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-regra speed">
+                        <div class="header-regra">
+                            <div class="icon-regra">🏁</div>
+                            <strong>Speedrun 20</strong>
+                        </div>
+                        <ul class="lista-regras">
+                            <li>Meta: Acertar 20 questões.</li>
+                            <li>O cronômetro conta <b>para frente</b>.</li>
+                            <li>Seu recorde é o <b>menor tempo</b> possível.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tela-termos" class="tela oculto">
+            <div class="header-tela">
+                <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+                <h2>Termos e Privacidade</h2>
+            </div>
+            <div class="container-scroll">
+                <div class="card-termos">
+                    <h3>1. Termos de Uso (Isenção de Responsabilidade)</h3>
+                    <p>O aplicativo <strong>Tabuada Mestre</strong> é uma ferramenta educacional gratuita projetada para auxiliar no aprendizado e prática da matemática básica (tabuadas).</p>
+                    <p>Embora nos esforcemos para garantir a precisão de todas as questões e cálculos gerados, o conteúdo é fornecido "como está". O desenvolvedor não se responsabiliza por eventuais erros no software, reprovações em provas escolares ou qualquer outro impacto no desempenho acadêmico.</p>
+                    <p>O uso deste aplicativo deve ser encarado como um complemento aos estudos e não substitui o ensino formal.</p>
+                    
+                    <h3>2. Política de Privacidade</h3>
+                    <p>Respeitamos sua privacidade. A transparência é nossa prioridade:</p>
+                    <ul>
+                        <li><strong>Dados Pessoais:</strong> Este aplicativo <strong>não coleta</strong> dados pessoais como nome, email, telefone ou CPF.</li>
+                        <li><strong>Localização:</strong> Não utilizamos serviços de geolocalização (GPS).</li>
+                        <li><strong>Armazenamento:</strong> Todo o seu progresso, estrelas, avatares comprados e recordes são salvos localmente no seu próprio dispositivo. Se você desinstalar o app ou limpar os dados, esse progresso será perdido.</li>
+                        <li><strong>Publicidade:</strong> O aplicativo pode exibir anúncios de redes de terceiros para manter o projeto gratuito. Esses serviços podem coletar dados anônimos para exibir anúncios relevantes.</li>
+                    </ul>
+                    <p>Ao utilizar o Tabuada Mestre, você concorda com estes termos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tela-configuracoes" class="tela oculto">
+            <div class="header-tela">
+                <button class="btn-voltar" data-destino="tela-inicial">⬅ Menu</button>
+                <h2>Ajustes</h2>
+            </div>
+
+            <div class="container-scroll">
+                
+                <h3 class="titulo-secao-config">Preferências</h3>
+                
+                <div class="card-config-item">
+                    <div class="info-config">
+                        <div class="icon-config">🔊</div>
+                        <span>Efeitos Sonoros</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-som" checked onchange="alternarSom(this.checked)">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="card-config-item">
+                    <div class="info-config">
+                        <div class="icon-config">📳</div>
+                        <span>Vibração</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-vibracao" checked onchange="alternarVibracao(this.checked)">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <h3 class="titulo-secao-config" style="margin-top: 30px;">Dados do Jogo</h3>
+                
+                <div class="card-config-item perigo">
+                    <div class="info-config">
+                        <div class="icon-config">🗑️</div>
+                        <div style="display:flex; flex-direction:column;">
+                            <span>Zerar Progresso</span>
+                            <small>Apaga recordes, estrelas e itens.</small>
+                        </div>
+                    </div>
+                    <button class="btn-acao-mini vermelho" onclick="confirmarReset()">Apagar</button>
+                </div>
+
+                <div class="versao-config">
+                    Tabuada Mestre v2.0<br>
+                    Feito com 💙 por MIB Digital
+                </div>
+
             </div>
         </div>
 

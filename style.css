@@ -2647,4 +2647,276 @@ body {
 .animacao-digitacao {
     animation: fadeIn 0.5s ease-out;
 }
+/* =================================================
+   TELA DE REGRAS (MANUAL DO MESTRE)
+   ================================================= */
 
+/* Introdução */
+.intro-regras {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Títulos das Seções */
+.titulo-secao-regras {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin-bottom: 5px;
+    display: flex; align-items: center; gap: 8px;
+}
+.titulo-secao-regras.destaque { color: var(--secondary); }
+
+.desc-secao {
+    margin: 0 0 20px 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.divisor-secao {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 30px 0;
+}
+
+/* Grid de Cartões */
+.grid-regras {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 por linha no celular */
+    gap: 15px;
+}
+/* No tablet/PC vira 2 colunas */
+@media (min-width: 600px) {
+    .grid-regras { grid-template-columns: 1fr 1fr; }
+}
+
+/* O Cartão de Regra */
+.card-regra {
+    background: white;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #f1f5f9;
+    border-left: 5px solid #cbd5e1; /* Cor padrão */
+    transition: transform 0.2s;
+}
+
+.card-regra:active { transform: scale(0.98); }
+
+/* Cabeçalho do Cartão */
+.header-regra {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #f1f5f9;
+}
+
+.icon-regra {
+    font-size: 1.5rem;
+    background: #f8fafc;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.header-regra strong {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+/* Lista de Regras (Bullets) */
+.lista-regras {
+    margin: 0; padding-left: 20px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+.lista-regras li { margin-bottom: 5px; }
+
+/* --- CORES ESPECÍFICAS DOS CARTÕES --- */
+/* Prática */
+.card-regra.azul    { border-left-color: var(--primary); }
+.card-regra.roxo    { border-left-color: var(--accent); }
+.card-regra.laranja { border-left-color: var(--secondary); }
+.card-regra.rosa    { border-left-color: #db2777; }
+
+/* Desafios */
+.card-regra.premium { border-left-color: #f59e0b; background: #fffbeb; } /* Fundo amarelinho */
+.card-regra.perigo  { border-left-color: var(--error); }
+.card-regra.recarga { border-left-color: var(--success); }
+.card-regra.speed   { border-left-color: #0ea5e9; }
+/* =================================================
+   TELA DE TERMOS E PRIVACIDADE (NOVO)
+   ================================================= */
+
+.card-termos {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #f1f5f9;
+    margin-bottom: 30px;
+}
+
+.card-termos h3 {
+    color: var(--primary); /* Azul do app */
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 800;
+    font-family: 'Fredoka', sans-serif;
+}
+
+/* Espaço extra antes do segundo título */
+.card-termos h3:not(:first-child) {
+    margin-top: 30px;
+}
+
+.card-termos p {
+    color: var(--text-light); /* Cinza elegante */
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    text-align: justify;
+}
+
+.card-termos ul {
+    color: var(--text-light);
+    padding-left: 20px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.card-termos li {
+    margin-bottom: 8px;
+}
+
+.card-termos strong {
+    color: var(--text-main);
+}
+/* =================================================
+   TELA DE CONFIGURAÇÕES (SWITCHES E LISTAS)
+   ================================================= */
+
+.card-config-item {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid #f1f5f9;
+}
+
+.info-config {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.icon-config {
+    width: 40px; height: 40px;
+    background: #f8fafc;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+}
+
+.card-config-item.perigo {
+    border-color: #fca5a5;
+    background: #fef2f2;
+}
+.card-config-item.perigo small {
+    font-weight: 400; color: var(--error);
+}
+
+/* --- O SWITCH (BOTÃO LIGAR/DESLIGAR) --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #cbd5e1; /* Cinza desligado */
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--success); /* Verde ligado */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--success);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+/* Arredondado */
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+
+/* Botão Mini de Ação */
+.btn-acao-mini {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+.btn-acao-mini.vermelho {
+    background: white; border: 1px solid var(--error); color: var(--error);
+}
+.btn-acao-mini.vermelho:active {
+    background: var(--error); color: white;
+}
+
+.versao-config {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    opacity: 0.6;
+    line-height: 1.5;
+}
