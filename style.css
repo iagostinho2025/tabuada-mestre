@@ -20,26 +20,14 @@
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif; }
 
-html {
-    background-color: var(--bg-app); 
-    height: 100%;
-}
-
 body {
     background-color: var(--bg-app);
     color: var(--text-main);
-    margin: 1;
-    padding: 0 !important;
-    
-    /* CORREÇÃO DO PROBLEMA DA LINHA: */
-    /* 1. Usa a altura dinâmica real do celular (ignora barra de url) */
-    min-height: 100dvh; 
-    
-    /* 2. Impede o usuário de "puxar" a tela pra cima (efeito elástico) */
-    overscroll-behavior-y: none; 
-    
+    margin: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
+    padding: 15px;
 }
 
 #app {
@@ -300,16 +288,10 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     box-shadow: 0 5px 0 #e2e8f0;
     cursor: pointer;
     width: 100%;
-	will-change: transform;
-	-webkit-tap-highlight-color: transparent;
 }
-.botao-opcao:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
-}
+.botao-opcao:active { transform: translateY(4px); box-shadow: none; }
 .botao-opcao.correto { background: #dcfce7; border-color: var(--success); color: #166534; box-shadow: 0 5px 0 #86efac; }
 .botao-opcao.errado { background: #fee2e2; border-color: var(--error); color: #991b1b; box-shadow: 0 5px 0 #fca5a5; }
-
 
 /* --- 6. TELA RESULTADO --- */
 #tela-resultado { text-align: center; padding-top: 30px; }
@@ -519,7 +501,17 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border-color: var(--error) !important;
 }
 
+/* Efeito de Pulso (Acerto) */
+@keyframes pulse-green {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
 
+.animacao-acerto {
+    animation: pulse-green 0.4s ease-out;
+    z-index: 10;
+}
 /* --- 9. EFEITOS PREMIUM (Adicione no final do style.css) --- */
 
 /* Treme-Treme (Quando errar) */
@@ -535,6 +527,20 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border-color: var(--error) !important;
 }
 
+/* Pulso Verde (Quando acertar) */
+@keyframes pulse-green {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.animacao-acerto {
+    animation: pulse-green 0.5s ease-out;
+    background-color: #dcfce7 !important;
+    border-color: var(--success) !important;
+    color: var(--success) !important;
+    z-index: 10;
+}
 
 .btn-voltar {
     background: var(--surface);
@@ -2590,327 +2596,5 @@ body {
 #tela-loja, 
 #tela-config-desafio {
     padding: 0 10px !important;
-}
-/* =======================================================
-   CORREÇÃO DEFINITIVA: ARTEFATOS VISUAIS (LINHA CINZA)
-   Cole isto no FINAL do arquivo para sobrescrever o anterior
-   ======================================================= */
-
-/* 1. Bloqueia efeitos de toque padrão do Android/iOS */
-* {
-    -webkit-tap-highlight-color: transparent !important;
-    -webkit-touch-callout: none !important;
-}
-
-/* 2. Ajuste fino no BOTÃO DE OPÇÃO (O culpado) */
-.botao-opcao {
-    /* Avisa o navegador que este botão vai se mexer (melhora performance) */
-    will-change: transform;
-    /* Garante que não tenha outline padrão */
-    outline: none !important;
-}
-
-.botao-opcao:active {
-    transform: translateY(4px);
-    
-    /* O SEGREDO: Em vez de 'none', deixamos uma sombra invisível ou mínima.
-       Isso impede o navegador de "desligar" o renderizador de sombra,
-       evitando a linha fantasma. */
-    box-shadow: 0 1px 0 #e2e8f0 !important; 
-}
-
-/* 3. Vamos aplicar a mesma vacina nos botões do MENU também, por precaução */
-.btn-menu {
-    will-change: transform;
-    -webkit-tap-highlight-color: transparent !important;
-}
-
-.btn-menu:active {
-    transform: translateY(4px);
-    /* Mantém uma sombra mínima de 1px na mesma cor da sombra original (#cbd5e1) */
-    box-shadow: 0 1px 0 #cbd5e1 !important;
-}/* =======================================================
-   CORREÇÃO DEFINITIVA: ARTEFATOS VISUAIS (LINHA CINZA)
-   Cole isto no FINAL do arquivo para sobrescrever o anterior
-   ======================================================= */
-
-/* 1. Bloqueia efeitos de toque padrão do Android/iOS */
-* {
-    -webkit-tap-highlight-color: transparent !important;
-    -webkit-touch-callout: none !important;
-}
-
-/* 2. Ajuste fino no BOTÃO DE OPÇÃO (O culpado) */
-.botao-opcao {
-    /* Avisa o navegador que este botão vai se mexer (melhora performance) */
-    will-change: transform;
-    /* Garante que não tenha outline padrão */
-    outline: none !important;
-}
-
-.botao-opcao:active {
-    transform: translateY(4px);
-    
-    /* O SEGREDO: Em vez de 'none', deixamos uma sombra invisível ou mínima.
-       Isso impede o navegador de "desligar" o renderizador de sombra,
-       evitando a linha fantasma. */
-    box-shadow: 0 1px 0 #e2e8f0 !important; 
-}
-
-/* 3. Vamos aplicar a mesma vacina nos botões do MENU também, por precaução */
-.btn-menu {
-    will-change: transform;
-    -webkit-tap-highlight-color: transparent !important;
-}
-
-.btn-menu:active {
-    transform: translateY(4px);
-    /* Mantém uma sombra mínima de 1px na mesma cor da sombra original (#cbd5e1) */
-    box-shadow: 0 1px 0 #cbd5e1 !important;
-}
-/* ======================================================= */
-/* CORREÇÃO DEFINITIVA: REMOVER LINHA CINZA FANTASMA */
-/* ======================================================= */
-
-/* 1. Para BOTÕES DE OPÇÃO (Tela de Jogo) */
-.botao-opcao {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.15s ease-out;
-    -webkit-tap-highlight-color: transparent !important;
-}
-
-.botao-opcao:active {
-    transform: translateY(4px);
-    /* IMPORTANTE: Em vez de mudar a sombra, adicionamos um pseudo-elemento */
-    box-shadow: none !important;
-}
-
-/* Efeito de clique usando pseudo-elemento (mais estável) */
-.botao-opcao::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.05);
-    opacity: 0;
-    transition: opacity 0.1s;
-}
-
-.botao-opcao:active::after {
-    opacity: 1;
-}
-
-/* 2. Para BOTÕES DO MENU */
-.btn-menu {
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.1s;
-    -webkit-tap-highlight-color: transparent !important;
-}
-
-.btn-menu:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #cbd5e1 !important; /* Mantém uma sombra pequena, mas visível */
-}
-
-.btn-menu::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.1);
-    opacity: 0;
-    transition: opacity 0.1s;
-    z-index: 1;
-}
-
-.btn-menu:active::after {
-    opacity: 1;
-}
-
-/* 3. Para BOTÕES LATERAIS (quiz) */
-.btn-lateral:active {
-    transform: translateY(4px);
-    border-bottom-width: 2px;
-    background: #f1f5f9;
-    /* Mantém uma sombra mínima para evitar artefatos */
-    box-shadow: 0 2px 0 rgba(0,0,0,0.05) !important;
-}
-
-/* 4. Reseta o outline em todos os botões */
-button, 
-.btn-menu, 
-.botao-opcao, 
-.btn-lateral, 
-.btn-vf, 
-.btn-num {
-    outline: none !important;
-    -webkit-appearance: none;
-}
-
-/* 5. Garante que o body não tenha overflow */
-body {
-    overflow-x: hidden;
-}
-/* =================================================
-   SOLUÇÃO DEFINITIVA: LAYOUT DE JOGO COM RODAPÉ
-   ================================================= */
-
-/* 1. Blindagem do Fundo (Para a linha sumir se aparecer) */
-html, body {
-    background-color: #f1f5f9 !important; /* Mesma cor do fundo do app */
-    height: 100%;
-    overflow: hidden; /* Evita rolagem elástica global */
-}
-
-/* 2. O Container Principal do Jogo agora ocupa a tela toda */
-#container-jogo {
-    position: fixed; /* Fixa na tela para não "dançar" */
-    top: 80px; /* Logo abaixo do header */
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Empurra rodapé pro fim */
-    padding-bottom: 10px;
-    z-index: 50;
-    background-color: #f1f5f9; /* Garante que o fundo tape tudo */
-}
-
-/* 3. Área de Scroll (Onde ficam a pergunta e botões) */
-.game-content-scroll {
-    flex-grow: 1; /* Ocupa todo o espaço disponível */
-    overflow-y: auto; /* Permite rolar se a tela for muito pequena */
-    padding: 0 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza a pergunta na área livre */
-}
-
-/* 4. O NOVO RODAPÉ (Visual Card Branco) */
-.game-footer-mascote {
-    flex-shrink: 0; /* Não deixa encolher */
-    padding: 10px 15px 20px 15px; /* Padding extra embaixo p/ celulares modernos */
-    
-    /* Fundo transparente para não criar faixas no desktop */
-    background: transparent; 
-    
-    /* Centralização e Largura (Correção Desktop) */
-    width: 100%;
-    max-width: 5000px;
-    
-    /* --- AQUI ESTÁ O CONTROLE DE ALTURA --- */
-    /* Mude este valor para subir ou descer a barra inteira */
-    margin-bottom: 50px; 
-    
-    /* Suaviza o movimento se mudar via código */
-    transition: margin 0.3s ease;
-}
-
-.mascote-container {
-    background: white;
-    border-radius: 20px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    border: 2px solid #e2e8f0;
-}
-
-.avatar-game-footer {
-    width: 50px; height: 50px;
-    font-size: 2rem;
-    background: #eff6ff;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    border: 2px solid #e2e8f0;
-}
-
-.balao-fala span {
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 700;
-    color: var(--text-main);
-    font-size: 1.1rem;
-}
-
-/* Ajuste Fino para telas pequenas */
-@media (max-height: 700px) {
-    .game-content-scroll { justify-content: flex-start; } /* Topo se for pequeno */
-    .mascote-container { padding: 10px; }
-    .avatar-game-footer { width: 40px; height: 40px; font-size: 1.5rem; }
-}
-/* =================================================
-   CORREÇÃO: CENTRALIZAÇÃO NO DESKTOP (V2)
-   Cole no FINAL do style.css
-   ================================================= */
-
-/* O container principal continua cobrindo a tela toda (para evitar a linha),
-   mas agora centraliza seus filhos horizontalmente */
-#container-jogo {
-    align-items: center; /* Centraliza os filhos no meio da tela */
-}
-
-/* Limita a largura do conteúdo (Perguntas) */
-.game-content-scroll {
-    width: 100%;
-    max-width: 500px; /* Trava na largura de celular */
-    
-    /* Garante que o conteúdo fique centralizado verticalmente se sobrar espaço */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-}
-
-/* Limita a largura do Rodapé */
-.game-footer-mascote {
-    width: 100%;
-    max-width: 500px; /* Trava na largura de celular */
-    
-    /* Removemos o background daqui para não criar faixas estranhas no desktop,
-       já que o fundo geral já é da mesma cor */
-    background: transparent; 
-}
-
-/* Ajuste visual no Card do Mascote */
-.mascote-container {
-    width: 100%;
-    /* Sombra suave para destacar do fundo */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-/* --- CORREÇÃO: CABEÇALHO E ESTRELAS VISÍVEIS --- */
-
-#header-jogo {
-    position: relative;
-    z-index: 100; /* Garante que fique acima de tudo */
-    width: 100%;
-    max-width: 500px; /* Mantém alinhado com o jogo */
-    margin: 0 auto 15px auto;
-    padding: 0 10px;
-}
-
-.topo-info {
-    display: flex;
-    justify-content: space-between; /* Espalha: Timer na esq, Estrelas na dir */
-    align-items: center;
-    background: white;
-    padding: 10px 20px;
-    border-radius: 50px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-/* O Segredo: Impede que as estrelas sejam esmagadas */
-#placar-display {
-    flex-shrink: 0; /* Não deixa encolher de jeito nenhum */
-    min-width: 70px; /* Garante um espaço mínimo */
-    text-align: right;
-    font-weight: 800;
-    color: #f59e0b; /* Amarelo ouro */
 }
 

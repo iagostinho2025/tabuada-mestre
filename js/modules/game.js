@@ -68,12 +68,7 @@ export function iniciarJogoTelaCheia(modo) {
     }
 
     document.getElementById('placar-display').textContent = `⭐ 0`;
-    
     mostrarTela('jogo');
-    
-    // --- NOVO: Carrega o Rodapé do Mascote ---
-    atualizarRodapeMascote(); 
-    
     proximaQuestaoTelaCheia();
 }
 
@@ -406,7 +401,7 @@ function finalizarJogoTelaCheia() {
     pararJogoTelaCheia();
     
     try {
-        // SALVAR ESTATÍSTICAS COMPLETAS
+        // SALVAR ESTATÍSTICAS
         salvarPartida({
             modo: estado.modo === 'desafio' ? estado.subModo : 'treino',
             acertos: estado.acertos,
@@ -421,13 +416,15 @@ function finalizarJogoTelaCheia() {
             adicionarEstrelas(estado.pontos);
         }
 
+        // RECORDE
         if (estado.modo === 'desafio') salvarRecorde(estado.pontos);
 
     } catch (erro) {
         console.error("Erro crítico ao salvar dados:", erro);
-        // O jogo continua para mostrar o resultado, mesmo se falhar o salvamento
+        // Mesmo com erro, o jogo continua para mostrar a tela de resultado
     }
     
+    // DEFINIR TÍTULO DA TELA DE RESULTADO
     let titulo = 'Modo Prática';
     if (estado.modo === 'desafio') {
         if(estado.subModo === 'morte') titulo = 'Fim da Morte Súbita';
@@ -435,6 +432,7 @@ function finalizarJogoTelaCheia() {
         else titulo = 'Desafio Concluído';
     }
     
+    // MOSTRAR TELA
     processarResultadoFinal(estado.acertos, estado.erros, estado.totalQuestoes, titulo);
 }
 
@@ -467,42 +465,4 @@ export function carregarRecorde() {
     const recorde = localStorage.getItem('tabuada_recorde') || 0;
     const el = document.getElementById('home-recorde');
     if(el) el.textContent = `${recorde} pts`;
-}
-
-// --- FUNÇÃO PARA O RODAPÉ DO MASCOTE (Novo!) ---
-function atualizarRodapeMascote() {
-    // Tenta pegar o avatar atual
-    let avatarIcon = '🙂';
-    try {
-        // Tenta pegar do elemento da home se existir (mais confiável se a store não estiver disponível aqui)
-        const iconHome = document.getElementById('avatar-display-home');
-        if(iconHome) avatarIcon = iconHome.textContent;
-        
-        // Ou tenta direto do storage
-        const storeData = JSON.parse(localStorage.getItem('tabuada_store_v1'));
-        if (storeData && storeData.avatarAtual) {
-           // Se tiver lógica de catálogo, implemente aqui. Por enquanto, usa o padrão.
-        }
-    } catch(e) {}
-
-    const avatarEl = document.querySelector('.avatar-game-footer');
-    if(avatarEl) avatarEl.textContent = avatarIcon;
-
-    // Frases Motivacionais Aleatórias
-    const frases = [
-        "Você consegue!",
-        "Concentre-se!",
-        "Vamos lá!",
-        "Respire fundo...",
-        "Você é capaz!",
-        "Mantenha o foco!",
-        "Pense rápido!",
-        "Acredite!",
-        "Vai que é tua!"
-    ];
-    
-    const fraseEl = document.getElementById('frase-mascote');
-    if(fraseEl) {
-        fraseEl.textContent = frases[Math.floor(Math.random() * frases.length)];
-    }
 }
