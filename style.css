@@ -2556,4 +2556,45 @@ body { background-color: #f1f5f9; }
     /* Scroll */
     #container-jogo { overflow-y: auto; padding-bottom: 80px; max-height: 85vh; display: block; }
 }
+/* =======================================================
+   CORREÇÃO FINAL: LARGURA TOTAL (TELA CHEIA NO CELULAR)
+   Cole isto no FINAL do seu style.css
+   ======================================================= */
+
+/* 1. Remove a "moldura" invisível de 15px que travava a tela */
+body {
+    padding: 0 !important; /* Zera o padding geral */
+}
+
+/* 2. Ajusta o Topo para encostar mais nas bordas */
+.header-topo-limpo {
+    padding: 15px 8px !important; /* Apenas 8px de respiro lateral */
+}
+
+/* 3. Estica o Card de Boas-Vindas */
+.card-boas-vindas-topo {
+    /* Margem lateral de apenas 6px (quase colado) */
+    margin: 10px 6px 20px 6px !important; 
+}
+
+/* 4. Estica os Botões de Ação (Estudar, Praticar...) */
+.container-botoes-originais {
+    padding: 0 6px !important; /* Padding lateral reduzido para 6px */
+}
+
+/* 5. Estica a Publicidade para alinhar com o resto */
+.ad-banner-container {
+    margin-left: 6px !important;
+    margin-right: 6px !important;
+    width: auto !important;
+}
+
+/* 6. Garante que as telas internas tenham um mínimo de respiro */
+#tela-estudo, 
+#tela-config-treino, 
+#tela-desempenho, 
+#tela-loja, 
+#tela-config-desafio {
+    padding: 0 10px !important;
+}
 
