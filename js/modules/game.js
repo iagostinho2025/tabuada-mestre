@@ -1,10 +1,11 @@
 import { estado, configTreino, configDesafio } from './state.js';
 import { telas, mostrarTela } from './ui.js';
 import { salvarPartida } from './stats.js';
+import { adicionarEstrelas } from './store.js'; // <--- IMPORTANTE: Importa a função da loja
 
 const elOpcoes = document.getElementById('opcoes-resposta');
 
-// Memória local para evitar repetições imediatas (Guarda strings tipo "3x7")
+// Memória local para evitar repetições imediatas
 let historicoPerguntasRecentes = []; 
 
 // --- INÍCIO E CONTROLE ---
@@ -16,7 +17,7 @@ export function iniciarJogoTelaCheia(modo) {
     // Zera rastreadores e memória
     estado.errosMap = {}; 
     estado.acertosMap = {}; 
-    historicoPerguntasRecentes = []; // Limpa a memória de repetição ao começar
+    historicoPerguntasRecentes = []; 
 
     const btnNav = document.getElementById('btn-sair-jogo');
     btnNav.className = 'btn-voltar'; 
@@ -44,7 +45,6 @@ export function iniciarJogoTelaCheia(modo) {
         // --- MODO DESAFIO ---
         btnNav.innerHTML = "⬅ Voltar"; 
         
-        // Sai direto sem pedir confirmação
         btnNav.onclick = () => { 
             if(typeof AudioMestre !== 'undefined') AudioMestre.click();
             pararJogoTelaCheia(); 
@@ -112,24 +112,22 @@ function proximaQuestaoTelaCheia() {
     const feedbackEl = document.getElementById('feedback-jogo-tela-cheia');
     if(feedbackEl) feedbackEl.textContent = '';
 
-    // --- NOVA LÓGICA DE GERAÇÃO (DIFICULDADE + ANTI-REPETIÇÃO) ---
+    // --- NOVA LÓGICA DE GERAÇÃO ---
     let a, b, chavePergunta;
     let tentativas = 0;
     
-    // Define limites baseados na dificuldade
-    let minA = 2, maxA = 9; // Padrão Médio
+    let minA = 2, maxA = 9; 
     let minB = 1, maxB = 10;
 
     if (estado.modo === 'desafio') {
         if (configDesafio.dificuldade === 'facil') {
-            maxA = 5; // Tabuadas mais simples (2 a 5)
+            maxA = 5; 
         } else if (configDesafio.dificuldade === 'dificil') {
-            maxA = 12; // Tabuadas até o 12
-            maxB = 12; // Multiplica até o 12
+            maxA = 12; 
+            maxB = 12; 
         }
     }
 
-    // Loop para evitar repetição (tenta 10x, se não conseguir, aceita a repetida)
     do {
         a = Math.floor(Math.random() * (maxA - minA + 1)) + minA;
         b = Math.floor(Math.random() * (maxB - minB + 1)) + minB;
@@ -137,7 +135,6 @@ function proximaQuestaoTelaCheia() {
         tentativas++;
     } while (historicoPerguntasRecentes.includes(chavePergunta) && tentativas < 10);
 
-    // Atualiza histórico (mantém as últimas 4)
     historicoPerguntasRecentes.push(chavePergunta);
     if (historicoPerguntasRecentes.length > 4) historicoPerguntasRecentes.shift();
 
@@ -306,7 +303,6 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         
         estado.pontos += 10; estado.acertos++;
         
-        // Contagem apenas do número mandante (a)
         if (!estado.acertosMap[numA]) estado.acertosMap[numA] = 0;
         estado.acertosMap[numA]++; 
 
@@ -338,7 +334,6 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
         
         estado.erros++;
         
-        // Contagem erro mandante
         if (!estado.errosMap[numA]) estado.errosMap[numA] = 0;
         estado.errosMap[numA]++;
         
@@ -412,8 +407,14 @@ function finalizarJogoTelaCheia() {
         erros: estado.erros,
         pontos: estado.pontos,
         errosMap: estado.errosMap || {},
-        acertosMap: estado.acertosMap || {} // Salva também os acertos para o gráfico
+        acertosMap: estado.acertosMap || {}
     });
+
+    // --- CORREÇÃO DO BUG: PAGAMENTO DE ESTRELAS ---
+    // Agora o jogo realmente deposita as estrelas na conta
+    if (estado.pontos > 0) {
+        adicionarEstrelas(estado.pontos);
+    }
 
     if (estado.modo === 'desafio') salvarRecorde(estado.pontos);
     

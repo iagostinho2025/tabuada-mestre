@@ -1707,6 +1707,114 @@ input[type=range]::-webkit-slider-thumb {
     font-size: 0.8rem;
     opacity: 0.7;
 }
+/* --- LAYOUT HOME (CLEAN & CARD BRANCO) --- */
+
+/* Ajuste do fundo para destacar o branco */
+body { background-color: #f1f5f9; }
+
+/* 1. Topo */
+.header-topo-limpo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+}
+
+.btn-icon-quadrado {
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: var(--primary);
+    width: 45px; height: 45px;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo-header-texto {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
+    text-align: center;
+}
+
+.saldo-badge-pill {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 2. Card Branco de Saudação */
+.card-boas-vindas-topo {
+    background: white;
+    margin: 0 20px 25px 20px;
+    padding: 15px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Sombra suave para destacar */
+}
+
+.avatar-saudacao {
+    width: 55px; height: 55px;
+    font-size: 2rem;
+    background: #eff6ff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #e2e8f0;
+}
+
+.texto-saudacao-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.texto-saudacao-container strong {
+    font-size: 1.1rem;
+    color: #0f172a;
+}
+
+.texto-saudacao-container span {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* 3. Label e Botões */
+.label-secao-home {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #cbd5e1;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.container-botoes-originais {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Garante que os botões originais tenham o estilo certo */
+.btn-menu {
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1); /* Efeito 3D sutil */
+    transition: transform 0.1s;
+}
+.btn-menu:active { transform: translateY(2px); box-shadow: none; }
 
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 /* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */
