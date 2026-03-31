@@ -1,6 +1,6 @@
 import { estado, quizLousa, tabuadaSelecionadaId } from './state.js';
 import { mostrarTela } from './ui.js';
-import { processarResultadoFinal } from './game.js'; // Importação cruzada necessária
+import { processarResultadoFinal } from './game.js'; // Importacao cruzada necessaria
 
 export function iniciarModoLousa() {
     estado.modo = 'visualizacao';
@@ -33,7 +33,7 @@ function atualizarLousa(numero) {
     tabuadaSelecionadaId.valor = numero;
     document.getElementById('titulo-pagina-estudo').textContent = `Tabuada do ${numero}`;
     const btnPraticar = document.getElementById('btn-acao-praticar-dinamico');
-    btnPraticar.innerHTML = `🎮 Praticar Tabuada do ${numero}`;
+    btnPraticar.innerHTML = `Praticar Tabuada do ${numero}`;
     btnPraticar.onclick = () => {
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
         iniciarDesafioLousa(); 
@@ -113,16 +113,16 @@ function confirmarRespostaLousa(escolha, correta, btn) {
     if (escolha === correta) {
         if(typeof AudioMestre !== 'undefined') AudioMestre.acerto();
         btn.classList.add('animacao-acerto'); 
-        feedbackEl.textContent = "Muito bem! 🎉"; feedbackEl.style.color = "var(--success)";
-        spanRes.innerHTML = ` = ${correta} <span style="color:#4ade80">✔</span>`; spanRes.style.color = '#4ade80';
+        feedbackEl.textContent = "Muito bem!"; feedbackEl.style.color = "var(--success)";
+        spanRes.innerHTML = ` = ${correta} <span style="color:#4ade80">OK</span>`; spanRes.style.color = '#4ade80';
         quizLousa.acertos++;
         setTimeout(proximaPerguntaLousa, 1200);
     } else {
         if(typeof AudioMestre !== 'undefined') AudioMestre.erro();
         btn.classList.add('animacao-erro'); 
-        feedbackEl.textContent = "Ops, tente de novo! ❌"; feedbackEl.style.color = "var(--error)";
+        feedbackEl.textContent = "Ops, tente de novo!"; feedbackEl.style.color = "var(--error)";
         document.querySelectorAll('#opcoes-quiz-lousa button').forEach(b => { if (parseInt(b.textContent) === correta) b.classList.add('certo'); });
-        spanRes.innerHTML = ` = ${correta} <span style="color:#ef4444">✘</span>`; spanRes.style.color = '#ef4444';
+        spanRes.innerHTML = ` = ${correta} <span style="color:#ef4444">X</span>`; spanRes.style.color = '#ef4444';
         quizLousa.erros++;
         setTimeout(proximaPerguntaLousa, 1500); 
     }

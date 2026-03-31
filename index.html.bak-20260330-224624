@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -396,14 +396,8 @@
                         <li><strong>Dados Pessoais:</strong> Este aplicativo <strong>não coleta</strong> dados pessoais como nome, email, telefone ou CPF.</li>
                         <li><strong>Localização:</strong> Não utilizamos serviços de geolocalização (GPS).</li>
                         <li><strong>Armazenamento:</strong> Todo o seu progresso, estrelas, avatares comprados e recordes são salvos localmente no seu próprio dispositivo. Se você desinstalar o app ou limpar os dados, esse progresso será perdido.</li>
-                        <li><strong>Anúncios:</strong> Esta versão não exibe anúncios de terceiros nem utiliza SDK de anúncios.</li>
+                        <li><strong>Anuncios:</strong> Esta versao nao exibe anuncios de terceiros nem utiliza SDK de anuncios.</li>
                     </ul>
-                    <p>
-                        Política completa:
-                        <a href="https://tabuadamestre.mibdigital.com.br/privacy-policy.html" target="_blank" rel="noopener noreferrer">
-                            https://tabuadamestre.mibdigital.com.br/privacy-policy.html
-                        </a>
-                    </p>
                     <p>Ao utilizar o Tabuada Mestre, você concorda com estes termos.</p>
                 </div>
             </div>
@@ -541,5 +535,3 @@
     </script>
 </body>
 </html>
-
-

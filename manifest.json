@@ -10,7 +10,7 @@
   "theme_color": "#2563eb",
   "lang": "pt-BR",
   "dir": "ltr",
-  "categories": ["education", "games", "family"],
+  "categories": ["education", "games"],
   "icons": [
     {
       "src": "assets/icons/icon-192.png",

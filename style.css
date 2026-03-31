@@ -1,6 +1,6 @@
-/* --- 1. VARIÁVEIS E BASE (Design System) --- */
+﻿/* --- 1. VARIÃVEIS E BASE (Design System) --- */
 :root {
-    /* Paleta Lúdica e Premium */
+    /* Paleta LÃºdica e Premium */
     --primary: #2563eb;       /* Azul Royal */
     --primary-dark: #1e40af;
     --secondary: #f97316;     /* Laranja Vibrante */
@@ -32,7 +32,7 @@ body {
 
 #app {
     width: 100%;
-    max-width: 500px; /* Largura máxima ideal para mobile */
+    max-width: 500px; /* Largura mÃ¡xima ideal para mobile */
     padding-bottom: 20px;
     animation: fadeIn 0.4s ease-out;
 }
@@ -55,7 +55,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border: 2px solid #e2e8f0;
 }
 
-/* BOTÕES ESTILO GAME (Menu) */
+/* BOTÃ•ES ESTILO GAME (Menu) */
 .btn-menu {
     border: none;
     width: 100%;
@@ -78,7 +78,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 .btn-menu span { display: block; font-size: 1.3rem; font-weight: 800; font-family: 'Fredoka', sans-serif; }
 .btn-menu small { font-size: 0.9rem; opacity: 0.9; font-weight: 600; }
 
-/* Cores dos Botões */
+/* Cores dos BotÃµes */
 .azul { background: var(--primary); }
 .azul:hover { background: var(--primary-dark); }
 .verde { background: var(--success); }
@@ -89,7 +89,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     text-decoration: underline; cursor: pointer; font-size: 0.9rem;
 }
 
-/* --- 3. TELAS INTERNAS (Estudo e Seleção) --- */
+/* --- 3. TELAS INTERNAS (Estudo e SeleÃ§Ã£o) --- */
 .oculto { display: none !important; }
 
 .cabecalho-interno {
@@ -109,14 +109,14 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Grid de Seleção de Números (1 a 10) */
+/* Grid de SeleÃ§Ã£o de NÃºmeros (1 a 10) */
 .grid-botoes {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 por linha */
     gap: 15px;
 }
 
-/* --- 4. LAYOUT SPLIT VIEW (O Novo Design Híbrido) --- */
+/* --- 4. LAYOUT SPLIT VIEW (O Novo Design HÃ­brido) --- */
 .layout-dividido {
     display: flex;
     gap: 20px;
@@ -129,7 +129,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 .coluna-quiz { 
     flex: 1; 
     display: none; /* Inicia oculta */
-    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elástico */
+    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elÃ¡stico */
 }
 
 /* --- ESTILOS DA LISTA (LADO ESQUERDO) --- */
@@ -151,7 +151,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-/* Quando vira interrogação */
+/* Quando vira interrogaÃ§Ã£o */
 .resposta-oculta {
     color: #cbd5e1; /* Cinza claro */
     font-weight: 400;
@@ -216,7 +216,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     color: var(--text-main);
     background: white;
     
-    /* A Mágica do 3D */
+    /* A MÃ¡gica do 3D */
     border: 2px solid #cbd5e1;
     border-bottom-width: 6px; /* Borda grossa embaixo */
     border-radius: 16px;
@@ -276,7 +276,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 }
 .sinal, .igual { color: var(--text-light); opacity: 0.5; }
 
-/* Botões de Opção (Tela Cheia) - Reusa estilos */
+/* BotÃµes de OpÃ§Ã£o (Tela Cheia) - Reusa estilos */
 .botao-opcao {
     background: white;
     border: 2px solid #e2e8f0;
@@ -304,18 +304,6 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 }
 #pontos-final { font-size: 3rem; font-weight: 800; line-height: 1; font-family: 'Fredoka', sans-serif; }
 #msg-motivacional { font-size: 1.4rem; font-weight: 700; margin-bottom: 30px; color: var(--text-main); }
-
-/* --- 7. PUBLICIDADE --- */
-.ad-banner-container {
-    background: #e2e8f0;
-    color: #94a3b8;
-    height: 60px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 20px 0; border-radius: 12px;
-    font-size: 0.8rem; border: 1px dashed #cbd5e1;
-}
-.retangulo-medio { height: 250px; }
-
 /* --- 8. RESPONSIVIDADE (MOBILE) --- */
 @media (max-width: 700px) {
     .layout-dividido {
@@ -337,7 +325,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     }
     .btn-lateral { padding: 12px; font-size: 1.1rem; }
     
-    /* Ajuste para a lista não ficar escondida */
+    /* Ajuste para a lista nÃ£o ficar escondida */
     .coluna-lista { width: 100%; margin-top: 10px; }
 }
 
@@ -349,7 +337,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 .resultado-header h2 { font-size: 1.8rem; color: var(--text-main); margin-bottom: 5px; }
 .subtitulo-resumo { color: var(--text-light); font-weight: 600; margin: 0; }
 
-/* Gráfico Circular (SVG) */
+/* GrÃ¡fico Circular (SVG) */
 .placar-circular {
     width: 140px; margin: 25px auto;
 }
@@ -358,12 +346,12 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 .circle { fill: none; stroke-width: 2.5; stroke-linecap: round; transition: stroke-dasharray 1s ease-out; }
 .percentage { fill: var(--text-main); font-family: 'Fredoka', sans-serif; font-weight: bold; font-size: 0.5em; text-anchor: middle; }
 
-/* Cores do Gráfico */
+/* Cores do GrÃ¡fico */
 .stroke-verde { stroke: var(--success); }
 .stroke-amarelo { stroke: #eab308; }
 .stroke-vermelho { stroke: var(--error); }
 
-/* Grid de Estatísticas */
+/* Grid de EstatÃ­sticas */
 .stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -392,7 +380,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     font-size: 1.3rem; margin-bottom: 25px; font-weight: 700; color: var(--text-main);
 }
 
-/* --- ESTILO PARA O BOTÃO NEUTRO (Menu Inicial) --- */
+/* --- ESTILO PARA O BOTÃƒO NEUTRO (Menu Inicial) --- */
 .btn-menu.neutro {
     background: white;
     color: var(--text-main); /* Cor escura */
@@ -409,7 +397,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     box-shadow: 0 2px 0 #cbd5e1;
     transform: translateY(2px);
 }
-/* --- TELA DE SELEÇÃO PREMIUM (Botões de Nível) --- */
+/* --- TELA DE SELEÃ‡ÃƒO PREMIUM (BotÃµes de NÃ­vel) --- */
 
 /* Ajuste do Grid */
 #lista-numeros-tabuada {
@@ -419,10 +407,10 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     padding: 10px;
 }
 
-/* O Botão de Nível */
+/* O BotÃ£o de NÃ­vel */
 .btn-nivel {
     background: white;
-    border: 2px solid white; /* Borda invisível para alinhar */
+    border: 2px solid white; /* Borda invisÃ­vel para alinhar */
     border-radius: 24px;
     height: 120px; /* Mais alto */
     display: flex;
@@ -433,9 +421,9 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efeito elástico */
-    opacity: 0; /* Começa invisível para a animação */
-    animation: popIn 0.5s forwards; /* Animação de entrada */
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efeito elÃ¡stico */
+    opacity: 0; /* ComeÃ§a invisÃ­vel para a animaÃ§Ã£o */
+    animation: popIn 0.5s forwards; /* AnimaÃ§Ã£o de entrada */
 }
 
 /* Efeito Hover (Mouse ou Toque) */
@@ -445,7 +433,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border-color: #e0e7ff;
 }
 
-/* O Número Grande e Colorido */
+/* O NÃºmero Grande e Colorido */
 .num-grande {
     font-size: 3.5rem;
     font-family: 'Fredoka', sans-serif;
@@ -466,7 +454,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     letter-spacing: 1.5px;
 }
 
-/* Decoração de Fundo (Bolinhas sutis) */
+/* DecoraÃ§Ã£o de Fundo (Bolinhas sutis) */
 .btn-nivel::before {
     content: '';
     position: absolute;
@@ -477,7 +465,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border-radius: 50%;
 }
 
-/* Animação de Entrada */
+/* AnimaÃ§Ã£o de Entrada */
 @keyframes popIn {
     from { opacity: 0; transform: scale(0.5) translateY(20px); }
     to { opacity: 1; transform: scale(1) translateY(0); }
@@ -487,7 +475,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 
 
 
-/* --- 9. ANIMAÇÕES PREMIUM (Adicione ao final do style.css) --- */
+/* --- 9. ANIMAÃ‡Ã•ES PREMIUM (Adicione ao final do style.css) --- */
 
 /* Efeito de Treme-Treme (Erro) */
 @keyframes shake {
@@ -537,13 +525,13 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     background: var(--surface);
     border: 2px solid #e2e8f0;
     border-radius: 50px;
-    padding: 8px 20px; /* Aumentei um pouquinho a área de toque */
+    padding: 8px 20px; /* Aumentei um pouquinho a Ã¡rea de toque */
     font-weight: 700;
     color: var(--text-main);
     cursor: pointer;
     box-shadow: 0 4px 0 rgba(0,0,0,0.05); /* Sombra 3D leve */
     
-    /* --- CORREÇÃO DE CAMADA --- */
+    /* --- CORREÃ‡ÃƒO DE CAMADA --- */
     position: relative; 
     z-index: 9999; /* Garante que fique acima de tudo */
 }
@@ -558,19 +546,19 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 /* O container que segura tudo */
 #container-grade-completa {
     display: grid;
-    /* Cria 2 colunas automáticas no celular */
+    /* Cria 2 colunas automÃ¡ticas no celular */
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 15px;
     padding: 10px;
-    padding-bottom: 80px; /* Espaço extra no final pra não cortar */
+    padding-bottom: 80px; /* EspaÃ§o extra no final pra nÃ£o cortar */
 }
 
-/* O cartão individual de cada tabuada */
+/* O cartÃ£o individual de cada tabuada */
 .card-tabuada-resumo {
     background: white;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    overflow: hidden; /* Pra borda redonda funcionar no cabeçalho */
+    overflow: hidden; /* Pra borda redonda funcionar no cabeÃ§alho */
     border: 2px solid transparent;
     transition: all 0.2s;
 }
@@ -580,7 +568,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     transform: translateY(-3px);
 }
 
-/* Cabeçalho do cartão (Ex: "Tabuada do 5") */
+/* CabeÃ§alho do cartÃ£o (Ex: "Tabuada do 5") */
 .card-header-tab {
     background: var(--primary-light);
     color: var(--primary-dark);
@@ -593,7 +581,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 /* O corpo onde ficam as continhas */
 .card-body-tab {
     padding: 10px;
-    font-family: 'Roboto Mono', monospace; /* Fonte monoespaçada fica melhor pra alinhar números */
+    font-family: 'Roboto Mono', monospace; /* Fonte monoespaÃ§ada fica melhor pra alinhar nÃºmeros */
     font-size: 0.9rem;
     color: var(--text-secondary);
     line-height: 1.6;
@@ -610,7 +598,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     color: var(--primary);
 }
 
-/* O mini botão de praticar no final do cartão */
+/* O mini botÃ£o de praticar no final do cartÃ£o */
 .btn-mini-praticar {
     width: 100%;
     border: none;
@@ -657,13 +645,13 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     /* Define 2 colunas com larguras iguais */
     grid-template-columns: 1fr 1fr;
     
-    /* TRUQUE NOVO: Força ter exatamente 5 linhas */
+    /* TRUQUE NOVO: ForÃ§a ter exatamente 5 linhas */
     grid-template-rows: repeat(5, auto);
     
-    /* TRUQUE NOVO: Preenche em COLUNA (de cima pra baixo) e não linha */
+    /* TRUQUE NOVO: Preenche em COLUNA (de cima pra baixo) e nÃ£o linha */
     grid-auto-flow: column;
     
-    /* Espaçamentos */
+    /* EspaÃ§amentos */
     column-gap: 30px; /* Aumentei um pouco pra separar bem as contas */
     row-gap: 10px;
 }
@@ -674,7 +662,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     font-weight: 600;
     color: #e2e8f0;
     display: flex;
-    justify-content: space-between; /* Alinha números nas pontas */
+    justify-content: space-between; /* Alinha nÃºmeros nas pontas */
     padding: 4px 0;
     border-bottom: 1px dashed rgba(255,255,255,0.1);
 }
@@ -719,17 +707,17 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     transform: scale(1.1);
 }
 
-/* Botão Praticar Fixo Embaixo */
+/* BotÃ£o Praticar Fixo Embaixo */
 .area-acao-fixa {
     position: sticky;
     bottom: 20px;
 }
-/* 1. CABEÇALHO ALINHADO (Botão e Título na mesma linha) */
+/* 1. CABEÃ‡ALHO ALINHADO (BotÃ£o e TÃ­tulo na mesma linha) */
 .header-tela {
     display: flex;               /* Ativa o modo linha */
     align-items: center;         /* Centraliza verticalmente */
-    justify-content: flex-start; /* Alinha tudo à esquerda */
-    gap: 15px;                   /* Espaço entre o botão e o título */
+    justify-content: flex-start; /* Alinha tudo Ã  esquerda */
+    gap: 15px;                   /* EspaÃ§o entre o botÃ£o e o tÃ­tulo */
     margin-bottom: 15px;
     padding: 0 5px;
 }
@@ -738,7 +726,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     font-size: 1.5rem;
     color: var(--text-main);
     margin: 0;
-    /* Truque para o título não quebrar linha em tela pequena */
+    /* Truque para o tÃ­tulo nÃ£o quebrar linha em tela pequena */
     white-space: nowrap; 
 }
 
@@ -750,7 +738,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     font-weight: 600;
     color: #e2e8f0;
     
-    /* MUDANÇA AQUI: Centralizar e Juntar */
+    /* MUDANÃ‡A AQUI: Centralizar e Juntar */
     display: flex;
     justify-content: center; /* Junta tudo no centro */
     align-items: center;
@@ -760,8 +748,8 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     border-bottom: 1px dashed rgba(255,255,255,0.1);
 }
 
-/* Tiramos a cor diferente só do resultado para ficar uniforme,
-   ou mantemos se você gostar. Vou manter sutil. */
+/* Tiramos a cor diferente sÃ³ do resultado para ficar uniforme,
+   ou mantemos se vocÃª gostar. Vou manter sutil. */
 .destaque-resultado { 
     color: #4ade80; /* Verde neon suave */
     font-weight: 700;
@@ -798,7 +786,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 
 /* Feedback de Texto (Muito Bem!) */
 .feedback-texto {
-    min-height: 30px; /* Garante espaço fixo pra não pular a tela */
+    min-height: 30px; /* Garante espaÃ§o fixo pra nÃ£o pular a tela */
     margin-top: 20px; 
     font-weight: 800;
     font-size: 1.2rem;
@@ -808,28 +796,28 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 
 /* DESTAQUE NA LOUSA (Linha Ativa) */
 .item-lousa.ativa-no-quiz {
-    background: rgba(37, 99, 235, 0.3); /* Azul mais visível */
+    background: rgba(37, 99, 235, 0.3); /* Azul mais visÃ­vel */
     border: 2px solid #60a5fa;
     border-radius: 8px;
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
     z-index: 10;
-    padding: 5px 10px; /* Ajuste para o texto não colar na borda */
+    padding: 5px 10px; /* Ajuste para o texto nÃ£o colar na borda */
 }
 /* --- AJUSTE DE LAYOUT (Preencher a tela toda) --- */
 #tela-estudo {
     display: flex;
     flex-direction: column;
-    min-height: 85vh; /* Força a tela a ter altura mínima */
+    min-height: 85vh; /* ForÃ§a a tela a ter altura mÃ­nima */
     justify-content: space-between; /* Distribui os itens (Topo, Meio, Fim) */
 }
 
-/* --- O SUPER BOTÃO VERDE --- */
+/* --- O SUPER BOTÃƒO VERDE --- */
 #btn-acao-praticar-dinamico {
-    flex-direction: row; /* Ícone ao lado do texto, não em cima */
+    flex-direction: row; /* Ãcone ao lado do texto, nÃ£o em cima */
     align-items: center;
     justify-content: center;
-    gap: 15px; /* Espaço entre o ícone e o texto */
+    gap: 15px; /* EspaÃ§o entre o Ã­cone e o texto */
     
     font-size: 1.4rem !important; /* Texto bem maior */
     padding: 25px 20px; /* Mais "gordinho" */
@@ -844,7 +832,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     box-shadow: none;
 }
 
-/* --- TELA DE CONFIGURAÇÃO DE TREINO --- */
+/* --- TELA DE CONFIGURAÃ‡ÃƒO DE TREINO --- */
 
 .titulo-secao-config {
     color: var(--text-light);
@@ -855,7 +843,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     padding-left: 5px;
 }
 
-/* 1. CARDS DE MODO (Botões vs Teclado) */
+/* 1. CARDS DE MODO (BotÃµes vs Teclado) */
 .grid-config-modo {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -894,7 +882,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 .card-opcao-treino.selecionado .check-icon { display: flex; }
 
 
-/* 2. BOTÕES DE QUANTIDADE */
+/* 2. BOTÃ•ES DE QUANTIDADE */
 .grid-config-qtd {
     display: flex;
     justify-content: space-between;
@@ -921,14 +909,14 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     transform: scale(1.1);
     box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
 }
-/* --- PADRONIZAÇÃO DE TELAS (Estudo + Config) --- */
+/* --- PADRONIZAÃ‡ÃƒO DE TELAS (Estudo + Config) --- */
 #tela-estudo, #tela-config-treino {
     display: flex;
     flex-direction: column;
-    min-height: 85vh; /* Garante altura para empurrar o rodapé */
+    min-height: 85vh; /* Garante altura para empurrar o rodapÃ© */
     justify-content: space-between;
 }
-/* Aplica o mesmo estilo do botão de Praticar ao botão de Iniciar Jogo */
+/* Aplica o mesmo estilo do botÃ£o de Praticar ao botÃ£o de Iniciar Jogo */
 #btn-acao-praticar-dinamico, 
 #btn-iniciar-treino-custom {
     flex-direction: row; 
@@ -937,12 +925,12 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     gap: 15px;
     
     font-size: 1.4rem !important; /* Texto grande */
-    padding: 25px 20px;           /* Botão alto */
+    padding: 25px 20px;           /* BotÃ£o alto */
     width: 100%;
     
     box-shadow: 0 8px 0 #15803d;  /* Sombra 3D grossa */
     transform: translateY(-2px);
-    margin-bottom: 15px; /* Espaço para a publicidade embaixo */
+    margin-bottom: 8px;
 }
 
 #btn-acao-praticar-dinamico:active, 
@@ -950,20 +938,20 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     transform: translateY(4px);
     box-shadow: none;
 }
-/* --- TECLADO NUMÉRICO PERSONALIZADO --- */
+/* --- TECLADO NUMÃ‰RICO PERSONALIZADO --- */
 
 .teclado-custom-wrapper {
     width: 100%;
-    max-width: 320px; /* Largura ideal para não ficar gigante em tablet */
+    max-width: 320px; /* Largura ideal para nÃ£o ficar gigante em tablet */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* O Visor (Tela onde o número aparece) */
+/* O Visor (Tela onde o nÃºmero aparece) */
 .visor-resposta {
-    font-size: 3.5rem; /* Número bem grande */
+    font-size: 3.5rem; /* NÃºmero bem grande */
     font-family: 'Fredoka', sans-serif;
     font-weight: 700;
     color: var(--text-main);
@@ -990,7 +978,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     gap: 12px;
 }
 
-/* Botões Numéricos */
+/* BotÃµes NumÃ©ricos */
 .btn-num {
     background: white;
     border: 2px solid #e2e8f0;
@@ -1014,21 +1002,21 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     background: #f1f5f9;
 }
 
-/* Botão Apagar (Diferente dos números) */
+/* BotÃ£o Apagar (Diferente dos nÃºmeros) */
 .btn-num.acao-apagar {
     background: #fef2f2;
     color: var(--error);
     border-color: #fecaca;
     font-size: 1.5rem;
 }
-/* Garante que o texto dos botões menus esteja sempre no meio */
+/* Garante que o texto dos botÃµes menus esteja sempre no meio */
 .btn-menu {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-/* --- AJUSTE: Botão Voltar dentro do Cabeçalho do Jogo --- */
+/* --- AJUSTE: BotÃ£o Voltar dentro do CabeÃ§alho do Jogo --- */
 #header-jogo .btn-voltar {
     margin: 0;           /* Remove margens externas */
     padding: 6px 15px;   /* Um pouco mais compacto que o normal */
@@ -1056,7 +1044,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     padding: 20px 0;
     border-radius: 20px;
     border: none;
-    font-size: 2.5rem; /* Ícone Grande */
+    font-size: 2.5rem; /* Ãcone Grande */
     font-family: 'Fredoka', sans-serif;
     font-weight: 700;
     cursor: pointer;
@@ -1079,9 +1067,9 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 .btn-vf.falso:active { transform: translateY(6px); box-shadow: none; }
 
 
-/* 2. MODO INVERSO (Qual é a Conta?) */
+/* 2. MODO INVERSO (Qual Ã© a Conta?) */
 .visor-inverso-numero {
-    font-size: 5rem; /* Número GIGANTE */
+    font-size: 5rem; /* NÃºmero GIGANTE */
     color: var(--primary);
     font-weight: 800;
     text-align: center;
@@ -1097,7 +1085,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
     margin-bottom: 20px;
 }
 
-/* Animaçãozinha de entrada */
+/* AnimaÃ§Ã£ozinha de entrada */
 @keyframes popIn {
     0% { transform: scale(0.5); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
@@ -1129,7 +1117,7 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 
 /* Estilo da Barra (Range Input) */
 input[type=range] {
-    -webkit-appearance: none; /* Remove estilo padrão */
+    -webkit-appearance: none; /* Remove estilo padrÃ£o */
     width: 100%;
     background: transparent;
     margin: 10px 0;
@@ -1161,12 +1149,12 @@ input[type=range]::-webkit-slider-thumb {
 /* --- AJUSTE: MENSAGEM DENTRO DO CARD --- */
 
 .area-pergunta {
-    /* Força o conteúdo a ficar um embaixo do outro */
+    /* ForÃ§a o conteÃºdo a ficar um embaixo do outro */
     display: flex;
     flex-direction: column; 
     align-items: center;
     justify-content: center;
-    gap: 5px; /* Espaço entre a conta e a mensagem */
+    gap: 5px; /* EspaÃ§o entre a conta e a mensagem */
     
     /* Garante o visual do Card Branco */
     background: white;
@@ -1223,19 +1211,19 @@ input[type=range]::-webkit-slider-thumb {
     transition: width 0.3s ease;
 }
 
-/* --- MELHORIA: BOTÕES VERDADEIRO / FALSO GIGANTES --- */
+/* --- MELHORIA: BOTÃ•ES VERDADEIRO / FALSO GIGANTES --- */
 .grid-vf {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     margin-top: 20px;
     width: 100%;
-    /* Preenche o espaço que sobrava */
+    /* Preenche o espaÃ§o que sobrava */
     height: 180px; 
 }
 
 .btn-vf {
-    height: 100%; /* Força altura total */
+    height: 100%; /* ForÃ§a altura total */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1269,7 +1257,7 @@ input[type=range]::-webkit-slider-thumb {
 .badge-modo.verdadeiro-falso { background: #ffedd5; color: #ea580c; }
 .badge-modo.inverso { background: #fce7f3; color: #db2777; }
 
-/* --- ETIQUETAS DE MODO DE JOGO (Estilo Pílula) --- */
+/* --- ETIQUETAS DE MODO DE JOGO (Estilo PÃ­lula) --- */
 .badge-pilula {
     display: inline-block;
     padding: 6px 16px;
@@ -1278,19 +1266,19 @@ input[type=range]::-webkit-slider-thumb {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 15px; /* Espaço até a conta */
+    margin-bottom: 15px; /* EspaÃ§o atÃ© a conta */
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Cores específicas para cada modo */
+/* Cores especÃ­ficas para cada modo */
 .badge-azul    { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
 .badge-roxo    { background: #f3e8ff; color: #9333ea; border: 1px solid #e9d5ff; }
 .badge-laranja { background: #ffedd5; color: #ea580c; border: 1px solid #fed7aa; }
 .badge-rosa    { background: #fce7f3; color: #db2777; border: 1px solid #fbcfe8; }
 
-/* --- NOVOS ESTILOS: HISTÓRICO E DETALHES (Adicionar ao final do style.css) --- */
+/* --- NOVOS ESTILOS: HISTÃ“RICO E DETALHES (Adicionar ao final do style.css) --- */
 
-/* Grade de Botões dos Modos (4 botões quadrados) */
+/* Grade de BotÃµes dos Modos (4 botÃµes quadrados) */
 .grid-botoes-historico {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1298,7 +1286,7 @@ input[type=range]::-webkit-slider-thumb {
     margin-bottom: 20px;
 }
 
-/* Estilo Base dos Botões de Modo */
+/* Estilo Base dos BotÃµes de Modo */
 .btn-hist-modo {
     border: none;
     border-radius: 12px;
@@ -1312,7 +1300,7 @@ input[type=range]::-webkit-slider-thumb {
     transition: transform 0.1s;
     text-align: center;
     display: flex;
-    flex-direction: column; /* Ícone em cima do texto */
+    flex-direction: column; /* Ãcone em cima do texto */
     align-items: center;
     justify-content: center;
     gap: 5px;
@@ -1322,13 +1310,13 @@ input[type=range]::-webkit-slider-thumb {
     box-shadow: none;
 }
 
-/* Cores Específicas dos Botões */
+/* Cores EspecÃ­ficas dos BotÃµes */
 .btn-hist-modo.roxo { background: var(--accent, #8b5cf6); }
 .btn-hist-modo.laranja { background: var(--error, #ef4444); } /* Vermelho/Laranja */
 .btn-hist-modo.verde { background: var(--success, #22c55e); }
 .btn-hist-modo.azul { background: var(--primary, #2563eb); }
 
-/* Painel de Detalhes (Oculto por padrão, aparece ao clicar) */
+/* Painel de Detalhes (Oculto por padrÃ£o, aparece ao clicar) */
 .painel-detalhes {
     background: #f8fafc;
     border: 2px solid #e2e8f0;
@@ -1336,7 +1324,7 @@ input[type=range]::-webkit-slider-thumb {
     padding: 15px;
     animation: fadeIn 0.3s ease;
     margin-top: 20px;
-    scroll-margin-top: 20px; /* Ajuda no scroll automático */
+    scroll-margin-top: 20px; /* Ajuda no scroll automÃ¡tico */
 }
 
 .header-detalhes {
@@ -1414,11 +1402,11 @@ input[type=range]::-webkit-slider-thumb {
     font-weight: 800;
     color: var(--primary, #2563eb);
 }
-/* --- Ajustes Botões Dificuldade --- */
+/* --- Ajustes BotÃµes Dificuldade --- */
 .grid-config-qtd {
     display: flex;
-    justify-content: center; /* Centraliza os botões */
-    gap: 20px; /* Espaço menor entre os botões */
+    justify-content: center; /* Centraliza os botÃµes */
+    gap: 20px; /* EspaÃ§o menor entre os botÃµes */
     margin-bottom: 20px;
 }
 
@@ -1439,7 +1427,7 @@ input[type=range]::-webkit-slider-thumb {
     justify-content: center;
 }
 
-/* --- Caixa de Explicação da Dificuldade --- */
+/* --- Caixa de ExplicaÃ§Ã£o da Dificuldade --- */
 #texto-explicacao-dificuldade {
     background-color: #f0f9ff;
     border: 1px solid #bae6fd;
@@ -1459,9 +1447,9 @@ input[type=range]::-webkit-slider-thumb {
     font-size: 1.1rem;
     color: #0284c7;
 }
-/* --- Rótulos do Gráfico (Porcentagem) --- */
+/* --- RÃ³tulos do GrÃ¡fico (Porcentagem) --- */
 .barra-wrapper {
-    position: relative; /* Necessário para posicionar o texto */
+    position: relative; /* NecessÃ¡rio para posicionar o texto */
     overflow: visible; /* Deixa o texto sair pra fora se precisar */
     justify-content: flex-end;
 }
@@ -1479,15 +1467,15 @@ input[type=range]::-webkit-slider-thumb {
     text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 
-/* Ajuste para quando a barra é muito pequena */
+/* Ajuste para quando a barra Ã© muito pequena */
 .barra-wrapper:hover .rotulo-barra {
     color: var(--primary);
     transform: translateX(-50%) scale(1.2);
 }
-/* --- Rótulos de Porcentagem no Gráfico --- */
+/* --- RÃ³tulos de Porcentagem no GrÃ¡fico --- */
 .barra-wrapper {
-    position: relative; /* Necessário para posicionar o texto flutuante */
-    overflow: visible;  /* Permite que o texto saia da caixa se necessário */
+    position: relative; /* NecessÃ¡rio para posicionar o texto flutuante */
+    overflow: visible;  /* Permite que o texto saia da caixa se necessÃ¡rio */
     justify-content: flex-end;
 }
 
@@ -1504,7 +1492,7 @@ input[type=range]::-webkit-slider-thumb {
     white-space: nowrap;
 }
 
-/* Quando passar o mouse, dá um destaque */
+/* Quando passar o mouse, dÃ¡ um destaque */
 .barra-wrapper:hover .rotulo-barra {
     color: var(--primary);
     transform: translateX(-50%) scale(1.1);
@@ -1545,7 +1533,7 @@ input[type=range]::-webkit-slider-thumb {
     font-size: 1.1rem;
 }
 
-/* Botão Amarelo (Loja) */
+/* BotÃ£o Amarelo (Loja) */
 .amarelo { background: #eab308; }
 .amarelo:hover { background: #ca8a04; }
 
@@ -1600,7 +1588,7 @@ input[type=range]::-webkit-slider-thumb {
 .btn-caro { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
 /* --- MENU LATERAL (DRAWER) --- */
 
-/* Botão Hambúrguer no Header */
+/* BotÃ£o HambÃºrguer no Header */
 .btn-hamburguer {
     background: white;
     border: none;
@@ -1631,7 +1619,7 @@ input[type=range]::-webkit-slider-thumb {
     background: var(--bg-app);
     z-index: 2000;
     box-shadow: 4px 0 15px rgba(0,0,0,0.1);
-    transform: translateX(-100%); /* Começa escondido na esquerda */
+    transform: translateX(-100%); /* ComeÃ§a escondido na esquerda */
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
@@ -1641,7 +1629,7 @@ input[type=range]::-webkit-slider-thumb {
     transform: translateX(0); /* Desliza para dentro */
 }
 
-/* Conteúdo do Menu */
+/* ConteÃºdo do Menu */
 .menu-header {
     background: var(--primary);
     color: white;
@@ -1743,7 +1731,7 @@ body { background-color: #f1f5f9; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* 2. Card Branco de Saudação */
+/* 2. Card Branco de SaudaÃ§Ã£o */
 .card-boas-vindas-topo {
     background: white;
     margin: 0 20px 25px 20px;
@@ -1780,7 +1768,7 @@ body { background-color: #f1f5f9; }
     font-weight: 600;
 }
 
-/* 3. Label e Botões */
+/* 3. Label e BotÃµes */
 .label-secao-home {
     text-align: center;
     font-size: 0.75rem;
@@ -1798,7 +1786,7 @@ body { background-color: #f1f5f9; }
     gap: 15px;
 }
 
-/* Garante que os botões originais tenham o estilo certo */
+/* Garante que os botÃµes originais tenham o estilo certo */
 .btn-menu {
     border-radius: 16px;
     padding: 18px 20px;
@@ -1806,7 +1794,7 @@ body { background-color: #f1f5f9; }
     transition: transform 0.1s;
 }
 .btn-menu:active { transform: translateY(2px); box-shadow: none; }
-/* --- LAYOUT HOME (AJUSTE FINAL: ALINHAMENTO E CENTRALIZAÇÃO) --- */
+/* --- LAYOUT HOME (AJUSTE FINAL: ALINHAMENTO E CENTRALIZAÃ‡ÃƒO) --- */
 
 /* Fundo */
 body { background-color: #f1f5f9; }
@@ -1816,7 +1804,7 @@ body { background-color: #f1f5f9; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px; /* Margem padrão 20px */
+    padding: 15px 20px; /* Margem padrÃ£o 20px */
     margin-bottom: 5px;
 }
 
@@ -1839,7 +1827,7 @@ body { background-color: #f1f5f9; }
     color: var(--primary);
     text-align: center;
     letter-spacing: -0.5px;
-    flex-grow: 1; /* Ocupa o espaço central */
+    flex-grow: 1; /* Ocupa o espaÃ§o central */
 }
 
 .saldo-badge-pill {
@@ -1854,19 +1842,19 @@ body { background-color: #f1f5f9; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* 2. Card Branco de Saudação */
+/* 2. Card Branco de SaudaÃ§Ã£o */
 .card-boas-vindas-topo {
     background: white;
     margin: 10px 20px 25px 20px; /* Margem lateral 20px (igual publicidade) */
     padding: 20px;
     border-radius: 24px;
     
-    /* Mágica da Centralização mantendo lado-a-lado */
+    /* MÃ¡gica da CentralizaÃ§Ã£o mantendo lado-a-lado */
     display: flex;
     flex-direction: row;       /* Avatar ao lado do texto */
     justify-content: center;   /* Centraliza o conjunto no meio do card */
     align-items: center;       /* Alinha verticalmente */
-    gap: 15px;                 /* Espaço entre avatar e texto */
+    gap: 15px;                 /* EspaÃ§o entre avatar e texto */
     
     box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
@@ -1884,7 +1872,7 @@ body { background-color: #f1f5f9; }
 .texto-saudacao-container {
     display: flex;
     flex-direction: column;
-    text-align: left; /* Texto alinhado à esquerda do bloco dele */
+    text-align: left; /* Texto alinhado Ã  esquerda do bloco dele */
 }
 
 .texto-saudacao-container strong {
@@ -1899,7 +1887,7 @@ body { background-color: #f1f5f9; }
     font-weight: 500;
 }
 
-/* 3. Label e Botões */
+/* 3. Label e BotÃµes */
 .label-secao-home {
     text-align: center;
     font-size: 0.8rem;
@@ -1917,9 +1905,9 @@ body { background-color: #f1f5f9; }
     gap: 15px;
 }
 
-/* Botões Largos */
+/* BotÃµes Largos */
 .btn-menu {
-    width: 100%; /* Ocupa todo o espaço disponível no container */
+    width: 100%; /* Ocupa todo o espaÃ§o disponÃ­vel no container */
     border-radius: 18px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -1928,21 +1916,9 @@ body { background-color: #f1f5f9; }
     position: relative;
     overflow: hidden;
 }
+/* --- BOTÃ•ES COM EFEITO 3D SÃ“LIDO (CAMADA CINZA) --- */
 
-/* Banner Publicidade - Forçar alinhamento */
-.ad-banner-container {
-    margin-left: 20px !important;
-    margin-right: 20px !important;
-    width: auto !important;
-    border-radius: 18px;
-    
-    /* AQUI ESTÁ A CORREÇÃO: */
-    margin-top: 30px !important;    /* Empurra para baixo (descola dos botões) */
-    margin-bottom: 30px !important; /* Garante espaço no final da tela */
-}
-/* --- BOTÕES COM EFEITO 3D SÓLIDO (CAMADA CINZA) --- */
-
-/* Base do botão */
+/* Base do botÃ£o */
 .btn-menu {
     width: 100%;
     border-radius: 18px;
@@ -1953,15 +1929,15 @@ body { background-color: #f1f5f9; }
     overflow: hidden;
     color: white;
     
-    /* O EFEITO 3D CINZA ESTÁ AQUI: */
+    /* O EFEITO 3D CINZA ESTÃ AQUI: */
     box-shadow: 0 6px 0 #cbd5e1; 
     
-    /* Importante: Transição suave ao clicar */
+    /* Importante: TransiÃ§Ã£o suave ao clicar */
     transition: transform 0.1s, box-shadow 0.1s;
-    margin-bottom: 5px; /* Espaço para a sombra não encavalar */
+    margin-bottom: 5px; /* EspaÃ§o para a sombra nÃ£o encavalar */
 }
 
-/* Efeito de clique (O botão "afunda") */
+/* Efeito de clique (O botÃ£o "afunda") */
 .btn-menu:active {
     transform: translateY(4px); /* Desce 4 pixels */
     box-shadow: 0 2px 0 #cbd5e1; /* A sombra diminui */
@@ -2028,7 +2004,7 @@ body { background-color: #f1f5f9; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* 2. Card Branco de Saudação */
+/* 2. Card Branco de SaudaÃ§Ã£o */
 .card-boas-vindas-topo {
     background: white;
     /* REDUZIDO margem lateral de 20px para 12px */
@@ -2073,7 +2049,7 @@ body { background-color: #f1f5f9; }
     font-weight: 500;
 }
 
-/* 3. Label e Botões */
+/* 3. Label e BotÃµes */
 .label-secao-home {
     text-align: center;
     font-size: 0.8rem;
@@ -2092,7 +2068,7 @@ body { background-color: #f1f5f9; }
     gap: 15px;
 }
 
-/* Botões Largos */
+/* BotÃµes Largos */
 .btn-menu {
     width: 100%;
     border-radius: 18px;
@@ -2103,7 +2079,7 @@ body { background-color: #f1f5f9; }
     overflow: hidden;
     color: white;
     
-    /* Efeito 3D Sólido Cinza */
+    /* Efeito 3D SÃ³lido Cinza */
     box-shadow: 0 6px 0 #cbd5e1; 
     transition: transform 0.1s, box-shadow 0.1s;
     margin-bottom: 5px;
@@ -2114,38 +2090,24 @@ body { background-color: #f1f5f9; }
     box-shadow: 0 2px 0 #cbd5e1;
 }
 
-/* Cores dos Botões */
+/* Cores dos BotÃµes */
 .btn-menu.azul { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
 .btn-menu.verde { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
 .btn-menu.roxo { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); }
-
-/* Banner Publicidade - Alinhado com o resto */
-.ad-banner-container {
-    /* REDUZIDO margem lateral de 20px para 12px */
-    margin-left: 12px !important;
-    margin-right: 12px !important;
-    width: auto !important;
-    border-radius: 18px;
-    
-    margin-top: 30px !important;
-    margin-bottom: 30px !important;
-}
-
-
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-/* --- CORREÇÃO PARA CELULARES (Evita cortar botões) --- */
+/* --- CORREÃ‡ÃƒO PARA CELULARES (Evita cortar botÃµes) --- */
 
 @media (max-height: 800px) {
-    /* 1. Diminui o número gigante do modo Inverso */
+    /* 1. Diminui o nÃºmero gigante do modo Inverso */
     .visor-inverso-numero {
         font-size: 3.5rem; /* Era 5rem */
         line-height: 1;
         margin-bottom: 5px;
     }
 
-    /* 2. Compacta o Teclado Numérico */
+    /* 2. Compacta o Teclado NumÃ©rico */
     .teclado-custom-wrapper {
-        gap: 8px; /* Menos espaço entre visor e teclas */
+        gap: 8px; /* Menos espaÃ§o entre visor e teclas */
     }
     
     .visor-resposta {
@@ -2159,11 +2121,11 @@ body { background-color: #f1f5f9; }
         border-bottom-width: 3px;
     }
 
-    /* 3. Ajustes Gerais de Espaço no Card */
+    /* 3. Ajustes Gerais de EspaÃ§o no Card */
     .area-pergunta {
         padding: 10px;
         margin-bottom: 10px;
-        min-height: auto; /* Remove altura forçada */
+        min-height: auto; /* Remove altura forÃ§ada */
     }
 
     .badge-pilula {
@@ -2172,17 +2134,17 @@ body { background-color: #f1f5f9; }
         font-size: 0.7rem;
     }
 
-    /* 4. Garante que se sobrar algo, dá pra rolar a tela */
+    /* 4. Garante que se sobrar algo, dÃ¡ pra rolar a tela */
     #container-jogo {
         overflow-y: auto;
-        padding-bottom: 80px; /* Espaço extra pro scroll */
+        padding-bottom: 80px; /* EspaÃ§o extra pro scroll */
         max-height: 85vh;
         display: block; /* Garante scroll */
     }
 }
 /* --- AJUSTES DO TECLADO INTEGRADO --- */
 
-/* Botão Confirmar (Dentro do Grid) */
+/* BotÃ£o Confirmar (Dentro do Grid) */
 .btn-num.acao-ok {
     background: var(--success);
     color: white;
@@ -2195,14 +2157,14 @@ body { background-color: #f1f5f9; }
     transform: translateY(3px);
 }
 
-/* Botão Apagar (Ajuste visual) */
+/* BotÃ£o Apagar (Ajuste visual) */
 .btn-num.acao-apagar {
     background: #fee2e2;
     color: var(--error);
     border-color: #fca5a5;
 }
 
-/* Garante que ícones fiquem centralizados */
+/* Garante que Ã­cones fiquem centralizados */
 .btn-num {
     display: flex;
     align-items: center;
@@ -2218,10 +2180,10 @@ body { background-color: #f1f5f9; }
         margin-bottom: 5px !important;
         border-radius: 16px !important;
         min-height: auto !important;
-        gap: 0 !important; /* Remove espaços extras entre elementos internos */
+        gap: 0 !important; /* Remove espaÃ§os extras entre elementos internos */
     }
 
-    /* 2. MODO INVERSO (O Grande Vilão) - Redução Drástica */
+    /* 2. MODO INVERSO (O Grande VilÃ£o) - ReduÃ§Ã£o DrÃ¡stica */
     .visor-inverso-numero {
         font-size: 4rem !important; /* Reduzi de 5rem para 3rem */
         line-height: 2;
@@ -2231,20 +2193,20 @@ body { background-color: #f1f5f9; }
     
     .subtitulo-inverso {
         font-size: 2rem !important; /* Fonte menor */
-        margin-bottom: 5px !important; /* Cola no número */
+        margin-bottom: 5px !important; /* Cola no nÃºmero */
         line-height: 1.2;
     }
 
-    /* 3. BOTÕES DE OPÇÃO (Para garantir que caibam 4) */
+    /* 3. BOTÃ•ES DE OPÃ‡ÃƒO (Para garantir que caibam 4) */
     .botao-opcao {
-        padding: 20px !important; /* Botões mais finos */
+        padding: 20px !important; /* BotÃµes mais finos */
         font-size: 1.9rem !important;
         margin-bottom: 0 !important; /* Remove margem extra se tiver */
     }
     
-    /* Grade de opções (container dos botões) */
+    /* Grade de opÃ§Ãµes (container dos botÃµes) */
     .grid-opcoes {
-        gap: 8px !important; /* Aproxima os botões um do outro */
+        gap: 8px !important; /* Aproxima os botÃµes um do outro */
     }
 
 /* } FIM DO @media */
@@ -2252,7 +2214,7 @@ body { background-color: #f1f5f9; }
 .laranja { background: var(--secondary); }
 .laranja:hover { background: #ea580c; }
 
-/* Estilo da Lista de Histórico */
+/* Estilo da Lista de HistÃ³rico */
 .lista-historico {
     display: flex;
     flex-direction: column;
@@ -2288,7 +2250,7 @@ body { background-color: #f1f5f9; }
 .msg-vazio {
     text-align: center; color: var(--text-light); font-style: italic; margin-top: 20px;
 }
-/* --- GRÁFICO DE DESEMPENHO --- */
+/* --- GRÃFICO DE DESEMPENHO --- */
 .card-grafico {
     background: white;
     border-radius: 20px;
@@ -2310,7 +2272,7 @@ body { background-color: #f1f5f9; }
     color: var(--text-main);
 }
 
-/* Botões de Filtro (Pílulas Pretas/Escuras) */
+/* BotÃµes de Filtro (PÃ­lulas Pretas/Escuras) */
 .botoes-filtro {
     display: flex;
     background: #f1f5f9;
@@ -2336,12 +2298,12 @@ body { background-color: #f1f5f9; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Área das Barras */
+/* Ãrea das Barras */
 .area-barras {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    height: 180px; /* Altura do gráfico */
+    height: 180px; /* Altura do grÃ¡fico */
     padding-bottom: 5px;
     border-bottom: 2px solid #e2e8f0;
 }
@@ -2360,7 +2322,7 @@ body { background-color: #f1f5f9; }
     background: #67e8f9; /* Ciano bonito (imagem) */
     border-radius: 4px 4px 0 0;
     transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    min-height: 4px; /* Pra não sumir se for 0 */
+    min-height: 4px; /* Pra nÃ£o sumir se for 0 */
 }
 
 /* Cores alternadas sutilmente ou gradiente se quiser */
@@ -2421,7 +2383,7 @@ body { background-color: #f1f5f9; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* 2. Card Branco de Saudação */
+/* 2. Card Branco de SaudaÃ§Ã£o */
 .card-boas-vindas-topo {
     background: white;
     /* REDUZIDO margem lateral de 20px para 12px */
@@ -2466,7 +2428,7 @@ body { background-color: #f1f5f9; }
     font-weight: 500;
 }
 
-/* 3. Label e Botões */
+/* 3. Label e BotÃµes */
 .label-secao-home {
     text-align: center;
     font-size: 0.8rem;
@@ -2485,7 +2447,7 @@ body { background-color: #f1f5f9; }
     gap: 15px;
 }
 
-/* Botões Largos */
+/* BotÃµes Largos */
 .btn-menu {
     width: 100%;
     border-radius: 18px;
@@ -2496,7 +2458,7 @@ body { background-color: #f1f5f9; }
     overflow: hidden;
     color: white;
     
-    /* Efeito 3D Sólido Cinza */
+    /* Efeito 3D SÃ³lido Cinza */
     box-shadow: 0 6px 0 #cbd5e1; 
     transition: transform 0.1s, box-shadow 0.1s;
     margin-bottom: 5px;
@@ -2507,23 +2469,10 @@ body { background-color: #f1f5f9; }
     box-shadow: 0 2px 0 #cbd5e1;
 }
 
-/* Cores dos Botões */
+/* Cores dos BotÃµes */
 .btn-menu.azul { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
 .btn-menu.verde { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
 .btn-menu.roxo { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); }
-
-/* Banner Publicidade - Alinhado com o resto */
-.ad-banner-container {
-    /* REDUZIDO margem lateral de 20px para 12px */
-    margin-left: 12px !important;
-    margin-right: 12px !important;
-    width: auto !important;
-    border-radius: 18px;
-    
-    margin-top: 30px !important;
-    margin-bottom: 30px !important;
-}
-
 /* --- 12. RESPONSIVIDADE (MOBILE / TELAS PEQUENAS) --- */
 @media (max-width: 768px) or (max-height: 800px) {
     /* Ajustes para telas apertadas */
@@ -2537,10 +2486,10 @@ body { background-color: #f1f5f9; }
     .visor-resposta { height: 60px; font-size: 2.5rem; }
     .btn-num { padding: 8px 0; font-size: 1.6rem; border-bottom-width: 3px; height: 55px; }
 
-    /* Área da Pergunta */
+    /* Ãrea da Pergunta */
     .area-pergunta { padding: 15px !important; margin-bottom: 10px !important; min-height: auto !important; }
     
-    /* Botões de Opção */
+    /* BotÃµes de OpÃ§Ã£o */
     .botao-opcao { padding: 15px !important; font-size: 1.6rem !important; }
     .grid-opcoes { gap: 10px !important; }
 
@@ -2548,11 +2497,11 @@ body { background-color: #f1f5f9; }
     #container-jogo { overflow-y: auto; padding-bottom: 80px; max-height: 85vh; display: block; }
 }
 /* =======================================================
-   CORREÇÃO FINAL: LARGURA TOTAL (TELA CHEIA NO CELULAR)
+   CORREÃ‡ÃƒO FINAL: LARGURA TOTAL (TELA CHEIA NO CELULAR)
    Cole isto no FINAL do seu style.css
    ======================================================= */
 
-/* 1. Remove a "moldura" invisível de 15px que travava a tela */
+/* 1. Remove a "moldura" invisÃ­vel de 15px que travava a tela */
 body {
     padding: 0.5 !important; /* Zera o padding geral */
 }
@@ -2568,19 +2517,11 @@ body {
     margin: 10px 6px 20px 6px !important; 
 }
 
-/* 4. Estica os Botões de Ação (Estudar, Praticar...) */
+/* 4. Estica os BotÃµes de AÃ§Ã£o (Estudar, Praticar...) */
 .container-botoes-originais {
     padding: 0 6px !important; /* Padding lateral reduzido para 6px */
 }
-
-/* 5. Estica a Publicidade para alinhar com o resto */
-.ad-banner-container {
-    margin-left: 6px !important;
-    margin-right: 6px !important;
-    width: auto !important;
-}
-
-/* 6. Garante que as telas internas tenham um mínimo de respiro */
+/* 6. Garante que as telas internas tenham um mÃ­nimo de respiro */
 #tela-estudo, 
 #tela-config-treino, 
 #tela-desempenho, 
@@ -2590,16 +2531,16 @@ body {
 }
 
 /* =================================================
-   RODAPÉ DO MASCOTE (RESTAURAÇÃO)
+   RODAPÃ‰ DO MASCOTE (RESTAURAÃ‡ÃƒO)
    ================================================= */
 
 .game-footer-mascote {
     width: 100%;
     max-width: 500px; /* Trava na largura de celular */
-    margin: 0 auto;   /* Centraliza se sobrar espaço */
+    margin: 0 auto;   /* Centraliza se sobrar espaÃ§o */
 	margin-top: 30px !important;
     
-    /* Configurações anti-bug da linha */
+    /* ConfiguraÃ§Ãµes anti-bug da linha */
     background: transparent; 
     padding: 10px 15px 20px 15px;
     flex-shrink: 0; /* Impede que seja esmagado */
@@ -2643,7 +2584,7 @@ body {
     line-height: 1.2;
 }
 
-/* Animação suave no texto */
+/* AnimaÃ§Ã£o suave no texto */
 .animacao-digitacao {
     animation: fadeIn 0.5s ease-out;
 }
@@ -2651,7 +2592,7 @@ body {
    TELA DE REGRAS (MANUAL DO MESTRE)
    ================================================= */
 
-/* Introdução */
+/* IntroduÃ§Ã£o */
 .intro-regras {
     background: #f0f9ff;
     border: 1px solid #bae6fd;
@@ -2664,7 +2605,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* Títulos das Seções */
+/* TÃ­tulos das SeÃ§Ãµes */
 .titulo-secao-regras {
     font-family: 'Fredoka', sans-serif;
     font-size: 1.3rem;
@@ -2686,7 +2627,7 @@ body {
     margin: 30px 0;
 }
 
-/* Grid de Cartões */
+/* Grid de CartÃµes */
 .grid-regras {
     display: grid;
     grid-template-columns: 1fr; /* 1 por linha no celular */
@@ -2697,20 +2638,20 @@ body {
     .grid-regras { grid-template-columns: 1fr 1fr; }
 }
 
-/* O Cartão de Regra */
+/* O CartÃ£o de Regra */
 .card-regra {
     background: white;
     border-radius: 16px;
     padding: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     border: 1px solid #f1f5f9;
-    border-left: 5px solid #cbd5e1; /* Cor padrão */
+    border-left: 5px solid #cbd5e1; /* Cor padrÃ£o */
     transition: transform 0.2s;
 }
 
 .card-regra:active { transform: scale(0.98); }
 
-/* Cabeçalho do Cartão */
+/* CabeÃ§alho do CartÃ£o */
 .header-regra {
     display: flex;
     align-items: center;
@@ -2743,8 +2684,8 @@ body {
 }
 .lista-regras li { margin-bottom: 5px; }
 
-/* --- CORES ESPECÍFICAS DOS CARTÕES --- */
-/* Prática */
+/* --- CORES ESPECÃFICAS DOS CARTÃ•ES --- */
+/* PrÃ¡tica */
 .card-regra.azul    { border-left-color: var(--primary); }
 .card-regra.roxo    { border-left-color: var(--accent); }
 .card-regra.laranja { border-left-color: var(--secondary); }
@@ -2777,7 +2718,7 @@ body {
     font-family: 'Fredoka', sans-serif;
 }
 
-/* Espaço extra antes do segundo título */
+/* EspaÃ§o extra antes do segundo tÃ­tulo */
 .card-termos h3:not(:first-child) {
     margin-top: 30px;
 }
@@ -2806,7 +2747,7 @@ body {
     color: var(--text-main);
 }
 /* =================================================
-   TELA DE CONFIGURAÇÕES (SWITCHES E LISTAS)
+   TELA DE CONFIGURAÃ‡Ã•ES (SWITCHES E LISTAS)
    ================================================= */
 
 .card-config-item {
@@ -2846,7 +2787,7 @@ body {
     font-weight: 400; color: var(--error);
 }
 
-/* --- O SWITCH (BOTÃO LIGAR/DESLIGAR) --- */
+/* --- O SWITCH (BOTÃƒO LIGAR/DESLIGAR) --- */
 .switch {
     position: relative;
     display: inline-block;
@@ -2896,7 +2837,7 @@ input:checked + .slider:before {
 .slider.round { border-radius: 34px; }
 .slider.round:before { border-radius: 50%; }
 
-/* Botão Mini de Ação */
+/* BotÃ£o Mini de AÃ§Ã£o */
 .btn-acao-mini {
     border: none;
     padding: 8px 16px;
@@ -2921,14 +2862,14 @@ input:checked + .slider:before {
     line-height: 1.5;
 }
 /* =================================================
-   CORREÇÃO FINAL DE LAYOUT (SEPARAÇÃO DE MODOS)
+   CORREÃ‡ÃƒO FINAL DE LAYOUT (SEPARAÃ‡ÃƒO DE MODOS)
    ================================================= */
 
 /* Container Geral do Header */
 #header-jogo {
-    position: relative; /* Referência para os itens absolutos */
+    position: relative; /* ReferÃªncia para os itens absolutos */
     display: flex;
-    justify-content: center; /* Centraliza o conteúdo principal (timer/contador) */
+    justify-content: center; /* Centraliza o conteÃºdo principal (timer/contador) */
     align-items: center;
     width: 100%;
     min-height: 60px;
@@ -2938,7 +2879,7 @@ input:checked + .slider:before {
 
 /* 1. ITENS FIXOS NAS LATERAIS (Comuns aos dois modos) */
 
-/* Botão Voltar -> Fixo na Esquerda */
+/* BotÃ£o Voltar -> Fixo na Esquerda */
 #btn-sair-jogo {
     position: absolute;
     left: 10px;
@@ -2955,7 +2896,7 @@ input:checked + .slider:before {
     transform: translateY(-50%); /* Centraliza verticalmente */
     z-index: 20;
     
-    /* Visual de Pílula Amarela */
+    /* Visual de PÃ­lula Amarela */
     background: #fffbeb;
     color: #b45309;
     border: 1px solid #fcd34d;
@@ -2967,20 +2908,20 @@ input:checked + .slider:before {
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* 2. AJUSTES ESPECÍFICOS DO MODO DESAFIO */
+/* 2. AJUSTES ESPECÃFICOS DO MODO DESAFIO */
 
 /* Quando estiver no desafio, o header precisa ser um pouco mais alto */
 #header-jogo.modo-desafio {
-    padding-top: 15px; /* Espaço extra */
+    padding-top: 15px; /* EspaÃ§o extra */
 }
 
-/* A área do Timer + Barra fica no centro exato */
+/* A Ã¡rea do Timer + Barra fica no centro exato */
 #area-timer-desafio {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 200px; /* Limita largura pra barra não esticar demais */
+    max-width: 200px; /* Limita largura pra barra nÃ£o esticar demais */
 }
 
 #timer-display {
@@ -3000,9 +2941,9 @@ input:checked + .slider:before {
     overflow: hidden;
 }
 
-/* 3. AJUSTES DO MODO TREINO (Só pra garantir) */
+/* 3. AJUSTES DO MODO TREINO (SÃ³ pra garantir) */
 .modo-treino .info-progresso {
-    /* O contador já fica centralizado pelo justify-content: center do pai */
+    /* O contador jÃ¡ fica centralizado pelo justify-content: center do pai */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3016,10 +2957,10 @@ input:checked + .slider:before {
     height: 90px !important; 
     padding: 0 !important;   /* Zera padding para a barra tocar as bordas */
     margin-bottom: 0px !important; /* Cola no card de baixo */
-    position: relative !important; /* Referência para os itens soltos */
+    position: relative !important; /* ReferÃªncia para os itens soltos */
 }
 
-/* 2. Botão Voltar (Fixo Esquerda/Topo) */
+/* 2. BotÃ£o Voltar (Fixo Esquerda/Topo) */
 .modo-desafio #btn-sair-jogo {
     position: absolute !important;
     left: 20px !important;
@@ -3056,7 +2997,7 @@ input:checked + .slider:before {
 /* Esconde a barra cinza fina */
 .modo-desafio .barra-fina-bg { display: none !important; }
 
-/* 5. A ÁREA DO TIMER (Container invisível que segura o show) */
+/* 5. A ÃREA DO TIMER (Container invisÃ­vel que segura o show) */
 /* Vamos tirar qualquer flexbox que possa estar encolhendo as coisas */
 .modo-desafio #area-timer-desafio {
     position: static !important; /* Deixa os filhos se posicionarem pelo Header */
@@ -3065,10 +3006,10 @@ input:checked + .slider:before {
     display: block !important;
 }
 
-/* 6. O CRONÔMETRO (Flutuando na esquerda inferior) */
+/* 6. O CRONÃ”METRO (Flutuando na esquerda inferior) */
 .modo-desafio #timer-display {
     position: absolute !important;
-    left: 20px !important;  /* Alinhado com o botão voltar */
+    left: 20px !important;  /* Alinhado com o botÃ£o voltar */
     bottom: 12px !important; /* Logo acima da barra laranja */
     
     font-family: 'Fredoka', sans-serif;
@@ -3082,10 +3023,10 @@ input:checked + .slider:before {
     margin: 0 !important;
 }
 
-/* 7. A BARRA LARANJA (100% da tela, colada no chão) */
+/* 7. A BARRA LARANJA (100% da tela, colada no chÃ£o) */
 .modo-desafio .barra-progresso {
     position: absolute !important;
-    bottom: 0 !important;    /* Cola no chão */
+    bottom: 0 !important;    /* Cola no chÃ£o */
     left: 0 !important;      /* Cola na esquerda */
     width: 100% !important;  /* Ocupa TUDO */
     height: 8px !important;
@@ -3101,6 +3042,6 @@ input:checked + .slider:before {
     background: #f97316 !important; /* Laranja */
     height: 100%;
     display: block;
-    /* Borda arredondada só na ponta que avança */
+    /* Borda arredondada sÃ³ na ponta que avanÃ§a */
     border-radius: 0 4px 4px 0; 
 }

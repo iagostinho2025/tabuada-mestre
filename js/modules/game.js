@@ -1,4 +1,4 @@
-import { estado, configTreino, configDesafio } from './state.js';
+﻿import { estado, configTreino, configDesafio } from './state.js';
 import { telas, mostrarTela } from './ui.js';
 import { salvarPartida } from './stats.js';
 import { adicionarEstrelas } from './store.js'; 
@@ -14,7 +14,7 @@ export function iniciarJogoTelaCheia(modo) {
     estado.pontos = 0; estado.acertos = 0; estado.erros = 0; estado.totalQuestoes = 0;
     estado.emAndamento = true;
     
-    // --- NOVO: CONFIGURAÇÃO DE LAYOUT DO HEADER ---
+    // --- NOVO: CONFIGURACAO DE LAYOUT DO HEADER ---
     const header = document.getElementById('header-jogo');
     const areaTimer = document.getElementById('area-timer-desafio'); // O novo grupo do timer
     
@@ -41,7 +41,7 @@ export function iniciarJogoTelaCheia(modo) {
 
     if (modo === 'treino') {
         // --- MODO TREINO ---
-        btnNav.innerHTML = "⬅ Voltar"; 
+        btnNav.innerHTML = "Voltar"; 
         btnNav.onclick = () => { 
             if(typeof AudioMestre !== 'undefined') AudioMestre.click(); 
             pararJogoTelaCheia(); 
@@ -60,7 +60,7 @@ export function iniciarJogoTelaCheia(modo) {
 
     } else {
         // --- MODO DESAFIO ---
-        btnNav.innerHTML = "⬅ Voltar"; 
+        btnNav.innerHTML = "Voltar"; 
         
         btnNav.onclick = () => { 
             if(typeof AudioMestre !== 'undefined') AudioMestre.click();
@@ -84,7 +84,7 @@ export function iniciarJogoTelaCheia(modo) {
         iniciarTimer();
     }
 
-    document.getElementById('placar-display').textContent = `⭐ 0`;
+    document.getElementById('placar-display').textContent = `Pontos: 0`;
     
     mostrarTela('jogo');
     
@@ -169,15 +169,15 @@ function proximaQuestaoTelaCheia() {
 
     let badgeHtml = '';
     if (estado.modo === 'desafio') {
-        if (estado.subModo === 'morte') badgeHtml = '<span class="badge-pilula badge-laranja">💣 Morte Súbita</span>';
-        else if (estado.subModo === 'recarga') badgeHtml = '<span class="badge-pilula badge-verde">🔋 Recarga</span>';
-        else if (estado.subModo === 'speedrun') badgeHtml = '<span class="badge-pilula badge-azul">🏁 Speedrun</span>';
-        else badgeHtml = '<span class="badge-pilula badge-roxo">⏱️ Clássico</span>';
+        if (estado.subModo === 'morte') badgeHtml = '<span class="badge-pilula badge-laranja">Morte Súbita</span>';
+        else if (estado.subModo === 'recarga') badgeHtml = '<span class="badge-pilula badge-verde">Recarga</span>';
+        else if (estado.subModo === 'speedrun') badgeHtml = '<span class="badge-pilula badge-azul">Speedrun</span>';
+        else badgeHtml = '<span class="badge-pilula badge-roxo">Clássico</span>';
     } else {
-        if (estado.modoInput === 'botoes') badgeHtml = '<span class="badge-pilula badge-azul">🔘 Múltipla Escolha</span>';
-        else if (estado.modoInput === 'teclado') badgeHtml = '<span class="badge-pilula badge-roxo">⌨ Teclado Numérico</span>';
-        else if (estado.modoInput === 'verdadeiro-falso') badgeHtml = '<span class="badge-pilula badge-laranja">⚡ Raciocínio Rápido</span>';
-        else if (estado.modoInput === 'inverso') badgeHtml = '<span class="badge-pilula badge-rosa">🧠 Lógica Inversa</span>';
+        if (estado.modoInput === 'botoes') badgeHtml = '<span class="badge-pilula badge-azul">Múltipla Escolha</span>';
+        else if (estado.modoInput === 'teclado') badgeHtml = '<span class="badge-pilula badge-roxo">Teclado Numérico</span>';
+        else if (estado.modoInput === 'verdadeiro-falso') badgeHtml = '<span class="badge-pilula badge-laranja">Raciocínio Rápido</span>';
+        else if (estado.modoInput === 'inverso') badgeHtml = '<span class="badge-pilula badge-rosa">Lógica Inversa</span>';
     }
 
     if (estado.modoInput === 'inverso') {
@@ -198,7 +198,7 @@ function proximaQuestaoTelaCheia() {
             ${badgeHtml}
             <div class="linha-equacao">
                 <span style="font-size:3rem">${a}</span>
-                <span class="sinal">×</span>
+                <span class="sinal">x</span>
                 <span style="font-size:3rem">${b}</span>
                 <span class="igual">=</span>
                 <span style="color:${isVerdade?'inherit':'var(--text-main)'}; font-size:3rem">${valorMostrado}</span>
@@ -212,7 +212,7 @@ function proximaQuestaoTelaCheia() {
             ${badgeHtml}
             <div class="linha-equacao">
                 <span id="fator-a">${a}</span>
-                <span class="sinal">×</span>
+                <span class="sinal">x</span>
                 <span id="fator-b">${b}</span>
                 <span class="igual">=</span>
                 <span id="interrogacao">?</span>
@@ -234,17 +234,17 @@ function gerarErroPlausivel(correta) {
 
 function gerarBotoesVF(isVerdade) {
     const grid = document.createElement('div'); grid.className = 'grid-vf';
-    const btnV = document.createElement('button'); btnV.className = 'btn-vf verdadeiro'; btnV.innerHTML = '👍<span>VERDADE</span>'; btnV.onclick = (e) => verificarRespostaTelaCheia(true, e.currentTarget);
-    const btnF = document.createElement('button'); btnF.className = 'btn-vf falso'; btnF.innerHTML = '👎<span>MENTIRA</span>'; btnF.onclick = (e) => verificarRespostaTelaCheia(false, e.currentTarget);
+    const btnV = document.createElement('button'); btnV.className = 'btn-vf verdadeiro'; btnV.innerHTML = '<span>VERDADE</span>'; btnV.onclick = (e) => verificarRespostaTelaCheia(true, e.currentTarget);
+    const btnF = document.createElement('button'); btnF.className = 'btn-vf falso'; btnF.innerHTML = '<span>MENTIRA</span>'; btnF.onclick = (e) => verificarRespostaTelaCheia(false, e.currentTarget);
     grid.appendChild(btnV); grid.appendChild(btnF); elOpcoes.appendChild(grid);
 }
 
 function gerarBotoesInverso(a, b, respostaCorreta) {
-    const contaCertaStr = `${a} × ${b}`;
+    const contaCertaStr = `${a} x ${b}`;
     let opcoes = new Set([contaCertaStr]);
     while(opcoes.size < 4) {
         const fa = Math.floor(Math.random() * 9) + 2; const fb = Math.floor(Math.random() * 10) + 1;
-        if (fa * fb !== respostaCorreta) opcoes.add(`${fa} × ${fb}`);
+        if (fa * fb !== respostaCorreta) opcoes.add(`${fa} x ${fb}`);
     }
     Array.from(opcoes).sort(() => Math.random() - 0.5).forEach(txtConta => {
         const btn = document.createElement('button'); btn.className = 'botao-opcao'; btn.textContent = txtConta;
@@ -283,7 +283,7 @@ function gerarInputTeclado(respostaCorreta) {
             btn.innerHTML = '⌫'; btn.classList.add('acao-apagar');
             btn.onclick = () => { if(typeof AudioMestre !== 'undefined') AudioMestre.click(); numeroDigitado = numeroDigitado.slice(0, -1); atualizarVisor(); };
         } else if (tecla === 'ok') {
-            btn.innerHTML = '✔'; btn.classList.add('acao-ok');
+            btn.innerHTML = '✓'; btn.classList.add('acao-ok');
             btn.onclick = () => { if (numeroDigitado === '') return; verificarRespostaTelaCheia(parseInt(numeroDigitado), btn); };
         } else {
             btn.textContent = tecla;
@@ -296,7 +296,7 @@ function gerarInputTeclado(respostaCorreta) {
     wrapper.appendChild(visor); wrapper.appendChild(grid); elOpcoes.appendChild(wrapper);
 }
 
-// --- VERIFICAÇÃO ---
+// --- VERIFICACAO ---
 function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     if (!estado.emAndamento) return;
     
@@ -317,8 +317,8 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     if (acertou) {
         if(typeof AudioMestre !== 'undefined') AudioMestre.acerto();
         btnClicado.classList.add('animacao-acerto'); 
-        if(feedbackEl) { feedbackEl.textContent = "Muito bem! 🎉"; feedbackEl.style.color = "var(--success)"; }
-        if(visor) { visor.classList.add('sucesso'); visor.textContent = `✔ ${valorEscolhido}`; } 
+        if(feedbackEl) { feedbackEl.textContent = "Muito bem!"; feedbackEl.style.color = "var(--success)"; }
+        if(visor) { visor.classList.add('sucesso'); visor.textContent = `OK ${valorEscolhido}`; } 
         else { 
             if (estado.modoInput === 'botoes' || estado.modoInput === 'inverso') btnClicado.classList.add('correto');
         }
@@ -338,7 +338,7 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
     } else {
         if(typeof AudioMestre !== 'undefined') AudioMestre.erro();
         btnClicado.classList.add('animacao-erro'); 
-        if(feedbackEl) { feedbackEl.textContent = "Ops, tente de novo! ❌"; feedbackEl.style.color = "var(--error)"; }
+        if(feedbackEl) { feedbackEl.textContent = "Ops, tente de novo!"; feedbackEl.style.color = "var(--error)"; }
         if(visor) {
             visor.classList.add('erro');
             visor.innerHTML = `<span style="text-decoration:line-through; font-size: 0.8em">${valorEscolhido}</span>`;
@@ -349,7 +349,7 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
             }
             if(estado.modoInput === 'inverso') {
                 btnClicado.classList.add('errado');
-                const a = estado.questaoAtual.a; const b = estado.questaoAtual.b; const txtCerto = `${a} × ${b}`;
+                const a = estado.questaoAtual.a; const b = estado.questaoAtual.b; const txtCerto = `${a} x ${b}`;
                 elOpcoes.querySelectorAll('button').forEach(btn => { if (btn.textContent === txtCerto) btn.classList.add('correto'); });
             }
         }
@@ -370,7 +370,7 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
             setTimeout(proximaQuestaoTelaCheia, 1500); 
         }
     }
-    document.getElementById('placar-display').textContent = `⭐ ${estado.pontos}`;
+    document.getElementById('placar-display').textContent = `Pontos: ${estado.pontos}`;
 }
 
 // --- TIMER ---
@@ -471,10 +471,10 @@ export function processarResultadoFinal(acertos, erros, total, subtitulo) {
     circle.style.strokeDasharray = `0, 100`;
     circle.classList.remove('stroke-verde', 'stroke-amarelo', 'stroke-vermelho');
     let msg = "";
-    if (percentual === 100) { msg = "Perfeito! Você é um gênio! 🏆"; circle.classList.add('stroke-verde'); } 
-    else if (percentual >= 70) { msg = "Muito bem! Continue assim! 🚀"; circle.classList.add('stroke-verde'); } 
-    else if (percentual >= 50) { msg = "Bom, mas pode melhorar! 💪"; circle.classList.add('stroke-amarelo'); } 
-    else { msg = "Precisa estudar mais! 📚"; circle.classList.add('stroke-vermelho'); }
+    if (percentual === 100) { msg = "Perfeito! Voce e um genio!"; circle.classList.add('stroke-verde'); }
+    else if (percentual >= 70) { msg = "Muito bem! Continue assim!"; circle.classList.add('stroke-verde'); }
+    else if (percentual >= 50) { msg = "Bom, mas pode melhorar!"; circle.classList.add('stroke-amarelo'); }
+    else { msg = "Precisa estudar mais!"; circle.classList.add('stroke-vermelho'); }
     document.getElementById('msg-motivacional').textContent = msg;
     mostrarTela('resultado');
     setTimeout(() => { circle.style.strokeDasharray = `${percentual}, 100`; textPercent.textContent = `${percentual}%`; }, 100);
@@ -482,7 +482,11 @@ export function processarResultadoFinal(acertos, erros, total, subtitulo) {
 
 export function salvarRecorde(pts) {
     const recorde = parseInt(localStorage.getItem('tabuada_recorde') || 0);
-    if (pts > recorde) { localStorage.setItem('tabuada_recorde', pts); document.getElementById('home-recorde').textContent = `${pts} pts (Novo!)`; }
+    if (pts > recorde) {
+        localStorage.setItem('tabuada_recorde', pts);
+        const el = document.getElementById('home-recorde');
+        if (el) el.textContent = `${pts} pts (Novo!)`;
+    }
 }
 
 export function carregarRecorde() {
@@ -491,9 +495,9 @@ export function carregarRecorde() {
     if(el) el.textContent = `${recorde} pts`;
 }
 
-// --- FUNÇÃO PARA O RODAPÉ DO MASCOTE ---
+// --- FUNCAO PARA O RODAPE DO MASCOTE ---
 function atualizarRodapeMascote() {
-    let avatarIcon = '🙂';
+    let avatarIcon = '';
     try {
         const iconHome = document.getElementById('avatar-display-home');
         if(iconHome) avatarIcon = iconHome.textContent;
@@ -523,3 +527,4 @@ function atualizarRodapeMascote() {
         fraseEl.classList.add('animacao-digitacao');
     }
 }
+

@@ -20,10 +20,10 @@
         <div id="overlay-menu" class="oculto"></div> 
         <aside id="menu-lateral">
             <div class="menu-header">
-                <div class="avatar-menu-grande" id="avatar-menu-display">🙂</div>
-                <strong style="font-size: 1.2rem;">Olá, Mestre!</strong>
+                <div class="avatar-menu-grande" id="avatar-menu-display">ðŸ™‚</div>
+                <strong style="font-size: 1.2rem;">OlÃ¡, Mestre!</strong>
                 <div class="saldo-badge" style="background: rgba(255,255,255,0.2); border:none; color:white;">
-                    ⭐ <span id="saldo-menu">0</span>
+                    â­ <span id="saldo-menu">0</span>
                 </div>
             </div>
             <nav class="menu-lista">
@@ -32,11 +32,11 @@
                 <button class="btn-item-menu" onclick="document.getElementById('tela-regras').classList.remove('oculto'); document.getElementById('tela-inicial').classList.add('oculto'); document.getElementById('menu-lateral').classList.remove('aberto'); document.getElementById('overlay-menu').classList.add('oculto');">Como Jogar</button>
                 <button class="btn-item-menu" onclick="document.getElementById('tela-termos').classList.remove('oculto'); document.getElementById('tela-inicial').classList.add('oculto'); document.getElementById('menu-lateral').classList.remove('aberto'); document.getElementById('overlay-menu').classList.add('oculto');">Termos e Privacidade</button>
                 <button class="btn-item-menu" onclick="document.getElementById('tela-configuracoes').classList.remove('oculto'); document.getElementById('tela-inicial').classList.add('oculto'); document.getElementById('menu-lateral').classList.remove('aberto'); document.getElementById('overlay-menu').classList.add('oculto');">
-                    ⚙️ Configurações
+                    âš™ï¸ ConfiguraÃ§Ãµes
                 </button>
             </nav>
             
-            <div class="versao-app">
+            <div class="vers?o-app">
                 Tabuada Mestre v2.0<br>
                 <span style="font-size: 0.75rem; opacity: 0.8">Desenvolvido por <strong>MIB Digital</strong></span><br>
                 <span style="font-size: 0.7rem; opacity: 0.6">Todos os direitos reservados.</span>
@@ -45,21 +45,21 @@
 
         <div id="tela-inicial">
             <div class="header-topo-limpo">
-                <button class="btn-icon-quadrado" id="btn-abrir-menu">☰</button>
+                <button class="btn-icon-quadrado" id="btn-abrir-menu">â˜°</button>
                 
                 <div class="logo-header-texto">
-                    <span style="color:#475569;">✖️</span> Tabuada Mestre
+                    <span style="color:#475569;">âœ–ï¸</span> Tabuada Mestre
                 </div>
 
                 <div class="saldo-badge-pill">
-                    ⭐ <span id="saldo-estrelas-home">0</span>
+                    â­ <span id="saldo-estrelas-home">0</span>
                 </div>
             </div>
 
             <div class="card-boas-vindas-topo">
-                <div class="avatar-saudacao" id="avatar-display-home">🙂</div>
+                <div class="avatar-saudacao" id="avatar-display-home">ðŸ™‚</div>
                 <div class="texto-saudacao-container">
-                    <strong id="texto-horario">Olá,</strong>
+                    <strong id="texto-horario">OlÃ¡,</strong>
                     <span>Vamos treinar?</span>
                 </div>
             </div>
@@ -69,16 +69,16 @@
             <div class="container-botoes-originais">
                 <button id="btn-estudar" class="btn-menu azul">
                     <span>Estudar Tabuadas</span>
-                    <small>Aprenda e pratique número por número</small>
+                    <small>Aprenda e pratique nÃºmero por nÃºmero</small>
                 </button>
 
                 <button id="btn-treino" class="btn-menu verde">
                     <span>Praticar Agora</span>
-                    <small>Perguntas aleatórias (Sem tempo)</small>
+                    <small>Perguntas aleatÃ³rias (Sem tempo)</small>
                 </button>
                 
                 <button id="btn-desafio" class="btn-menu roxo">
-                    <span>🔥 Desafio Relâmpago</span>
+                    <span>ðŸ”¥ Desafio RelÃ¢mpago</span>
                     <small>Corra contra o tempo</small>
                 </button>
             </div>
@@ -92,7 +92,7 @@
             <div class="container-scroll">
                 <div class="banner-saldo-loja">
                     <span>Suas Estrelas:</span>
-                    <strong class="texto-dourado">⭐ <span id="saldo-estrelas-loja">0</span></strong>
+                    <strong class="texto-dourado">â­ <span id="saldo-estrelas-loja">0</span></strong>
                 </div>
                 <div id="grid-loja" class="grid-loja"></div>
             </div>
@@ -114,27 +114,27 @@
                         <h3>Acertos por Tabuada</h3>
                         <div class="botoes-filtro">
                             <button class="btn-filtro" onclick="atualizarGrafico('ano')">Ano</button>
-                            <button class="btn-filtro" onclick="atualizarGrafico('mes')">Mês</button>
+                            <button class="btn-filtro" onclick="atualizarGrafico('mes')">MÃªs</button>
                             <button class="btn-filtro ativo" onclick="atualizarGrafico('dia')">Dia</button>
                         </div>
                     </div>
                     <div class="grafico-container"><div id="container-barras" class="area-barras"></div></div>
                 </div>
-                <h3 class="titulo-secao-config" style="margin-top: 25px;">Histórico de Jogos</h3>
+                <h3 class="titulo-secao-config" style="margin-top: 25px;">HistÃ³rico de Jogos</h3>
                 <div class="grid-botoes-historico">
-                    <button class="btn-hist-modo roxo" onclick="verHistoricoModo('classico')">⏱️ Clássico</button>
-                    <button class="btn-hist-modo laranja" onclick="verHistoricoModo('morte')">💣 Morte Súbita</button>
+                    <button class="btn-hist-modo roxo" onclick="verHistoricoModo('classico')">â±ï¸ ClÃ¡ssico</button>
+                    <button class="btn-hist-modo laranja" onclick="verHistoricoModo('morte')">ðŸ’£ Morte SÃºbita</button>
                     <button class="btn-hist-modo verde" onclick="verHistoricoModo('recarga')">Recarga</button>
                     <button class="btn-hist-modo azul" onclick="verHistoricoModo('speedrun')">Speedrun</button>
                 </div>
                 <div id="painel-detalhes-historico" class="painel-detalhes oculto">
-                    <div class="header-detalhes"><h4 id="titulo-modo-historico">Clássico</h4><button class="btn-fechar-mini" onclick="fecharHistoricoModo()">✕</button></div>
-                    <div class="card-recorde-destaque"><span>🏆 Melhor Pontuação</span><strong id="valor-recorde-modo">0 pts</strong></div>
-                    <h5 style="margin: 15px 0 10px 0; color:var(--text-light)">Últimas 10 Partidas:</h5>
+                    <div class="header-detalhes"><h4 id="titulo-modo-historico">ClÃ¡ssico</h4><button class="btn-fechar-mini" onclick="fecharHistoricoModo()">âœ•</button></div>
+                    <div class="card-recorde-destaque"><span>ðŸ† Melhor PontuaÃ§Ã£o</span><strong id="valor-recorde-modo">0 pts</strong></div>
+                    <h5 style="margin: 15px 0 10px 0; color:var(--text-light)">Ãšltimas 10 Partidas:</h5>
                     <div id="lista-historico-especifica" class="lista-simples"></div>
                 </div>
                 <div style="margin-top: 40px; text-align: center;">
-                    <button class="btn-link" onclick="limparTudo()" style="color: #ef4444; font-size: 0.8rem;">🗑️ Apagar todo meu histórico</button>
+                    <button class="btn-link" onclick="limparTudo()" style="color: #ef4444; font-size: 0.8rem;">ðŸ—‘ï¸ Apagar todo meu histÃ³rico</button>
                 </div>
 </div>
         </div>
@@ -148,7 +148,7 @@
                 <div id="lousa-conteudo" class="grid-lousa-bipartida"></div>
             </div>
             <div class="area-seletores-container">
-                <p>Selecione um número:</p>
+                <p>Selecione um nÃºmero:</p>
                 <div id="lista-botoes-selecao" class="scroll-horizontal-seletores"></div>
             </div>
             <div class="area-acao-fixa">
@@ -169,27 +169,27 @@
                 <h2>Personalizar</h2>
             </div>
             <div class="container-scroll" style="padding-bottom: 100px;">
-                <h3 class="titulo-secao-config">Dinâmica do Jogo</h3>
+                <h3 class="titulo-secao-config">DinÃ¢mica do Jogo</h3>
                 <div class="grid-config-modo">
                     <button class="card-opcao-treino selecionado" id="opt-botoes" onclick="escolherModoInput('botoes')">
-                        <div class="icon-grande">🔘</div>
-                        <div class="texto-opt"><strong>Clássico</strong><small>Múltipla Escolha</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="icon-grande">ðŸ”˜</div>
+                        <div class="texto-opt"><strong>ClÃ¡ssico</strong><small>MÃºltipla Escolha</small></div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                     <button class="card-opcao-treino" id="opt-teclado" onclick="escolherModoInput('teclado')">
-                        <div class="icon-grande">⌨</div>
+                        <div class="icon-grande">âŒ¨</div>
                         <div class="texto-opt"><strong>Teclado</strong><small>Digitar resposta</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                     <button class="card-opcao-treino" id="opt-verdadeiro-falso" onclick="escolherModoInput('verdadeiro-falso')">
-                        <div class="icon-grande">⚡</div>
-                        <div class="texto-opt"><strong>Rápido</strong><small>Verdade ou Falso</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="icon-grande">âš¡</div>
+                        <div class="texto-opt"><strong>RÃ¡pido</strong><small>Verdade ou Falso</small></div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                     <button class="card-opcao-treino" id="opt-inverso" onclick="escolherModoInput('inverso')">
-                        <div class="icon-grande">🧠</div>
+                        <div class="icon-grande">ðŸ§ </div>
                         <div class="texto-opt"><strong>Inverso</strong><small>Ache a conta</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                 </div>
                 <h3 class="titulo-secao-config" style="margin-top: 30px;">Quantas perguntas?</h3>
@@ -197,18 +197,18 @@
                     <button class="btn-qtd-redondo selecionado" id="qtd-10" onclick="escolherQtd(10)">10</button>
                     <button class="btn-qtd-redondo" id="qtd-20" onclick="escolherQtd(20)">20</button>
                     <button class="btn-qtd-redondo" id="qtd-50" onclick="escolherQtd(50)">50</button>
-                    <button class="btn-qtd-redondo" id="qtd-inf" onclick="escolherQtd(Infinity)">∞</button>
-                    <button class="btn-qtd-redondo" id="qtd-custom" onclick="escolherQtd('custom')">✏️</button>
+                    <button class="btn-qtd-redondo" id="qtd-inf" onclick="escolherQtd(Infinity)">âˆž</button>
+                    <button class="btn-qtd-redondo" id="qtd-custom" onclick="escolherQtd('custom')">âœï¸</button>
                 </div>
                 <div id="wrapper-slider" class="oculto">
                     <div class="container-slider-qtd">
-                        <span class="label-slider">Questões: <span id="valor-slider-display">30</span></span>
+                        <span class="label-slider">QuestÃµes: <span id="valor-slider-display">30</span></span>
                         <input type="range" id="slider-qtd" min="1" max="100" value="30" oninput="atualizarValorSlider(this.value)">
                     </div>
                 </div>
             </div>
             <div class="area-acao-fixa">
-                <button id="btn-iniciar-treino-custom" class="btn-menu verde">🚀 Começar Jogo</button>
+                <button id="btn-iniciar-treino-custom" class="btn-menu verde">ðŸš€ ComeÃ§ar Jogo</button>
 </div>
         </div>
 
@@ -221,35 +221,35 @@
                 <h3 class="titulo-secao-config">Escolha o Desafio</h3>
                 <div class="grid-config-modo">
                     <button class="card-opcao-treino selecionado" id="opt-desafio-classico" onclick="escolherModoDesafio('classico')">
-                        <div class="icon-grande">⏱️</div>
-                        <div class="texto-opt"><strong>Clássico</strong><small>60 Segundos</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="icon-grande">â±ï¸</div>
+                        <div class="texto-opt"><strong>ClÃ¡ssico</strong><small>60 Segundos</small></div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                     <button class="card-opcao-treino" id="opt-desafio-morte" onclick="escolherModoDesafio('morte')">
-                        <div class="icon-grande">💣</div>
-                        <div class="texto-opt"><strong>Morte Súbita</strong><small>5s ou Game Over</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="icon-grande">ðŸ’£</div>
+                        <div class="texto-opt"><strong>Morte SÃºbita</strong><small>5s ou Game Over</small></div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                     <button class="card-opcao-treino" id="opt-desafio-recarga" onclick="escolherModoDesafio('recarga')">
-                        <div class="icon-grande">🔋</div>
+                        <div class="icon-grande">ðŸ”‹</div>
                         <div class="texto-opt"><strong>Recarga</strong><small>Ganhe tempo extra</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                     <button class="card-opcao-treino" id="opt-desafio-speedrun" onclick="escolherModoDesafio('speedrun')">
-                        <div class="icon-grande">🏁</div>
-                        <div class="texto-opt"><strong>Speedrun</strong><small>20 acertos rápidos</small></div>
-                        <div class="check-icon">✔</div>
+                        <div class="icon-grande">ðŸ</div>
+                        <div class="texto-opt"><strong>Speedrun</strong><small>20 acertos rÃ¡pidos</small></div>
+                        <div class="check-icon">âœ”</div>
                     </button>
                 </div>
                 <h3 class="titulo-secao-config" style="margin-top: 30px;">Dificuldade</h3>
                 <div class="grid-config-qtd">
-                    <button class="btn-qtd-redondo" id="dif-facil" onclick="escolherDificuldade('facil')">😀</button>
-                    <button class="btn-qtd-redondo selecionado" id="dif-medio" onclick="escolherDificuldade('medio')">😎</button>
-                    <button class="btn-qtd-redondo" id="dif-dificil" onclick="escolherDificuldade('dificil')">🔥</button>
+                    <button class="btn-qtd-redondo" id="dif-facil" onclick="escolherDificuldade('facil')">ðŸ˜€</button>
+                    <button class="btn-qtd-redondo selecionado" id="dif-medio" onclick="escolherDificuldade('medio')">ðŸ˜Ž</button>
+                    <button class="btn-qtd-redondo" id="dif-dificil" onclick="escolherDificuldade('dificil')">ðŸ”¥</button>
                 </div>
                 <div id="texto-explicacao-dificuldade">
-                    <strong>Médio</strong>
-                    Tabuadas do 2 ao 9 (multiplicando até 10). O padrão clássico.
+                    <strong>MÃ©dio</strong>
+                    Tabuadas do 2 ao 9 (multiplicando atÃ© 10). O padrÃ£o clÃ¡ssico.
                 </div>
             </div>
             <div class="area-acao-fixa">
@@ -268,54 +268,54 @@
                     <p>Domine cada modo de jogo para se tornar o verdadeiro Mestre da Tabuada!</p>
                 </div>
 
-                <h3 class="titulo-secao-regras">🎮 Modos de Prática</h3>
-                <p class="desc-secao">Sem pressão de tempo. Ideal para aprender.</p>
+                <h3 class="titulo-secao-regras">ðŸŽ® Modos de PrÃ¡tica</h3>
+                <p class="desc-secao">Sem pressÃ£o de tempo. Ideal para aprender.</p>
 
                 <div class="grid-regras">
                     <div class="card-regra azul">
                         <div class="header-regra">
-                            <div class="icon-regra">🔘</div>
-                            <strong>Clássico</strong>
+                            <div class="icon-regra">ðŸ”˜</div>
+                            <strong>ClÃ¡ssico</strong>
                         </div>
                         <ul class="lista-regras">
-                            <li>4 opções de resposta.</li>
-                            <li>Apenas uma está correta.</li>
-                            <li>Foco: Memorização visual.</li>
+                            <li>4 opÃ§Ãµes de resposta.</li>
+                            <li>Apenas uma estÃ¡ correta.</li>
+                            <li>Foco: MemorizaÃ§Ã£o visual.</li>
                         </ul>
                     </div>
 
                     <div class="card-regra roxo">
                         <div class="header-regra">
-                            <div class="icon-regra">⌨</div>
+                            <div class="icon-regra">âŒ¨</div>
                             <strong>Teclado</strong>
                         </div>
                         <ul class="lista-regras">
-                            <li>Sem opções de chute.</li>
-                            <li>Digite o número no teclado virtual.</li>
-                            <li>Foco: Fixação total da resposta.</li>
+                            <li>Sem opÃ§Ãµes de chute.</li>
+                            <li>Digite o nÃºmero no teclado virtual.</li>
+                            <li>Foco: FixaÃ§Ã£o total da resposta.</li>
                         </ul>
                     </div>
 
                     <div class="card-regra laranja">
                         <div class="header-regra">
-                            <div class="icon-regra">⚡</div>
-                            <strong>Rápido (V ou F)</strong>
+                            <div class="icon-regra">âš¡</div>
+                            <strong>RÃ¡pido (V ou F)</strong>
                         </div>
                         <ul class="lista-regras">
                             <li>O jogo mostra uma conta e um resultado.</li>
-                            <li>Diga se é Verdadeiro ou Falso.</li>
-                            <li>Foco: Raciocínio ágil.</li>
+                            <li>Diga se Ã© Verdadeiro ou Falso.</li>
+                            <li>Foco: RaciocÃ­nio Ã¡gil.</li>
                         </ul>
                     </div>
 
                     <div class="card-regra rosa">
                         <div class="header-regra">
-                            <div class="icon-regra">🧠</div>
-                            <strong>Lógica Inversa</strong>
+                            <div class="icon-regra">ðŸ§ </div>
+                            <strong>LÃ³gica Inversa</strong>
                         </div>
                         <ul class="lista-regras">
                             <li>Mostramos o <b>Resultado</b> (Ex: 20).</li>
-                            <li>Você escolhe a conta (Ex: 4 x 5).</li>
+                            <li>VocÃª escolhe a conta (Ex: 4 x 5).</li>
                             <li>Foco: Pensamento profundo.</li>
                         </ul>
                     </div>
@@ -328,50 +328,50 @@
                 <div class="grid-regras">
                     <div class="card-regra premium">
                         <div class="header-regra">
-                            <div class="icon-regra">⏱️</div>
-                            <strong>Relâmpago</strong>
+                            <div class="icon-regra">â±ï¸</div>
+                            <strong>RelÃ¢mpago</strong>
                         </div>
                         <ul class="lista-regras">
-                            <li>Você tem exatos <b>60 segundos</b>.</li>
-                            <li>Acerte o máximo que conseguir.</li>
-                            <li>Erros não tiram tempo, mas quebram o combo.</li>
+                            <li>VocÃª tem exatos <b>60 segundos</b>.</li>
+                            <li>Acerte o mÃ¡ximo que conseguir.</li>
+                            <li>Erros nÃ£o tiram tempo, mas quebram o combo.</li>
                         </ul>
                     </div>
 
                     <div class="card-regra perigo">
                         <div class="header-regra">
-                            <div class="icon-regra">💣</div>
-                            <strong>Morte Súbita</strong>
+                            <div class="icon-regra">ðŸ’£</div>
+                            <strong>Morte SÃºbita</strong>
                         </div>
                         <ul class="lista-regras">
                             <li>Apenas <b>5 segundos</b> por pergunta.</li>
                             <li>Errou uma? <b>Game Over</b> imediato.</li>
-                            <li>Para quem tem nervos de aço.</li>
+                            <li>Para quem tem nervos de aÃ§o.</li>
                         </ul>
                     </div>
 
                     <div class="card-regra recarga">
                         <div class="header-regra">
-                            <div class="icon-regra">🔋</div>
+                            <div class="icon-regra">ðŸ”‹</div>
                             <strong>Recarga</strong>
                         </div>
                         <ul class="lista-regras">
-                            <li>Começa com 20 segundos.</li>
+                            <li>ComeÃ§a com 20 segundos.</li>
                             <li>Acertou? Ganha <b>+2 segundos</b>.</li>
                             <li>Errou? Perde <b>-4 segundos</b>.</li>
-                            <li>Sobreviva o máximo possível!</li>
+                            <li>Sobreviva o mÃ¡ximo possÃ­vel!</li>
                         </ul>
                     </div>
 
                     <div class="card-regra speed">
                         <div class="header-regra">
-                            <div class="icon-regra">🏁</div>
+                            <div class="icon-regra">ðŸ</div>
                             <strong>Speedrun 20</strong>
                         </div>
                         <ul class="lista-regras">
-                            <li>Meta: Acertar 20 questões.</li>
-                            <li>O cronômetro conta <b>para frente</b>.</li>
-                            <li>Seu recorde é o <b>menor tempo</b> possível.</li>
+                            <li>Meta: Acertar 20 questÃµes.</li>
+                            <li>O cronÃ´metro conta <b>para frente</b>.</li>
+                            <li>Seu recorde Ã© o <b>menor tempo</b> possÃ­vel.</li>
                         </ul>
                     </div>
                 </div>
@@ -385,26 +385,20 @@
             </div>
             <div class="container-scroll">
                 <div class="card-termos">
-                    <h3>1. Termos de Uso (Isenção de Responsabilidade)</h3>
-                    <p>O aplicativo <strong>Tabuada Mestre</strong> é uma ferramenta educacional gratuita projetada para auxiliar no aprendizado e prática da matemática básica (tabuadas).</p>
-                    <p>Embora nos esforcemos para garantir a precisão de todas as questões e cálculos gerados, o conteúdo é fornecido "como está". O desenvolvedor não se responsabiliza por eventuais erros no software, reprovações em provas escolares ou qualquer outro impacto no desempenho acadêmico.</p>
-                    <p>O uso deste aplicativo deve ser encarado como um complemento aos estudos e não substitui o ensino formal.</p>
+                    <h3>1. Termos de Uso (IsenÃ§Ã£o de Responsabilidade)</h3>
+                    <p>O aplicativo <strong>Tabuada Mestre</strong> Ã© uma ferramenta educacional gratuita projetada para auxiliar no aprendizado e prÃ¡tica da matemÃ¡tica bÃ¡sica (tabuadas).</p>
+                    <p>Embora nos esforcemos para garantir a precisÃ£o de todas as questÃµes e cÃ¡lculos gerados, o conteÃºdo Ã© fornecido "como estÃ¡". O desenvolvedor nÃ£o se responsabiliza por eventuais erros no software, reprovaÃ§Ãµes em provas escolares ou qualquer outro impacto no desempenho acadÃªmico.</p>
+                    <p>O uso deste aplicativo deve ser encarado como um complemento aos estudos e nÃ£o substitui o ensino formal.</p>
                     
-                    <h3>2. Política de Privacidade</h3>
-                    <p>Respeitamos sua privacidade. A transparência é nossa prioridade:</p>
+                    <h3>2. PolÃ­tica de Privacidade</h3>
+                    <p>Respeitamos sua privacidade. A transparÃªncia Ã© nossa prioridade:</p>
                     <ul>
-                        <li><strong>Dados Pessoais:</strong> Este aplicativo <strong>não coleta</strong> dados pessoais como nome, email, telefone ou CPF.</li>
-                        <li><strong>Localização:</strong> Não utilizamos serviços de geolocalização (GPS).</li>
-                        <li><strong>Armazenamento:</strong> Todo o seu progresso, estrelas, avatares comprados e recordes são salvos localmente no seu próprio dispositivo. Se você desinstalar o app ou limpar os dados, esse progresso será perdido.</li>
-                        <li><strong>Anúncios:</strong> Esta versão não exibe anúncios de terceiros nem utiliza SDK de anúncios.</li>
+                        <li><strong>Dados Pessoais:</strong> Este aplicativo <strong>nÃ£o coleta</strong> dados pessoais como nome, email, telefone ou CPF.</li>
+                        <li><strong>LocalizaÃ§Ã£o:</strong> NÃ£o utilizamos serviÃ§os de geolocalizaÃ§Ã£o (GPS).</li>
+                        <li><strong>Armazenamento:</strong> Todo o seu progresso, estrelas, avatares comprados e recordes sÃ£o salvos localmente no seu prÃ³prio dispositivo. Se vocÃª desinstalar o app ou limpar os dados, esse progresso serÃ¡ perdido.</li>
+                        <li><strong>An?ncios:</strong> Esta vers?o n?o exibe an?ncios de terceiros nem utiliza SDK de an?ncios.</li>
                     </ul>
-                    <p>
-                        Política completa:
-                        <a href="https://tabuadamestre.mibdigital.com.br/privacy-policy.html" target="_blank" rel="noopener noreferrer">
-                            https://tabuadamestre.mibdigital.com.br/privacy-policy.html
-                        </a>
-                    </p>
-                    <p>Ao utilizar o Tabuada Mestre, você concorda com estes termos.</p>
+                    <p>Ao utilizar o Tabuada Mestre, vocÃª concorda com estes termos.</p>
                 </div>
             </div>
         </div>
@@ -417,11 +411,11 @@
 
             <div class="container-scroll">
                 
-                <h3 class="titulo-secao-config">Preferências</h3>
+                <h3 class="titulo-secao-config">PreferÃªncias</h3>
                 
                 <div class="card-config-item">
                     <div class="info-config">
-                        <div class="icon-config">🔊</div>
+                        <div class="icon-config">ðŸ”Š</div>
                         <span>Efeitos Sonoros</span>
                     </div>
                     <label class="switch">
@@ -432,8 +426,8 @@
 
                 <div class="card-config-item">
                     <div class="info-config">
-                        <div class="icon-config">📳</div>
-                        <span>Vibração</span>
+                        <div class="icon-config">ðŸ“³</div>
+                        <span>VibraÃ§Ã£o</span>
                     </div>
                     <label class="switch">
                         <input type="checkbox" id="toggle-vibracao" checked onchange="alternarVibracao(this.checked)">
@@ -445,7 +439,7 @@
                 
                 <div class="card-config-item perigo">
                     <div class="info-config">
-                        <div class="icon-config">🗑️</div>
+                        <div class="icon-config">ðŸ—‘ï¸</div>
                         <div style="display:flex; flex-direction:column;">
                             <span>Zerar Progresso</span>
                             <small>Apaga recordes, estrelas e itens.</small>
@@ -454,9 +448,9 @@
                     <button class="btn-acao-mini vermelho" onclick="confirmarReset()">Apagar</button>
                 </div>
 
-                <div class="versao-config">
+                <div class="vers?o-config">
                     Tabuada Mestre v2.0<br>
-                    Feito com 💙 por MIB Digital
+                    Feito com ðŸ’™ por MIB Digital
                 </div>
 
             </div>
@@ -466,7 +460,7 @@
     <button id="btn-sair-jogo" class="btn-voltar">Sair</button>
     
     <div class="info-progresso">
-        <span id="texto-contador" class="texto-contador">Questão 1</span>
+        <span id="texto-contador" class="texto-contador">QuestÃ£o 1</span>
         <div id="container-barra-fixa" class="barra-fina-bg">
             <div id="barra-fina-fill" class="barra-fina-fill"></div>
         </div>
@@ -479,7 +473,7 @@
         </div>
     </div>
 
-    <div id="placar-display" class="badge-pontos">⭐ 0</div>
+    <div id="placar-display" class="badge-pontos">â­ 0</div>
 </header>
 
         <main id="container-jogo" class="oculto">
@@ -489,9 +483,9 @@
 
             <div class="game-footer-mascote">
                 <div class="mascote-container">
-                    <div class="avatar-game-footer">🙂</div>
+                    <div class="avatar-game-footer">ðŸ™‚</div>
                     <div class="texto-mascote-container">
-                        <span id="frase-mascote" class="animacao-digitacao">Vamos lá!</span>
+                        <span id="frase-mascote" class="animacao-digitacao">Vamos lÃ¡!</span>
                     </div>
                 </div>
             </div>
@@ -541,5 +535,4 @@
     </script>
 </body>
 </html>
-
 
