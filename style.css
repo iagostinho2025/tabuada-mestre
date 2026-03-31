@@ -1845,7 +1845,7 @@ body { background-color: #f1f5f9; }
 /* 2. Card Branco de SaudaÃ§Ã£o */
 .card-boas-vindas-topo {
     background: white;
-    margin: 10px 20px 25px 20px; /* Margem lateral 20px (igual publicidade) */
+    margin: 10px 20px 25px 20px; /* Margem lateral padrão */
     padding: 20px;
     border-radius: 24px;
     
