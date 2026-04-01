@@ -138,10 +138,11 @@ export function gerarDadosGrafico(periodo) {
 // Apaga tudo (Reset)
 export function limparDados() {
     mostrarConfirmacao({
-        titulo: 'Limpar historico',
-        mensagem: 'Isso apagara todo seu historico e recordes. Deseja continuar?',
+        titulo: 'Limpar hist\u00f3rico',
+        mensagem: 'Isso apagar\u00e1 todo seu hist\u00f3rico e recordes. Deseja continuar?',
         textoConfirmar: 'Apagar',
-        textoCancelar: 'Cancelar'
+        textoCancelar: 'Cancelar',
+        estiloConfirmar: 'perigo'
     }).then((confirmado) => {
         if (!confirmado) return;
 
@@ -149,8 +150,8 @@ export function limparDados() {
         localStorage.removeItem('tabuada_recorde');
 
         mostrarAlerta({
-            titulo: 'Concluido',
-            mensagem: 'Historico apagado com sucesso.',
+            titulo: 'Conclu\u00eddo',
+            mensagem: 'Hist\u00f3rico apagado com sucesso.',
             textoConfirmar: 'OK'
         }).then(() => {
             window.location.reload();

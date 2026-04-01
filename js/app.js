@@ -39,7 +39,8 @@ window.confirmarReset = function() {
         titulo: 'Apagar progresso',
         mensagem: 'Isso apaga estrelas, recordes e compras. Deseja continuar?',
         textoConfirmar: 'Apagar',
-        textoCancelar: 'Cancelar'
+        textoCancelar: 'Cancelar',
+        estiloConfirmar: 'perigo'
     }).then((confirmado) => {
         if (!confirmado) return;
 
@@ -48,8 +49,8 @@ window.confirmarReset = function() {
         localStorage.removeItem('tabuada_recorde');
 
         UI.mostrarAlerta({
-            titulo: 'Concluido',
-            mensagem: 'Dados apagados com sucesso. O app sera reiniciado.',
+            titulo: 'Conclu\u00eddo',
+            mensagem: 'Dados apagados com sucesso. O app ser\u00e1 reiniciado.',
             textoConfirmar: 'OK'
         }).then(() => {
             window.location.reload();

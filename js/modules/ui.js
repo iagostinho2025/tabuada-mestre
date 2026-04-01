@@ -168,6 +168,8 @@ function abrirModalJogo(config) {
     modalJogo.titulo.textContent = config.titulo || 'Confirmar';
     modalJogo.mensagem.textContent = config.mensagem || '';
     modalJogo.btnConfirmar.textContent = config.textoConfirmar || 'OK';
+    modalJogo.btnConfirmar.classList.remove('btn-modal-primario', 'btn-modal-perigo');
+    modalJogo.btnConfirmar.classList.add(config.estiloConfirmar === 'perigo' ? 'btn-modal-perigo' : 'btn-modal-primario');
 
     if (config.textoCancelar) {
         modalJogo.btnCancelar.classList.remove('oculto');
@@ -206,26 +208,28 @@ if (modalJogo.backdrop) {
     });
 }
 
-export function mostrarConfirmacao({ titulo, mensagem, textoConfirmar, textoCancelar } = {}) {
+export function mostrarConfirmacao({ titulo, mensagem, textoConfirmar, textoCancelar, estiloConfirmar } = {}) {
     return new Promise((resolve) => {
         abrirModalJogo({
             titulo: titulo || 'Confirmar',
             mensagem: mensagem || 'Tem certeza?',
             textoConfirmar: textoConfirmar || 'Confirmar',
             textoCancelar: textoCancelar || 'Cancelar',
+            estiloConfirmar,
             onConfirmar: () => resolve(true),
             onCancelar: () => resolve(false)
         });
     });
 }
 
-export function mostrarAlerta({ titulo, mensagem, textoConfirmar } = {}) {
+export function mostrarAlerta({ titulo, mensagem, textoConfirmar, estiloConfirmar } = {}) {
     return new Promise((resolve) => {
         abrirModalJogo({
             titulo: titulo || 'Aviso',
             mensagem: mensagem || '',
             textoConfirmar: textoConfirmar || 'OK',
             textoCancelar: null,
+            estiloConfirmar,
             onConfirmar: () => resolve(true),
             onCancelar: () => resolve(true)
         });
