@@ -1,22 +1,24 @@
 /**
- * Módulo de Estatísticas e Persistência de Dados
+ * MÃ³dulo de EstatÃ­sticas e PersistÃªncia de Dados
  */
+
+import { mostrarAlerta, mostrarConfirmacao } from './ui.js';
 
 const STORAGE_KEY = 'tabuada_historico_v1';
 
-// Salva uma nova partida no histórico
+// Salva uma nova partida no histÃ³rico
 export function salvarPartida(dadosPartida) {
-    // A CORREÇÃO ESTÁ AQUI: O "|| []" garante que se for null, cria um array vazio
+    // A CORREÃ‡ÃƒO ESTÃ AQUI: O "|| []" garante que se for null, cria um array vazio
     const historico = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     
-    // Adiciona data/hora se não tiver
+    // Adiciona data/hora se nÃ£o tiver
     if (!dadosPartida.data) {
         dadosPartida.data = new Date().toISOString();
     }
     
     historico.push(dadosPartida);
     
-    // Limite de segurança: Guarda apenas as últimas 100 partidas para não pesar
+    // Limite de seguranÃ§a: Guarda apenas as Ãºltimas 100 partidas para nÃ£o pesar
     if (historico.length > 100) {
         historico.shift(); // Remove a mais antiga
     }
@@ -28,7 +30,7 @@ export function salvarPartida(dadosPartida) {
     }
 }
 
-// Recupera todo o histórico com segurança
+// Recupera todo o histÃ³rico com seguranÃ§a
 export function obterHistorico() {
     try {
         return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -53,7 +55,7 @@ export function obterDadosDesempenho() {
     return { totalJogos, totalAcertos, totalErros };
 }
 
-// Filtra detalhes para o histórico de um modo específico (Ex: Speedrun)
+// Filtra detalhes para o histÃ³rico de um modo especÃ­fico (Ex: Speedrun)
 export function obterDetalhesPorModo(modoAlvo) {
     const historico = obterHistorico();
     
@@ -67,7 +69,7 @@ export function obterDetalhesPorModo(modoAlvo) {
         if (p.pontos > recorde) recorde = p.pontos;
     });
 
-    // Pega as últimas 10 para exibir na lista
+    // Pega as Ãºltimas 10 para exibir na lista
     const ultimas10 = filtradas.slice(0, 10);
 
     return {
@@ -76,7 +78,7 @@ export function obterDetalhesPorModo(modoAlvo) {
     };
 }
 
-// Gera dados para o Gráfico de Barras
+// Gera dados para o GrÃ¡fico de Barras
 export function gerarDadosGrafico(periodo) {
     const historico = obterHistorico();
     const dadosTabuada = {};
@@ -94,24 +96,24 @@ export function gerarDadosGrafico(periodo) {
 
         // Filtro de Tempo
         if (periodo === 'dia') {
-            // Mesmo dia, mês e ano
+            // Mesmo dia, mÃªs e ano
             incluir = (dataPartida.toDateString() === agora.toDateString());
         } else if (periodo === 'mes') {
-            // Mesmo mês e ano
+            // Mesmo mÃªs e ano
             incluir = (dataPartida.getMonth() === agora.getMonth() && dataPartida.getFullYear() === agora.getFullYear());
         } else {
-            // Ano (sempre inclui tudo do histórico recente, ou filtra por ano se quiser)
+            // Ano (sempre inclui tudo do histÃ³rico recente, ou filtra por ano se quiser)
             incluir = true;
         }
 
         if (incluir) {
-            // Processa Acertos por Número (Mapas salvos na partida)
+            // Processa Acertos por NÃºmero (Mapas salvos na partida)
             if (partida.acertosMap) {
                 for (const [num, qtd] of Object.entries(partida.acertosMap)) {
                     if (dadosTabuada[num]) dadosTabuada[num].acertos += qtd;
                 }
             }
-            // Processa Erros por Número
+            // Processa Erros por NÃºmero
             if (partida.errosMap) {
                 for (const [num, qtd] of Object.entries(partida.errosMap)) {
                     if (dadosTabuada[num]) dadosTabuada[num].erros += qtd;
@@ -120,7 +122,7 @@ export function gerarDadosGrafico(periodo) {
         }
     });
 
-    // Calcula o máximo para escala do gráfico
+    // Calcula o mÃ¡ximo para escala do grÃ¡fico
     let maxVolume = 0;
     for (let i = 1; i <= 10; i++) {
         const total = dadosTabuada[i].acertos + dadosTabuada[i].erros;
@@ -135,10 +137,23 @@ export function gerarDadosGrafico(periodo) {
 
 // Apaga tudo (Reset)
 export function limparDados() {
-    if (confirm("Tem certeza? Isso apagará todo seu histórico e recordes.")) {
+    mostrarConfirmacao({
+        titulo: 'Limpar historico',
+        mensagem: 'Isso apagara todo seu historico e recordes. Deseja continuar?',
+        textoConfirmar: 'Apagar',
+        textoCancelar: 'Cancelar'
+    }).then((confirmado) => {
+        if (!confirmado) return;
+
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem('tabuada_recorde');
-        alert("Histórico apagado com sucesso!");
-        window.location.reload();
-    }
+
+        mostrarAlerta({
+            titulo: 'Concluido',
+            mensagem: 'Historico apagado com sucesso.',
+            textoConfirmar: 'OK'
+        }).then(() => {
+            window.location.reload();
+        });
+    });
 }

@@ -3045,3 +3045,71 @@ input:checked + .slider:before {
     /* Borda arredondada sÃ³ na ponta que avanÃ§a */
     border-radius: 0 4px 4px 0; 
 }
+
+/* Modal interno (substitui alert/confirm do navegador) */
+#modal-jogo {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+}
+
+.modal-jogo-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+}
+
+.modal-jogo-card {
+    position: relative;
+    width: min(420px, calc(100% - 32px));
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 18px 60px rgba(2, 6, 23, 0.25);
+    padding: 18px;
+}
+
+.modal-jogo-card h3 {
+    margin: 0 0 8px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    color: #0f172a;
+}
+
+.modal-jogo-card p {
+    margin: 0;
+    color: #334155;
+    line-height: 1.45;
+}
+
+.modal-jogo-acoes {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.btn-modal-jogo {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-modal-secundario {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.btn-modal-primario {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.btn-modal-jogo.oculto {
+    display: none;
+}

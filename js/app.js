@@ -5,7 +5,7 @@ import * as Game from './modules/game.js';
 import { obterDadosDesempenho, limparDados, gerarDadosGrafico, obterDetalhesPorModo } from './modules/stats.js';
 import * as Store from './modules/store.js'; 
 
-// --- EXPOR FUNÇÕES GLOBAIS ---
+// --- EXPOR FUNÃ‡Ã•ES GLOBAIS ---
 window.escolherModoInput = UI.escolherModoInput;
 window.atualizarValorSlider = UI.atualizarValorSlider;
 window.escolherQtd = UI.escolherQtd;
@@ -13,11 +13,11 @@ window.escolherModoDesafio = UI.escolherModoDesafio;
 window.escolherDificuldade = UI.escolherDificuldade;
 window.limparTudo = limparDados;
 
-// --- CONFIGURAÇÕES E PREFERÊNCIAS (NOVO) ---
+// --- CONFIGURAÃ‡Ã•ES E PREFERÃŠNCIAS (NOVO) ---
 window.somLigado = true;      // Estado Global
 window.vibracaoLigada = true; // Estado Global
 
-// Função chamada pelo Switch de Som
+// FunÃ§Ã£o chamada pelo Switch de Som
 window.alternarSom = function(ativo) {
     window.somLigado = ativo;
     localStorage.setItem('tabuada_som', ativo);
@@ -25,7 +25,7 @@ window.alternarSom = function(ativo) {
     if(ativo && typeof AudioMestre !== 'undefined') AudioMestre.click();
 }
 
-// Função chamada pelo Switch de Vibração
+// FunÃ§Ã£o chamada pelo Switch de VibraÃ§Ã£o
 window.alternarVibracao = function(ativo) {
     window.vibracaoLigada = ativo;
     localStorage.setItem('tabuada_vibracao', ativo);
@@ -33,29 +33,40 @@ window.alternarVibracao = function(ativo) {
     if(ativo && navigator.vibrate) navigator.vibrate(50);
 }
 
-// Função chamada pelo Botão de Apagar Dados
+// FunÃ§Ã£o chamada pelo BotÃ£o de Apagar Dados
 window.confirmarReset = function() {
-    if(confirm("Tem certeza? Isso apagará todas as suas estrelas, recordes e compras.")) {
-        // Remove apenas os dados de jogo, mantém configurações
+    UI.mostrarConfirmacao({
+        titulo: 'Apagar progresso',
+        mensagem: 'Isso apaga estrelas, recordes e compras. Deseja continuar?',
+        textoConfirmar: 'Apagar',
+        textoCancelar: 'Cancelar'
+    }).then((confirmado) => {
+        if (!confirmado) return;
+
         localStorage.removeItem('tabuada_store_v1');
         localStorage.removeItem('tabuada_stats_v1');
         localStorage.removeItem('tabuada_recorde');
-        
-        alert("Dados apagados com sucesso! O app será reiniciado.");
-        window.location.reload();
-    }
+
+        UI.mostrarAlerta({
+            titulo: 'Concluido',
+            mensagem: 'Dados apagados com sucesso. O app sera reiniciado.',
+            textoConfirmar: 'OK'
+        }).then(() => {
+            window.location.reload();
+        });
+    });
 }
 
-// Carrega as preferências salvas ao iniciar
+// Carrega as preferÃªncias salvas ao iniciarÃªncias salvas ao iniciar
 function carregarPreferencias() {
     const somSalvo = localStorage.getItem('tabuada_som');
     const vibSalvo = localStorage.getItem('tabuada_vibracao');
 
-    // Se for null (primeira vez), considera true. Senão, converte string para boolean.
+    // Se for null (primeira vez), considera true. SenÃ£o, converte string para boolean.
     window.somLigado = (somSalvo === null || somSalvo === 'true');
     window.vibracaoLigada = (vibSalvo === null || vibSalvo === 'true');
 
-    // Atualiza visualmente os Switches na tela de Configurações
+    // Atualiza visualmente os Switches na tela de ConfiguraÃ§Ãµes
     const toggleSom = document.getElementById('toggle-som');
     const toggleVib = document.getElementById('toggle-vibracao');
 
@@ -63,7 +74,7 @@ function carregarPreferencias() {
     if(toggleVib) toggleVib.checked = window.vibracaoLigada;
 }
 
-// --- FUNÇÃO DO HISTÓRICO POR MODO ---
+// --- FUNÃ‡ÃƒO DO HISTÃ“RICO POR MODO ---
 window.verHistoricoModo = function(modo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
@@ -72,10 +83,10 @@ window.verHistoricoModo = function(modo) {
     painel.classList.remove('oculto');
     
     const nomes = { 
-        'classico': '⏱️ Clássico', 
-        'morte': '💣 Morte Súbita', 
-        'recarga': '🔋 Recarga', 
-        'speedrun': '🏁 Speedrun' 
+        'classico': 'â±ï¸ ClÃ¡ssico', 
+        'morte': 'ðŸ’£ Morte SÃºbita', 
+        'recarga': 'ðŸ”‹ Recarga', 
+        'speedrun': 'ðŸ Speedrun' 
     };
     document.getElementById('titulo-modo-historico').textContent = nomes[modo] || modo;
     document.getElementById('valor-recorde-modo').textContent = `${dados.recorde} pts`;
@@ -89,14 +100,14 @@ window.verHistoricoModo = function(modo) {
         dados.lista.forEach(partida => {
             const dataObj = new Date(partida.data);
             const dataFormatada = dataObj.toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'}) + 
-                                  ' às ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+                                  ' Ã s ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
             
             const html = `
                 <div class="item-mini">
                     <span style="color:#64748b; font-size:0.85rem">${dataFormatada}</span>
                     <div style="display:flex; gap:10px; align-items:center;">
                         <span class="pts">${partida.pontos} pts</span>
-                        <span style="font-size:0.8rem; color:var(--text-light)">(${partida.acertos}✅ / ${partida.erros}❌)</span>
+                        <span style="font-size:0.8rem; color:var(--text-light)">(${partida.acertos}âœ… / ${partida.erros}âŒ)</span>
                     </div>
                 </div>
             `;
@@ -111,13 +122,13 @@ window.fecharHistoricoModo = function() {
     document.getElementById('painel-detalhes-historico').classList.add('oculto');
 }
 
-// --- FUNÇÃO DO GRÁFICO (Com Rótulos de Porcentagem) ---
+// --- FUNÃ‡ÃƒO DO GRÃFICO (Com RÃ³tulos de Porcentagem) ---
 window.atualizarGrafico = function(periodo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
     document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('ativo'));
     const botoes = Array.from(document.querySelectorAll('.btn-filtro'));
-    const botaoAlvo = botoes.find(b => b.textContent.toLowerCase().includes(periodo === 'dia' ? 'dia' : periodo === 'mes' ? 'mês' : 'ano'));
+    const botaoAlvo = botoes.find(b => b.textContent.toLowerCase().includes(periodo === 'dia' ? 'dia' : periodo === 'mes' ? 'mÃªs' : 'ano'));
     if(botaoAlvo) botaoAlvo.classList.add('ativo');
 
     const info = gerarDadosGrafico(periodo);
@@ -138,7 +149,7 @@ window.atualizarGrafico = function(periodo) {
 
             // Altura da barra baseada no volume de acertos
             let altura = info.max > 0 ? (acertos / info.max) * 100 : 0;
-            if (acertos > 0 && altura < 12) altura = 12; // Mínimo para não sumir
+            if (acertos > 0 && altura < 12) altura = 12; // MÃ­nimo para nÃ£o sumir
             if (acertos === 0) altura = 3; 
             
             // Define a cor do texto
@@ -162,12 +173,12 @@ window.atualizarGrafico = function(periodo) {
     }
 }
 
-// --- INICIALIZAÇÃO ---
+// --- INICIALIZAÃ‡ÃƒO ---
 document.addEventListener('DOMContentLoaded', () => {
     Game.carregarRecorde();
     Store.initStore(); // Inicia a loja e carrega o saldo/avatar
     
-    // --- NOVO: Carregar Configurações ---
+    // --- NOVO: Carregar ConfiguraÃ§Ãµes ---
     carregarPreferencias();
     atualizarSaudacao();
 
@@ -182,7 +193,7 @@ function setupEventos() {
     
     // --- MENU LATERAL ---
     
-    // Abrir Menu (Hambúrguer)
+    // Abrir Menu (HambÃºrguer)
     const btnMenu = document.getElementById('btn-abrir-menu');
     if(btnMenu) {
         btnMenu.onclick = () => {
@@ -197,7 +208,7 @@ function setupEventos() {
         overlay.onclick = () => UI.toggleMenu(false);
     }
 
-    // Botão LOJA (Dentro do Menu)
+    // BotÃ£o LOJA (Dentro do Menu)
     const menuLoja = document.getElementById('menu-loja');
     if(menuLoja) {
         menuLoja.onclick = () => {
@@ -208,7 +219,7 @@ function setupEventos() {
         };
     }
 
-    // Botão DESEMPENHO (Dentro do Menu)
+    // BotÃ£o DESEMPENHO (Dentro do Menu)
     const menuDesempenho = document.getElementById('menu-desempenho');
     if(menuDesempenho) {
         menuDesempenho.onclick = () => {
@@ -221,7 +232,7 @@ function setupEventos() {
             document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
             document.getElementById('dash-total-erros').textContent = dados.totalErros;
             
-            // Reseta visualização
+            // Reseta visualizaÃ§Ã£o
             document.getElementById('painel-detalhes-historico').classList.add('oculto');
             window.atualizarGrafico('dia');
 
@@ -229,7 +240,7 @@ function setupEventos() {
         };
     }
 
-    // --- BOTÕES PRINCIPAIS DA HOME ---
+    // --- BOTÃ•ES PRINCIPAIS DA HOME ---
     
     document.getElementById('btn-estudar').onclick = () => { 
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
@@ -247,7 +258,7 @@ function setupEventos() {
         UI.mostrarTela('configDesafio'); 
     };
 
-    // --- BOTÕES INTERNOS DE AÇÃO ---
+    // --- BOTÃ•ES INTERNOS DE AÃ‡ÃƒO ---
     
     // Iniciar Treino
     const btnStartTreino = document.getElementById('btn-iniciar-treino-custom');
@@ -267,9 +278,9 @@ function setupEventos() {
         };
     }
 
-    // Botão Voltar (Global)
+    // BotÃ£o Voltar (Global)
     document.querySelectorAll('.btn-voltar').forEach(btn => {
-        if (btn.id === 'btn-sair-jogo') return; // Ignora o botão de sair do jogo (Game.js cuida dele)
+        if (btn.id === 'btn-sair-jogo') return; // Ignora o botÃ£o de sair do jogo (Game.js cuida dele)
 
         btn.onclick = null; 
         btn.addEventListener('click', (e) => {
@@ -294,14 +305,14 @@ function setupEventos() {
     document.getElementById('btn-home-resultado').onclick = () => UI.mostrarTela('inicial');
 }
 
-// Função para atualizar a saudação
+// FunÃ§Ã£o para atualizar a saudaÃ§Ã£o
 function atualizarSaudacao() {
     const hora = new Date().getHours();
     const textoEl = document.getElementById('texto-horario');
     
     if (!textoEl) return;
 
-    let saudacao = "Olá,";
+    let saudacao = "OlÃ¡,";
     if (hora >= 5 && hora < 12) {
         saudacao = "Bom dia,";
     } else if (hora >= 12 && hora < 18) {

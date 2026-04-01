@@ -1,9 +1,10 @@
 {
   "name": "Tabuada Mestre",
   "short_name": "Tabuada",
+  "id": "/",
   "description": "Aprenda a tabuada brincando! Modos de treino, desafios contra o tempo e lousa interativa.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f0f9ff",

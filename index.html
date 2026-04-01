@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabuada Mestre - Aprenda Brincando</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -523,6 +523,18 @@
             </div>
 <button id="btn-reiniciar" class="btn-menu azul">Jogar Novamente</button>
             <button id="btn-home-resultado" class="btn-menu neutro">Menu Inicial</button>
+        </div>
+
+        <div id="modal-jogo" class="oculto" role="dialog" aria-modal="true" aria-labelledby="modal-jogo-titulo">
+            <div class="modal-jogo-backdrop" id="modal-jogo-backdrop"></div>
+            <div class="modal-jogo-card">
+                <h3 id="modal-jogo-titulo">Confirmar acao</h3>
+                <p id="modal-jogo-mensagem">Mensagem</p>
+                <div class="modal-jogo-acoes">
+                    <button id="modal-jogo-cancelar" class="btn-modal-jogo btn-modal-secundario">Cancelar</button>
+                    <button id="modal-jogo-confirmar" class="btn-modal-jogo btn-modal-primario">OK</button>
+                </div>
+            </div>
         </div>
 
     </div> 

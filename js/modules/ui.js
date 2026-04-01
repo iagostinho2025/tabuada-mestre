@@ -142,3 +142,92 @@ export function toggleMenu(abrir) {
         overlay.classList.add('oculto');
     }
 }
+
+const modalJogo = {
+    root: document.getElementById('modal-jogo'),
+    backdrop: document.getElementById('modal-jogo-backdrop'),
+    titulo: document.getElementById('modal-jogo-titulo'),
+    mensagem: document.getElementById('modal-jogo-mensagem'),
+    btnCancelar: document.getElementById('modal-jogo-cancelar'),
+    btnConfirmar: document.getElementById('modal-jogo-confirmar')
+};
+
+let acaoConfirmar = null;
+let acaoCancelar = null;
+
+function fecharModalJogo() {
+    if (!modalJogo.root) return;
+    modalJogo.root.classList.add('oculto');
+    acaoConfirmar = null;
+    acaoCancelar = null;
+}
+
+function abrirModalJogo(config) {
+    if (!modalJogo.root) return;
+
+    modalJogo.titulo.textContent = config.titulo || 'Confirmar';
+    modalJogo.mensagem.textContent = config.mensagem || '';
+    modalJogo.btnConfirmar.textContent = config.textoConfirmar || 'OK';
+
+    if (config.textoCancelar) {
+        modalJogo.btnCancelar.classList.remove('oculto');
+        modalJogo.btnCancelar.textContent = config.textoCancelar;
+    } else {
+        modalJogo.btnCancelar.classList.add('oculto');
+    }
+
+    acaoConfirmar = typeof config.onConfirmar === 'function' ? config.onConfirmar : null;
+    acaoCancelar = typeof config.onCancelar === 'function' ? config.onCancelar : null;
+
+    modalJogo.root.classList.remove('oculto');
+}
+
+if (modalJogo.btnConfirmar) {
+    modalJogo.btnConfirmar.addEventListener('click', () => {
+        const fn = acaoConfirmar;
+        fecharModalJogo();
+        if (fn) fn();
+    });
+}
+
+if (modalJogo.btnCancelar) {
+    modalJogo.btnCancelar.addEventListener('click', () => {
+        const fn = acaoCancelar;
+        fecharModalJogo();
+        if (fn) fn();
+    });
+}
+
+if (modalJogo.backdrop) {
+    modalJogo.backdrop.addEventListener('click', () => {
+        const fn = acaoCancelar;
+        fecharModalJogo();
+        if (fn) fn();
+    });
+}
+
+export function mostrarConfirmacao({ titulo, mensagem, textoConfirmar, textoCancelar } = {}) {
+    return new Promise((resolve) => {
+        abrirModalJogo({
+            titulo: titulo || 'Confirmar',
+            mensagem: mensagem || 'Tem certeza?',
+            textoConfirmar: textoConfirmar || 'Confirmar',
+            textoCancelar: textoCancelar || 'Cancelar',
+            onConfirmar: () => resolve(true),
+            onCancelar: () => resolve(false)
+        });
+    });
+}
+
+export function mostrarAlerta({ titulo, mensagem, textoConfirmar } = {}) {
+    return new Promise((resolve) => {
+        abrirModalJogo({
+            titulo: titulo || 'Aviso',
+            mensagem: mensagem || '',
+            textoConfirmar: textoConfirmar || 'OK',
+            textoCancelar: null,
+            onConfirmar: () => resolve(true),
+            onCancelar: () => resolve(true)
+        });
+    });
+}

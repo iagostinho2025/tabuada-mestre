@@ -1,6 +1,8 @@
-﻿/**
+/**
  * Módulo da Loja de Avatares e Economia do Jogo
  */
+
+import { mostrarAlerta, mostrarConfirmacao } from './ui.js';
 
 // Catálogo de Avatares
 const CATALOGO = [
@@ -147,7 +149,14 @@ window.comprarAvatar = function(id) {
     if (!item) return;
 
     if (dadosUsuario.estrelas >= item.preco) {
-        if (confirm(`Desbloquear ${item.nome} por ${item.preco} estrelas?`)) {
+        mostrarConfirmacao({
+            titulo: 'Confirmar compra',
+            mensagem: `Desbloquear ${item.nome} por ${item.preco} estrelas?`,
+            textoConfirmar: 'Comprar',
+            textoCancelar: 'Cancelar'
+        }).then((confirmado) => {
+            if (!confirmado) return;
+
             dadosUsuario.estrelas -= item.preco;
             if (!dadosUsuario.desbloqueados.includes(id)) {
                 dadosUsuario.desbloqueados.push(id);
@@ -160,8 +169,12 @@ window.comprarAvatar = function(id) {
             atualizarInterfaceAvatar();
 
             if (typeof AudioMestre !== 'undefined') AudioMestre.acerto();
-            alert(`Parabéns! Novo visual desbloqueado: ${item.icon}`);
-        }
+            mostrarAlerta({
+                titulo: 'Compra concluida',
+                mensagem: `Novo visual desbloqueado: ${item.icon}`,
+                textoConfirmar: 'OK'
+            });
+        });
     }
 };
 
