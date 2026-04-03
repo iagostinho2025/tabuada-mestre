@@ -3,8 +3,8 @@
   "short_name": "Tabuada",
   "id": "/",
   "description": "Aprenda a tabuada brincando! Modos de treino, desafios contra o tempo e lousa interativa.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "https://tabuadamestre.mibdigital.com.br/",
+  "scope": "https://tabuadamestre.mibdigital.com.br/"
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f0f9ff",
