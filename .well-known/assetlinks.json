@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "br.com.mibdigital.tabuadamestre",
+      "sha256_cert_fingerprints": [
+        "B0:45:CF:BC:94:70:A2:88:9C:74:DA:E2:CE:7C:DD:C3:64:42:D1:87:51:39:2F:B8:4A:AA:1D:C4:D2:34:28:9D"
+      ]
+    }
+  }
+]
