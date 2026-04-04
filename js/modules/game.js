@@ -471,7 +471,7 @@ export function processarResultadoFinal(acertos, erros, total, subtitulo) {
     circle.style.strokeDasharray = `0, 100`;
     circle.classList.remove('stroke-verde', 'stroke-amarelo', 'stroke-vermelho');
     let msg = "";
-    if (percentual === 100) { msg = "Perfeito! Voce e um genio!"; circle.classList.add('stroke-verde'); }
+    if (percentual === 100) { msg = "Perfeito! Você é um gênio!"; circle.classList.add('stroke-verde'); }
     else if (percentual >= 70) { msg = "Muito bem! Continue assim!"; circle.classList.add('stroke-verde'); }
     else if (percentual >= 50) { msg = "Bom, mas pode melhorar!"; circle.classList.add('stroke-amarelo'); }
     else { msg = "Precisa estudar mais!"; circle.classList.add('stroke-vermelho'); }

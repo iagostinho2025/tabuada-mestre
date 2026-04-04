@@ -37,7 +37,7 @@
             </nav>
             
             <div class="versao-app">
-                Tabuada Mestre v2.0<br>
+                Tabuada Mestre v2.2<br>
                 <span style="font-size: 0.75rem; opacity: 0.8">Desenvolvido por <strong>MIB Digital</strong></span><br>
                 <span style="font-size: 0.7rem; opacity: 0.6">Todos os direitos reservados.</span>
             </div>
@@ -68,12 +68,12 @@
 
             <div class="container-botoes-originais">
                 <button id="btn-estudar" class="btn-menu azul">
-                    <span>Estudar Tabuadas</span>
+                    <span>📚 Estudar Tabuadas</span>
                     <small>Aprenda e pratique número por número</small>
                 </button>
 
                 <button id="btn-treino" class="btn-menu verde">
-                    <span>Praticar Agora</span>
+                    <span>🚀 Praticar Agora</span>
                     <small>Perguntas aleatórias (Sem tempo)</small>
                 </button>
                 
@@ -124,8 +124,8 @@
                 <div class="grid-botoes-historico">
                     <button class="btn-hist-modo roxo" onclick="verHistoricoModo('classico')">⏱️ Clássico</button>
                     <button class="btn-hist-modo laranja" onclick="verHistoricoModo('morte')">💣 Morte Súbita</button>
-                    <button class="btn-hist-modo verde" onclick="verHistoricoModo('recarga')">Recarga</button>
-                    <button class="btn-hist-modo azul" onclick="verHistoricoModo('speedrun')">Speedrun</button>
+                    <button class="btn-hist-modo verde" onclick="verHistoricoModo('recarga')">🔋 Recarga</button>
+                    <button class="btn-hist-modo azul" onclick="verHistoricoModo('speedrun')">🏁 Speedrun</button>
                 </div>
                 <div id="painel-detalhes-historico" class="painel-detalhes oculto">
                     <div class="header-detalhes"><h4 id="titulo-modo-historico">Clássico</h4><button class="btn-fechar-mini" onclick="fecharHistoricoModo()">✕</button></div>
@@ -452,7 +452,7 @@
                 </div>
 
                 <div class="versao-config">
-                    Tabuada Mestre v2.0<br>
+                    Tabuada Mestre v2.2<br>
                     Feito com 💙 por MIB Digital
                 </div>
 
@@ -543,8 +543,19 @@
     <script type="module" src="js/app.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./service-worker.js')
-                .then(() => console.log('Service Worker registrado!'))
+            let recarregadoPorAtualizacao = false;
+
+            navigator.serviceWorker.register('./service-worker.js', { updateViaCache: 'none' })
+                .then((registration) => {
+                    console.log('Service Worker registrado!');
+                    registration.update();
+
+                    navigator.serviceWorker.addEventListener('controllerchange', () => {
+                        if (recarregadoPorAtualizacao) return;
+                        recarregadoPorAtualizacao = true;
+                        window.location.reload();
+                    });
+                })
                 .catch((err) => console.error('Erro SW:', err));
         }
     </script>

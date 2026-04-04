@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tabuada-mestre-v2'; // Mudei para v2 para forçar atualização
+﻿const CACHE_NAME = 'tabuada-mestre-v4'; // Nova versao para forcar atualizacao
 
 // Lista exata de arquivos para funcionar offline
 const ASSETS = [
@@ -11,7 +11,7 @@ const ASSETS = [
   // Arquivo Principal
   './js/app.js',
   
-  // Módulos do Jogo (Essenciais!)
+  // MÃ³dulos do Jogo (Essenciais!)
   './js/modules/game.js',
   './js/modules/state.js',
   './js/modules/ui.js',
@@ -19,14 +19,14 @@ const ASSETS = [
   './js/modules/store.js',
   './js/modules/lousa.js',
   
-  // Se tiver ícones ou sons, adicione aqui:
+  // Se tiver Ã­cones ou sons, adicione aqui:
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png'
 ];
 
-// 1. Instalação: Baixa e salva tudo
+// 1. InstalaÃ§Ã£o: Baixa e salva tudo
 self.addEventListener('install', (e) => {
-  self.skipWaiting(); // Força o SW a ativar imediatamente
+  self.skipWaiting(); // ForÃ§a o SW a ativar imediatamente
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('[Service Worker] Caching all assets');
@@ -35,7 +35,7 @@ self.addEventListener('install', (e) => {
   );
 });
 
-// 2. Busca: Serve do cache primeiro (Rápido), cai na rede se falhar
+// 2. Busca: Serve do cache primeiro (RÃ¡pido), cai na rede se falhar
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {
@@ -44,7 +44,7 @@ self.addEventListener('fetch', (e) => {
   );
 });
 
-// 3. Ativação: Limpa caches antigos (v1) para não ocupar espaço
+// 3. AtivaÃ§Ã£o: Limpa caches antigos (v1) para nÃ£o ocupar espaÃ§o
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keyList) => {
@@ -56,5 +56,6 @@ self.addEventListener('activate', (e) => {
       }));
     })
   );
-  return self.clients.claim(); // Controla a página imediatamente
+  return self.clients.claim(); // Controla a pÃ¡gina imediatamente
 });
+

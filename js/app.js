@@ -1,11 +1,11 @@
-import { estado, configTreino, configDesafio, quizLousa, tabuadaSelecionadaId } from './modules/state.js';
+﻿import { estado, configTreino, configDesafio, quizLousa, tabuadaSelecionadaId } from './modules/state.js';
 import * as UI from './modules/ui.js';
 import * as Lousa from './modules/lousa.js';
 import * as Game from './modules/game.js';
 import { obterDadosDesempenho, limparDados, gerarDadosGrafico, obterDetalhesPorModo } from './modules/stats.js';
 import * as Store from './modules/store.js'; 
 
-// --- EXPOR FUNÃ‡Ã•ES GLOBAIS ---
+// --- EXPOR FUNÃƒâ€¡Ãƒâ€¢ES GLOBAIS ---
 window.escolherModoInput = UI.escolherModoInput;
 window.atualizarValorSlider = UI.atualizarValorSlider;
 window.escolherQtd = UI.escolherQtd;
@@ -13,11 +13,11 @@ window.escolherModoDesafio = UI.escolherModoDesafio;
 window.escolherDificuldade = UI.escolherDificuldade;
 window.limparTudo = limparDados;
 
-// --- CONFIGURAÃ‡Ã•ES E PREFERÃŠNCIAS (NOVO) ---
+// --- CONFIGURAÃƒâ€¡Ãƒâ€¢ES E PREFERÃƒÅ NCIAS (NOVO) ---
 window.somLigado = true;      // Estado Global
 window.vibracaoLigada = true; // Estado Global
 
-// FunÃ§Ã£o chamada pelo Switch de Som
+// FunÃƒÂ§ÃƒÂ£o chamada pelo Switch de Som
 window.alternarSom = function(ativo) {
     window.somLigado = ativo;
     localStorage.setItem('tabuada_som', ativo);
@@ -25,7 +25,7 @@ window.alternarSom = function(ativo) {
     if(ativo && typeof AudioMestre !== 'undefined') AudioMestre.click();
 }
 
-// FunÃ§Ã£o chamada pelo Switch de VibraÃ§Ã£o
+// FunÃƒÂ§ÃƒÂ£o chamada pelo Switch de VibraÃƒÂ§ÃƒÂ£o
 window.alternarVibracao = function(ativo) {
     window.vibracaoLigada = ativo;
     localStorage.setItem('tabuada_vibracao', ativo);
@@ -33,7 +33,7 @@ window.alternarVibracao = function(ativo) {
     if(ativo && navigator.vibrate) navigator.vibrate(50);
 }
 
-// FunÃ§Ã£o chamada pelo BotÃ£o de Apagar Dados
+// FunÃƒÂ§ÃƒÂ£o chamada pelo BotÃƒÂ£o de Apagar Dados
 window.confirmarReset = function() {
     UI.mostrarConfirmacao({
         titulo: 'Apagar progresso',
@@ -58,16 +58,16 @@ window.confirmarReset = function() {
     });
 }
 
-// Carrega as preferÃªncias salvas ao iniciarÃªncias salvas ao iniciar
+// Carrega as preferÃƒÂªncias salvas ao iniciarÃƒÂªncias salvas ao iniciar
 function carregarPreferencias() {
     const somSalvo = localStorage.getItem('tabuada_som');
     const vibSalvo = localStorage.getItem('tabuada_vibracao');
 
-    // Se for null (primeira vez), considera true. SenÃ£o, converte string para boolean.
+    // Se for null (primeira vez), considera true. SenÃƒÂ£o, converte string para boolean.
     window.somLigado = (somSalvo === null || somSalvo === 'true');
     window.vibracaoLigada = (vibSalvo === null || vibSalvo === 'true');
 
-    // Atualiza visualmente os Switches na tela de ConfiguraÃ§Ãµes
+    // Atualiza visualmente os Switches na tela de ConfiguraÃƒÂ§ÃƒÂµes
     const toggleSom = document.getElementById('toggle-som');
     const toggleVib = document.getElementById('toggle-vibracao');
 
@@ -75,7 +75,7 @@ function carregarPreferencias() {
     if(toggleVib) toggleVib.checked = window.vibracaoLigada;
 }
 
-// --- FUNÃ‡ÃƒO DO HISTÃ“RICO POR MODO ---
+// --- FUNÃƒâ€¡ÃƒÆ’O DO HISTÃƒâ€œRICO POR MODO ---
 window.verHistoricoModo = function(modo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
@@ -83,11 +83,11 @@ window.verHistoricoModo = function(modo) {
     const painel = document.getElementById('painel-detalhes-historico');
     painel.classList.remove('oculto');
     
-    const nomes = { 
-        'classico': 'â±ï¸ ClÃ¡ssico', 
-        'morte': 'ðŸ’£ Morte SÃºbita', 
-        'recarga': 'ðŸ”‹ Recarga', 
-        'speedrun': 'ðŸ Speedrun' 
+    const nomes = {
+        'classico': '\u23F1\uFE0F Cl\u00E1ssico',
+        'morte': '\uD83D\uDCA3 Morte S\u00FAbita',
+        'recarga': '\uD83D\uDD0B Recarga',
+        'speedrun': '\uD83C\uDFC1 Speedrun'
     };
     document.getElementById('titulo-modo-historico').textContent = nomes[modo] || modo;
     document.getElementById('valor-recorde-modo').textContent = `${dados.recorde} pts`;
@@ -101,14 +101,14 @@ window.verHistoricoModo = function(modo) {
         dados.lista.forEach(partida => {
             const dataObj = new Date(partida.data);
             const dataFormatada = dataObj.toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'}) + 
-                                  ' Ã s ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+                                  ' \u00E0s ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
             
             const html = `
                 <div class="item-mini">
                     <span style="color:#64748b; font-size:0.85rem">${dataFormatada}</span>
                     <div style="display:flex; gap:10px; align-items:center;">
                         <span class="pts">${partida.pontos} pts</span>
-                        <span style="font-size:0.8rem; color:var(--text-light)">(${partida.acertos}âœ… / ${partida.erros}âŒ)</span>
+                        <span style="font-size:0.8rem; color:var(--text-light)">(${partida.acertos}\u2705 / ${partida.erros}\u274C)</span>
                     </div>
                 </div>
             `;
@@ -123,13 +123,13 @@ window.fecharHistoricoModo = function() {
     document.getElementById('painel-detalhes-historico').classList.add('oculto');
 }
 
-// --- FUNÃ‡ÃƒO DO GRÃFICO (Com RÃ³tulos de Porcentagem) ---
+// --- FUNÃƒâ€¡ÃƒÆ’O DO GRÃƒÂFICO (Com RÃƒÂ³tulos de Porcentagem) ---
 window.atualizarGrafico = function(periodo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     
     document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('ativo'));
     const botoes = Array.from(document.querySelectorAll('.btn-filtro'));
-    const botaoAlvo = botoes.find(b => b.textContent.toLowerCase().includes(periodo === 'dia' ? 'dia' : periodo === 'mes' ? 'mÃªs' : 'ano'));
+    const botaoAlvo = botoes.find(b => b.textContent.toLowerCase().includes(periodo === 'dia' ? 'dia' : periodo === 'mes' ? 'm\u00EAs' : 'ano'));
     if(botaoAlvo) botaoAlvo.classList.add('ativo');
 
     const info = gerarDadosGrafico(periodo);
@@ -150,7 +150,7 @@ window.atualizarGrafico = function(periodo) {
 
             // Altura da barra baseada no volume de acertos
             let altura = info.max > 0 ? (acertos / info.max) * 100 : 0;
-            if (acertos > 0 && altura < 12) altura = 12; // MÃ­nimo para nÃ£o sumir
+            if (acertos > 0 && altura < 12) altura = 12; // MÃƒÂ­nimo para nÃƒÂ£o sumir
             if (acertos === 0) altura = 3; 
             
             // Define a cor do texto
@@ -174,12 +174,12 @@ window.atualizarGrafico = function(periodo) {
     }
 }
 
-// --- INICIALIZAÃ‡ÃƒO ---
+// --- INICIALIZAÃƒâ€¡ÃƒÆ’O ---
 document.addEventListener('DOMContentLoaded', () => {
     Game.carregarRecorde();
     Store.initStore(); // Inicia a loja e carrega o saldo/avatar
     
-    // --- NOVO: Carregar ConfiguraÃ§Ãµes ---
+    // --- NOVO: Carregar ConfiguraÃƒÂ§ÃƒÂµes ---
     carregarPreferencias();
     atualizarSaudacao();
 
@@ -194,7 +194,7 @@ function setupEventos() {
     
     // --- MENU LATERAL ---
     
-    // Abrir Menu (HambÃºrguer)
+    // Abrir Menu (HambÃƒÂºrguer)
     const btnMenu = document.getElementById('btn-abrir-menu');
     if(btnMenu) {
         btnMenu.onclick = () => {
@@ -209,7 +209,7 @@ function setupEventos() {
         overlay.onclick = () => UI.toggleMenu(false);
     }
 
-    // BotÃ£o LOJA (Dentro do Menu)
+    // BotÃƒÂ£o LOJA (Dentro do Menu)
     const menuLoja = document.getElementById('menu-loja');
     if(menuLoja) {
         menuLoja.onclick = () => {
@@ -220,7 +220,7 @@ function setupEventos() {
         };
     }
 
-    // BotÃ£o DESEMPENHO (Dentro do Menu)
+    // BotÃƒÂ£o DESEMPENHO (Dentro do Menu)
     const menuDesempenho = document.getElementById('menu-desempenho');
     if(menuDesempenho) {
         menuDesempenho.onclick = () => {
@@ -233,7 +233,7 @@ function setupEventos() {
             document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
             document.getElementById('dash-total-erros').textContent = dados.totalErros;
             
-            // Reseta visualizaÃ§Ã£o
+            // Reseta visualizaÃƒÂ§ÃƒÂ£o
             document.getElementById('painel-detalhes-historico').classList.add('oculto');
             window.atualizarGrafico('dia');
 
@@ -241,7 +241,7 @@ function setupEventos() {
         };
     }
 
-    // --- BOTÃ•ES PRINCIPAIS DA HOME ---
+    // --- BOTÃƒâ€¢ES PRINCIPAIS DA HOME ---
     
     document.getElementById('btn-estudar').onclick = () => { 
         if(typeof AudioMestre !== 'undefined') AudioMestre.click();
@@ -259,7 +259,7 @@ function setupEventos() {
         UI.mostrarTela('configDesafio'); 
     };
 
-    // --- BOTÃ•ES INTERNOS DE AÃ‡ÃƒO ---
+    // --- BOTÃƒâ€¢ES INTERNOS DE AÃƒâ€¡ÃƒÆ’O ---
     
     // Iniciar Treino
     const btnStartTreino = document.getElementById('btn-iniciar-treino-custom');
@@ -279,9 +279,9 @@ function setupEventos() {
         };
     }
 
-    // BotÃ£o Voltar (Global)
+    // BotÃƒÂ£o Voltar (Global)
     document.querySelectorAll('.btn-voltar').forEach(btn => {
-        if (btn.id === 'btn-sair-jogo') return; // Ignora o botÃ£o de sair do jogo (Game.js cuida dele)
+        if (btn.id === 'btn-sair-jogo') return; // Ignora o botÃƒÂ£o de sair do jogo (Game.js cuida dele)
 
         btn.onclick = null; 
         btn.addEventListener('click', (e) => {
@@ -306,14 +306,14 @@ function setupEventos() {
     document.getElementById('btn-home-resultado').onclick = () => UI.mostrarTela('inicial');
 }
 
-// FunÃ§Ã£o para atualizar a saudaÃ§Ã£o
+// FunÃƒÂ§ÃƒÂ£o para atualizar a saudaÃƒÂ§ÃƒÂ£o
 function atualizarSaudacao() {
     const hora = new Date().getHours();
     const textoEl = document.getElementById('texto-horario');
     
     if (!textoEl) return;
 
-    let saudacao = "OlÃ¡,";
+    let saudacao = "Ol\u00E1,";
     if (hora >= 5 && hora < 12) {
         saudacao = "Bom dia,";
     } else if (hora >= 12 && hora < 18) {
@@ -323,3 +323,4 @@ function atualizarSaudacao() {
     }
     textoEl.textContent = saudacao;
 }
+
