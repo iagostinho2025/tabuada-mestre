@@ -16,6 +16,7 @@ window.limparTudo = limparDados;
 // --- CONFIGURAÃƒâ€¡Ãƒâ€¢ES E PREFERÃƒÅ NCIAS (NOVO) ---
 window.somLigado = true;      // Estado Global
 window.vibracaoLigada = true; // Estado Global
+window.temaEscuroLigado = false; // Estado Global
 
 // FunÃƒÂ§ÃƒÂ£o chamada pelo Switch de Som
 window.alternarSom = function(ativo) {
@@ -31,6 +32,23 @@ window.alternarVibracao = function(ativo) {
     localStorage.setItem('tabuada_vibracao', ativo);
     // Vibra de teste se ativou (e se o dispositivo suportar)
     if(ativo && navigator.vibrate) navigator.vibrate(50);
+}
+
+// FunÃƒÂ§ÃƒÂ£o chamada pelo Switch de Tema
+window.alternarTemaEscuro = function(ativo) {
+    window.temaEscuroLigado = ativo;
+    localStorage.setItem('tabuada_tema', ativo ? 'escuro' : 'claro');
+    aplicarTema(ativo ? 'escuro' : 'claro');
+}
+
+function aplicarTema(tema) {
+    const temaEscuro = tema === 'escuro';
+    document.documentElement.setAttribute('data-theme', temaEscuro ? 'dark' : 'light');
+
+    const metaThemeColor = document.getElementById('meta-theme-color') || document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', temaEscuro ? '#0f172a' : '#2563eb');
+    }
 }
 
 // FunÃƒÂ§ÃƒÂ£o chamada pelo BotÃƒÂ£o de Apagar Dados
@@ -62,17 +80,22 @@ window.confirmarReset = function() {
 function carregarPreferencias() {
     const somSalvo = localStorage.getItem('tabuada_som');
     const vibSalvo = localStorage.getItem('tabuada_vibracao');
+    const temaSalvo = localStorage.getItem('tabuada_tema');
 
     // Se for null (primeira vez), considera true. SenÃƒÂ£o, converte string para boolean.
     window.somLigado = (somSalvo === null || somSalvo === 'true');
     window.vibracaoLigada = (vibSalvo === null || vibSalvo === 'true');
+    window.temaEscuroLigado = (temaSalvo === 'escuro');
+    aplicarTema(window.temaEscuroLigado ? 'escuro' : 'claro');
 
     // Atualiza visualmente os Switches na tela de ConfiguraÃƒÂ§ÃƒÂµes
     const toggleSom = document.getElementById('toggle-som');
     const toggleVib = document.getElementById('toggle-vibracao');
+    const toggleTema = document.getElementById('toggle-tema');
 
     if(toggleSom) toggleSom.checked = window.somLigado;
     if(toggleVib) toggleVib.checked = window.vibracaoLigada;
+    if(toggleTema) toggleTema.checked = window.temaEscuroLigado;
 }
 
 // --- FUNÃƒâ€¡ÃƒÆ’O DO HISTÃƒâ€œRICO POR MODO ---

@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'tabuada-mestre-v4'; // Nova versao para forcar atualizacao
+﻿const CACHE_NAME = 'tabuada-mestre-v6'; // Nova versao para forcar atualizacao
 
 // Lista exata de arquivos para funcionar offline
 const ASSETS = [

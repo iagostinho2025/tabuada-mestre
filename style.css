@@ -18,7 +18,55 @@
     --shadow-soft: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif; }
+:root[data-theme="dark"] {
+    --primary: #60a5fa;
+    --primary-dark: #3b82f6;
+    --secondary: #fb923c;
+    --accent: #a78bfa;
+    --success: #4ade80;
+    --error: #f87171;
+
+    --bg-app: #0f172a;
+    --surface: #1e293b;
+    --text-main: #f8fafc;
+    --text-light: #cbd5e1;
+
+    --shadow: 0 4px 0 rgba(0,0,0,0.35);
+    --shadow-soft: 0 10px 25px rgba(0,0,0,0.28);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Nunito', sans-serif;
+}
+
+html,
+body,
+#app {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+button,
+a,
+[role="button"] {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(96,165,250,0.75);
+    outline-offset: 2px;
+}
 
 body {
     background-color: var(--bg-app);
@@ -87,6 +135,12 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif; margin: 0; }
 .btn-link {
     background: none; border: none; color: var(--text-light);
     text-decoration: underline; cursor: pointer; font-size: 0.9rem;
+}
+
+.grid-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 /* --- 3. TELAS INTERNAS (Estudo e SeleÃ§Ã£o) --- */
@@ -3141,4 +3195,516 @@ input:checked + .slider:before {
         opacity: 1;
         transform: translateY(-50%) scale(1);
     }
+}
+
+/* =================================================
+   TEMA ESCURO
+   ================================================= */
+:root[data-theme="dark"] body {
+    background-color: var(--bg-app) !important;
+    color: var(--text-main);
+}
+
+:root[data-theme="dark"] .logo-header-texto span {
+    color: var(--text-light) !important;
+}
+
+:root[data-theme="dark"] .btn-icon-quadrado {
+    background: var(--surface) !important;
+    border-color: #334155 !important;
+    color: #93c5fd !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.28) !important;
+}
+
+:root[data-theme="dark"] #menu-lateral {
+    background: var(--bg-app) !important;
+    box-shadow: 8px 0 28px rgba(0,0,0,0.45) !important;
+}
+
+:root[data-theme="dark"] .menu-header {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .avatar-menu-grande {
+    background: #f8fafc !important;
+    border-color: #93c5fd !important;
+}
+
+:root[data-theme="dark"] .btn-item-menu {
+    background: var(--surface) !important;
+    border-color: #334155 !important;
+    color: var(--text-main) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.22) !important;
+}
+
+:root[data-theme="dark"] .btn-item-menu:active {
+    background: #334155 !important;
+}
+
+:root[data-theme="dark"] .versao-app {
+    color: var(--text-light) !important;
+    opacity: 0.85 !important;
+}
+
+:root[data-theme="dark"] .header-topo-limpo {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+:root[data-theme="dark"] .texto-saudacao-container strong {
+    color: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .texto-saudacao-container span,
+:root[data-theme="dark"] .label-secao-home {
+    color: var(--text-light) !important;
+}
+
+:root[data-theme="dark"] .avatar-saudacao {
+    background: #334155 !important;
+    border-color: #475569 !important;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08);
+}
+
+:root[data-theme="dark"] .card-nivel-usuario,
+:root[data-theme="dark"] .linha-tabuada,
+:root[data-theme="dark"] .card-opcao,
+:root[data-theme="dark"] .card-pergunta,
+:root[data-theme="dark"] .card-pergunta-focada,
+:root[data-theme="dark"] .opcao-btn,
+:root[data-theme="dark"] .botao-opcao,
+:root[data-theme="dark"] .topo-info,
+:root[data-theme="dark"] .area-pergunta,
+:root[data-theme="dark"] .card-lousa-container,
+:root[data-theme="dark"] .area-seletores-container,
+:root[data-theme="dark"] .card-quiz-flutuante,
+:root[data-theme="dark"] #container-jogo,
+:root[data-theme="dark"] .btn-voltar,
+:root[data-theme="dark"] .card-opcao-treino,
+:root[data-theme="dark"] .btn-qtd-redondo,
+:root[data-theme="dark"] .card-grafico,
+:root[data-theme="dark"] .stat-card,
+:root[data-theme="dark"] .painel-detalhes,
+:root[data-theme="dark"] .item-mini,
+:root[data-theme="dark"] .card-avatar,
+:root[data-theme="dark"] .header-topo-limpo,
+:root[data-theme="dark"] .card-boas-vindas-topo,
+:root[data-theme="dark"] .saldo-badge-pill,
+:root[data-theme="dark"] .banner-saldo-loja,
+:root[data-theme="dark"] .card-termos,
+:root[data-theme="dark"] .card-regra,
+:root[data-theme="dark"] .card-config-item,
+:root[data-theme="dark"] .modal-jogo-card,
+:root[data-theme="dark"] .container-slider-qtd,
+:root[data-theme="dark"] #texto-explicacao-dificuldade {
+    background: var(--surface) !important;
+    border-color: #334155 !important;
+    color: var(--text-main) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.28);
+}
+
+:root[data-theme="dark"] .header-topo-limpo {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+:root[data-theme="dark"] .icon-config,
+:root[data-theme="dark"] .btn-modal-secundario,
+:root[data-theme="dark"] .area-barras,
+:root[data-theme="dark"] .grafico-container,
+:root[data-theme="dark"] .lousa-vazia,
+:root[data-theme="dark"] .resposta-input,
+:root[data-theme="dark"] .teclado-display,
+:root[data-theme="dark"] .painel-quiz-lousa,
+:root[data-theme="dark"] .barra-fina-bg,
+:root[data-theme="dark"] .barra-progresso {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .card-config-item.perigo {
+    background: #3b1820 !important;
+    border-color: #7f1d1d !important;
+}
+
+:root[data-theme="dark"] .card-config-item.perigo small,
+:root[data-theme="dark"] .btn-link {
+    color: #fca5a5 !important;
+}
+
+:root[data-theme="dark"] .card-regra.premium,
+:root[data-theme="dark"] .card-recorde-destaque,
+:root[data-theme="dark"] .banner-saldo-loja {
+    background: #422006 !important;
+    border-color: #92400e !important;
+}
+
+:root[data-theme="dark"] .texto-dourado {
+    color: #facc15 !important;
+}
+
+:root[data-theme="dark"] .linha-tabuada.focada {
+    background-color: #172554 !important;
+    border-color: var(--primary) !important;
+    color: #bfdbfe !important;
+}
+
+:root[data-theme="dark"] .linha-tabuada.revelada-certa {
+    background-color: #14532d !important;
+    color: #dcfce7 !important;
+}
+
+:root[data-theme="dark"] .linha-tabuada.revelada-erro {
+    background-color: #7f1d1d !important;
+    color: #fee2e2 !important;
+}
+
+:root[data-theme="dark"] .botao-opcao.correto {
+    background: #14532d !important;
+    border-color: var(--success) !important;
+    color: #dcfce7 !important;
+}
+
+:root[data-theme="dark"] .botao-opcao.errado {
+    background: #7f1d1d !important;
+    border-color: var(--error) !important;
+    color: #fee2e2 !important;
+}
+
+:root[data-theme="dark"] .card-opcao-treino.selecionado,
+:root[data-theme="dark"] .btn-qtd-redondo.selecionado {
+    background: #172554 !important;
+    border-color: var(--primary) !important;
+    color: #bfdbfe !important;
+}
+
+:root[data-theme="dark"] .btn-menu.neutro {
+    background: var(--surface) !important;
+    border-color: #334155 !important;
+    color: var(--text-main) !important;
+    box-shadow: 0 4px 0 #334155 !important;
+}
+
+:root[data-theme="dark"] .btn-menu.neutro:hover,
+:root[data-theme="dark"] .btn-menu.neutro:active {
+    background: #334155 !important;
+    border-color: #475569 !important;
+}
+
+:root[data-theme="dark"] .container-botoes-originais .btn-menu {
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    box-shadow: 0 5px 0 rgba(148,163,184,0.48), 0 10px 20px rgba(0,0,0,0.18) !important;
+}
+
+:root[data-theme="dark"] .container-botoes-originais .btn-menu.azul {
+    background: linear-gradient(135deg, #4f8df5 0%, #256fe6 100%) !important;
+}
+
+:root[data-theme="dark"] .container-botoes-originais .btn-menu.verde {
+    background: linear-gradient(135deg, #25c765 0%, #16a34a 100%) !important;
+}
+
+:root[data-theme="dark"] .container-botoes-originais .btn-menu.roxo {
+    background: linear-gradient(135deg, #a15af0 0%, #8428d8 100%) !important;
+}
+
+:root[data-theme="dark"] .container-botoes-originais .btn-menu:active {
+    box-shadow: none !important;
+}
+
+:root[data-theme="dark"] .banner-saldo-loja {
+    background: linear-gradient(135deg, #1e293b 0%, #172554 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 10px 24px rgba(37,99,235,0.18) !important;
+}
+
+:root[data-theme="dark"] .banner-saldo-loja .texto-dourado {
+    color: #fde047 !important;
+    text-shadow: 0 2px 10px rgba(250,204,21,0.2);
+}
+
+:root[data-theme="dark"] .card-avatar {
+    background: #182235 !important;
+    border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .card-avatar.equipado {
+    background: linear-gradient(180deg, #153522 0%, #182235 100%) !important;
+    border-color: var(--success) !important;
+    box-shadow: 0 0 18px rgba(74,222,128,0.18) !important;
+}
+
+:root[data-theme="dark"] .card-avatar.bloqueado {
+    background: #141e2f !important;
+}
+
+:root[data-theme="dark"] .card-avatar.bloqueado .avatar-icon {
+    filter: grayscale(100%) brightness(0.75) !important;
+    opacity: 0.62 !important;
+}
+
+:root[data-theme="dark"] .avatar-nome {
+    color: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .btn-usar {
+    background: #172554 !important;
+    border: 2px solid var(--primary) !important;
+    color: #bfdbfe !important;
+}
+
+:root[data-theme="dark"] .btn-equipado {
+    background: var(--success) !important;
+    color: #052e16 !important;
+}
+
+:root[data-theme="dark"] .btn-caro {
+    background: #e2e8f0 !important;
+    color: #64748b !important;
+    opacity: 0.95;
+}
+
+:root[data-theme="dark"] .intro-regras {
+    background: #172554 !important;
+    border-color: #2563eb !important;
+    color: #bfdbfe !important;
+}
+
+:root[data-theme="dark"] .titulo-secao-regras {
+    color: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .desc-secao,
+:root[data-theme="dark"] .lista-regras {
+    color: #dbeafe !important;
+}
+
+:root[data-theme="dark"] .divisor-secao {
+    background: #334155 !important;
+}
+
+:root[data-theme="dark"] .header-regra {
+    border-bottom-color: #64748b !important;
+}
+
+:root[data-theme="dark"] .icon-regra {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+}
+
+:root[data-theme="dark"] .header-regra strong {
+    color: #f8fafc !important;
+}
+
+:root[data-theme="dark"] .card-regra.azul {
+    border-left-color: #60a5fa !important;
+}
+
+:root[data-theme="dark"] .card-regra.roxo {
+    border-left-color: #a78bfa !important;
+}
+
+:root[data-theme="dark"] .card-regra.laranja {
+    border-left-color: #fb923c !important;
+}
+
+:root[data-theme="dark"] .card-regra.rosa {
+    border-left-color: #f472b6 !important;
+}
+
+:root[data-theme="dark"] .card-regra.perigo {
+    border-left-color: #f87171 !important;
+}
+
+:root[data-theme="dark"] .card-regra.recarga {
+    border-left-color: #4ade80 !important;
+}
+
+:root[data-theme="dark"] .card-regra.speed {
+    border-left-color: #38bdf8 !important;
+}
+
+:root[data-theme="dark"] .item-lousa {
+    color: #dbeafe !important;
+    border-bottom-color: rgba(148,163,184,0.22) !important;
+}
+
+:root[data-theme="dark"] .item-lousa[style*="opacity: 0.4"] {
+    opacity: 0.55 !important;
+}
+
+:root[data-theme="dark"] .item-lousa.ativa-no-quiz {
+    background: #172554 !important;
+    border: 2px solid var(--primary) !important;
+    color: #f8fafc !important;
+    box-shadow: 0 0 14px rgba(96,165,250,0.35) !important;
+}
+
+:root[data-theme="dark"] .destaque-resultado {
+    color: #4ade80 !important;
+}
+
+:root[data-theme="dark"] .area-seletores-container {
+    background: #182235 !important;
+    border: 1px solid #334155 !important;
+    border-radius: 16px !important;
+    padding: 14px 10px !important;
+}
+
+:root[data-theme="dark"] .btn-seletor-redondo {
+    background: #f8fafc !important;
+    border-color: #cbd5e1 !important;
+    color: #64748b !important;
+    box-shadow: 0 4px 0 #94a3b8 !important;
+}
+
+:root[data-theme="dark"] .btn-seletor-redondo.ativo {
+    background: var(--primary) !important;
+    border-color: var(--primary-dark) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 0 var(--primary-dark) !important;
+}
+
+:root[data-theme="dark"] .card-pergunta-focada {
+    background: var(--surface) !important;
+    border-color: #334155 !important;
+}
+
+:root[data-theme="dark"] .pergunta-texto-grande,
+:root[data-theme="dark"] .pergunta-destaque {
+    background: #0f172a !important;
+    border-color: #475569 !important;
+    color: #f8fafc !important;
+}
+
+:root[data-theme="dark"] .btn-lateral {
+    background: #182235 !important;
+    border-color: #475569 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 6px 0 #0f172a !important;
+}
+
+:root[data-theme="dark"] .btn-lateral:hover:not(:disabled) {
+    border-color: var(--primary) !important;
+    color: #bfdbfe !important;
+    background: #172554 !important;
+}
+
+:root[data-theme="dark"] .btn-lateral.certo {
+    background: #dcfce7 !important;
+    border-color: var(--success) !important;
+    color: #166534 !important;
+}
+
+:root[data-theme="dark"] .btn-lateral.errado {
+    background: #fee2e2 !important;
+    border-color: var(--error) !important;
+    color: #991b1b !important;
+}
+
+:root[data-theme="dark"] .mascote-container {
+    background: var(--surface) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.28) !important;
+}
+
+:root[data-theme="dark"] .avatar-game-footer {
+    background: #334155 !important;
+    border-color: #475569 !important;
+}
+
+:root[data-theme="dark"] .texto-mascote-container,
+:root[data-theme="dark"] #frase-mascote {
+    color: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .visor-resposta {
+    background: #0f172a !important;
+    border-color: #475569 !important;
+    color: var(--text-main) !important;
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.28) !important;
+}
+
+:root[data-theme="dark"] .visor-resposta.ativo {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px rgba(96,165,250,0.18), inset 0 4px 10px rgba(0,0,0,0.28) !important;
+}
+
+:root[data-theme="dark"] .btn-num {
+    background: #182235 !important;
+    border-color: #475569 !important;
+    color: #f8fafc !important;
+}
+
+:root[data-theme="dark"] .btn-num:active {
+    background: #334155 !important;
+}
+
+:root[data-theme="dark"] .btn-num.acao-apagar {
+    background: #7f1d1d !important;
+    color: #fee2e2 !important;
+    border-color: #f87171 !important;
+}
+
+:root[data-theme="dark"] .btn-num.acao-ok {
+    background: var(--success) !important;
+    color: #052e16 !important;
+    border-color: #22c55e !important;
+}
+
+:root[data-theme="dark"] .grid-opcoes {
+    gap: 12px !important;
+}
+
+:root[data-theme="dark"] .botao-opcao {
+    border-color: #334155 !important;
+    box-shadow: 0 3px 0 #0f172a !important;
+}
+
+:root[data-theme="dark"] .circle-bg {
+    stroke: #334155 !important;
+}
+
+:root[data-theme="dark"] .percentage {
+    fill: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .resposta-oculta,
+:root[data-theme="dark"] .stat-label,
+:root[data-theme="dark"] .modal-jogo-card p,
+:root[data-theme="dark"] .versao-config,
+:root[data-theme="dark"] .card-termos p,
+:root[data-theme="dark"] .card-termos ul {
+    color: var(--text-light) !important;
+}
+
+:root[data-theme="dark"] .modal-jogo-card h3,
+:root[data-theme="dark"] .card-termos strong,
+:root[data-theme="dark"] .info-config,
+:root[data-theme="dark"] .btn-voltar,
+:root[data-theme="dark"] .btn-modal-secundario {
+    color: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .slider {
+    background-color: #475569;
+}
+
+:root[data-theme="dark"] input:checked + .slider {
+    background-color: var(--success);
+}
+
+:root[data-theme="dark"] .slider:before {
+    background-color: #f8fafc;
+}
+
+:root[data-theme="dark"] .btn-acao-mini.vermelho {
+    background: transparent !important;
+    border-color: var(--error) !important;
+    color: #fca5a5 !important;
 }

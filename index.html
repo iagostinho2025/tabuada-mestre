@@ -11,7 +11,17 @@
     
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2563eb">
+    <meta name="theme-color" content="#2563eb" id="meta-theme-color">
+    <script>
+        (function() {
+            try {
+                if (localStorage.getItem('tabuada_tema') === 'escuro') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
 
@@ -37,7 +47,7 @@
             </nav>
             
             <div class="versao-app">
-                Tabuada Mestre v2.2<br>
+                Tabuada Mestre v2.3<br>
                 <span style="font-size: 0.75rem; opacity: 0.8">Desenvolvido por <strong>MIB Digital</strong></span><br>
                 <span style="font-size: 0.7rem; opacity: 0.6">Todos os direitos reservados.</span>
             </div>
@@ -438,6 +448,17 @@
                     </label>
                 </div>
 
+                <div class="card-config-item">
+                    <div class="info-config">
+                        <div class="icon-config">🌙</div>
+                        <span>Modo Escuro</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-tema" onchange="alternarTemaEscuro(this.checked)">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
                 <h3 class="titulo-secao-config" style="margin-top: 30px;">Dados do Jogo</h3>
                 
                 <div class="card-config-item perigo">
@@ -452,7 +473,7 @@
                 </div>
 
                 <div class="versao-config">
-                    Tabuada Mestre v2.2<br>
+                    Tabuada Mestre v2.3<br>
                     Feito com 💙 por MIB Digital
                 </div>
 
