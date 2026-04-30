@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "br.com.mibdigital.tabuadamestre.twa",
+      "package_name": "br.com.mibdigital.tabuadamestre",
       "sha256_cert_fingerprints": [
         "BA:E6:56:F1:46:B0:9D:84:E3:4D:AD:FE:C4:F6:0C:B6:6F:26:5A:BB:9C:33:3F:F3:9B:94:21:CC:65:F8:64:FC"
       ]
