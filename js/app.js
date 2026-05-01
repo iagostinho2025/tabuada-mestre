@@ -5,6 +5,10 @@ import * as Game from './modules/game.js';
 import { obterDadosDesempenho, limparDados, gerarDadosGrafico, obterDetalhesPorModo } from './modules/stats.js';
 import * as Store from './modules/store.js'; 
 
+const APP_WEB_VERSION = '2.3.1-web';
+let verificandoAtualizacao = false;
+let ultimaChecagemAtualizacao = 0;
+
 // --- EXPOR FUNÃƒâ€¡Ãƒâ€¢ES GLOBAIS ---
 window.escolherModoInput = UI.escolherModoInput;
 window.atualizarValorSlider = UI.atualizarValorSlider;
@@ -211,7 +215,71 @@ document.addEventListener('DOMContentLoaded', () => {
     if(el) el.textContent = `${recorde} pts`;
 
     setupEventos();
+    iniciarMonitorAtualizacao();
+    verificarAtualizacaoApp({ silencioso: false });
 });
+
+function iniciarMonitorAtualizacao() {
+    window.addEventListener('focus', () => verificarAtualizacaoApp({ silencioso: true }));
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            verificarAtualizacaoApp({ silencioso: true });
+        }
+    });
+}
+
+async function verificarAtualizacaoApp({ silencioso = true } = {}) {
+    const agora = Date.now();
+    if (verificandoAtualizacao) return;
+    if (silencioso && agora - ultimaChecagemAtualizacao < 15000) return;
+
+    verificandoAtualizacao = true;
+    ultimaChecagemAtualizacao = agora;
+
+    try {
+        const resposta = await fetch(`./app-version.json?v=${encodeURIComponent(APP_WEB_VERSION)}&t=${agora}`, {
+            cache: 'no-store'
+        });
+        if (!resposta.ok) return;
+
+        const dados = await resposta.json();
+        if (!dados || !dados.version || dados.version === APP_WEB_VERSION) return;
+
+        await forcarAtualizacaoAplicacao();
+    } catch (erro) {
+        if (!silencioso) {
+            console.warn('Nao foi possivel verificar atualizacoes agora.', erro);
+        }
+    } finally {
+        verificandoAtualizacao = false;
+    }
+}
+
+async function forcarAtualizacaoAplicacao() {
+    try {
+        if (typeof caches !== 'undefined') {
+            const chaves = await caches.keys();
+            await Promise.all(chaves.map((chave) => caches.delete(chave)));
+        }
+
+        if ('serviceWorker' in navigator) {
+            const registro = await navigator.serviceWorker.getRegistration();
+            if (registro) {
+                await registro.update();
+            }
+        }
+    } catch (erro) {
+        console.warn('Falha ao preparar atualizacao do app.', erro);
+    }
+
+    await UI.mostrarAlerta({
+        titulo: 'Atualizacao disponivel',
+        mensagem: 'Uma nova versao do app foi publicada. O aplicativo sera recarregado agora.',
+        textoConfirmar: 'Atualizar'
+    });
+
+    window.location.reload();
+}
 
 function setupEventos() {
     
