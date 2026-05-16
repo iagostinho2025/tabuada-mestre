@@ -40,8 +40,8 @@ export function obterHistorico() {
 }
 
 // Gera os dados para o Dashboard (Cards Coloridos)
-export function obterDadosDesempenho() {
-    const historico = obterHistorico();
+export function obterDadosDesempenho(modoAlvo = null) {
+    const historico = filtrarHistoricoPorModo(obterHistorico(), modoAlvo);
     
     let totalJogos = historico.length;
     let totalAcertos = 0;
@@ -57,15 +57,21 @@ export function obterDadosDesempenho() {
 
 // Filtra detalhes para o histÃ³rico de um modo especÃ­fico (Ex: Speedrun)
 export function obterDetalhesPorModo(modoAlvo) {
-    const historico = obterHistorico();
-    
-    // Filtra pelo modo (ex: 'speedrun', 'classico')
-    // Nota: 'treino' no game.js salva como 'treino', desafio salva pelo submodo
-    const filtradas = historico.filter(p => p.modo === modoAlvo).reverse(); // Reverse para mostrar as mais recentes primeiro
+    const filtradas = filtrarHistoricoPorModo(obterHistorico(), modoAlvo).reverse();
 
     // Acha o recorde desse modo
-    let recorde = 0;
+    const usaTempo = modoAlvo === 'speedrun';
+    let recorde = usaTempo ? null : 0;
+
     filtradas.forEach(p => {
+        if (usaTempo) {
+            if (typeof p.tempoSegundos !== 'number') return;
+            if (recorde === null || p.tempoSegundos < recorde) {
+                recorde = p.tempoSegundos;
+            }
+            return;
+        }
+
         if (p.pontos > recorde) recorde = p.pontos;
     });
 
@@ -74,13 +80,14 @@ export function obterDetalhesPorModo(modoAlvo) {
 
     return {
         recorde: recorde,
-        lista: ultimas10
+        lista: ultimas10,
+        usaTempo
     };
 }
 
 // Gera dados para o GrÃ¡fico de Barras
-export function gerarDadosGrafico(periodo) {
-    const historico = obterHistorico();
+export function gerarDadosGrafico(periodo, modoAlvo = null) {
+    const historico = filtrarHistoricoPorModo(obterHistorico(), modoAlvo);
     const dadosTabuada = {};
     
     // Inicializa estrutura (tabuadas do 1 ao 10)
@@ -147,8 +154,6 @@ export function limparDados() {
         if (!confirmado) return;
 
         localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem('tabuada_recorde');
-
         mostrarAlerta({
             titulo: 'Conclu\u00eddo',
             mensagem: 'Hist\u00f3rico apagado com sucesso.',
@@ -157,4 +162,9 @@ export function limparDados() {
             window.location.reload();
         });
     });
+}
+
+function filtrarHistoricoPorModo(historico, modoAlvo) {
+    if (!modoAlvo) return historico;
+    return historico.filter((partida) => partida.modo === modoAlvo);
 }

@@ -1,8 +1,9 @@
-const CACHE_NAME = 'tabuada-mestre-v7';
+const CACHE_NAME = 'tabuada-mestre-2.4-web';
 
 const ASSETS = [
   './',
   './index.html',
+  './privacy-policy.html',
   './style.css',
   './audio.js',
   './app-version.json',
@@ -27,7 +28,16 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
   const url = new URL(event.request.url);
+  const isSameOrigin = url.origin === self.location.origin;
+  const isNavigationRequest = event.request.mode === 'navigate';
+
+  if (isNavigationRequest && isSameOrigin) {
+    event.respondWith(networkFirst(event.request, './index.html'));
+    return;
+  }
 
   if (url.pathname.endsWith('/app-version.json') || url.pathname.endsWith('/version.txt')) {
     event.respondWith(
@@ -60,3 +70,22 @@ self.addEventListener('activate', (event) => {
   );
   return self.clients.claim();
 });
+
+async function networkFirst(request, fallbackAssetPath) {
+  try {
+    const response = await fetch(request);
+    const cache = await caches.open(CACHE_NAME);
+    cache.put(request, response.clone());
+    return response;
+  } catch (error) {
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) return cachedResponse;
+
+    if (fallbackAssetPath) {
+      const fallbackResponse = await caches.match(fallbackAssetPath);
+      if (fallbackResponse) return fallbackResponse;
+    }
+
+    throw error;
+  }
+}

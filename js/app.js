@@ -5,9 +5,12 @@ import * as Game from './modules/game.js';
 import { obterDadosDesempenho, limparDados, gerarDadosGrafico, obterDetalhesPorModo } from './modules/stats.js';
 import * as Store from './modules/store.js'; 
 
-const APP_WEB_VERSION = '2.3.1-web';
+const APP_WEB_VERSION = '2.4-web';
+const APP_RELEASE_VERSION = APP_WEB_VERSION.replace(/-web$/, '');
 let verificandoAtualizacao = false;
 let ultimaChecagemAtualizacao = 0;
+let periodoGraficoAtual = 'dia';
+let modoDesempenhoAtual = null;
 
 // --- EXPOR FUNÃƒâ€¡Ãƒâ€¢ES GLOBAIS ---
 window.escolherModoInput = UI.escolherModoInput;
@@ -67,8 +70,7 @@ window.confirmarReset = function() {
         if (!confirmado) return;
 
         localStorage.removeItem('tabuada_store_v1');
-        localStorage.removeItem('tabuada_stats_v1');
-        localStorage.removeItem('tabuada_recorde');
+        localStorage.removeItem('tabuada_historico_v1');
 
         UI.mostrarAlerta({
             titulo: 'Conclu\u00eddo',
@@ -109,6 +111,9 @@ window.verHistoricoModo = function(modo) {
     const dados = obterDetalhesPorModo(modo);
     const painel = document.getElementById('painel-detalhes-historico');
     painel.classList.remove('oculto');
+    modoDesempenhoAtual = modo;
+    renderizarResumoDesempenho();
+    window.atualizarGrafico(periodoGraficoAtual);
     
     const nomes = {
         'classico': '\u23F1\uFE0F Cl\u00E1ssico',
@@ -117,7 +122,10 @@ window.verHistoricoModo = function(modo) {
         'speedrun': '\uD83C\uDFC1 Speedrun'
     };
     document.getElementById('titulo-modo-historico').textContent = nomes[modo] || modo;
-    document.getElementById('valor-recorde-modo').textContent = `${dados.recorde} pts`;
+    document.getElementById('valor-recorde-modo').previousElementSibling.textContent = dados.usaTempo ? '🏆 Melhor Tempo' : '🏆 Melhor Pontuação';
+    document.getElementById('valor-recorde-modo').textContent = dados.usaTempo
+        ? formatarTempoSegundos(dados.recorde)
+        : `${dados.recorde} pts`;
     
     const listaEl = document.getElementById('lista-historico-especifica');
     listaEl.innerHTML = '';
@@ -129,12 +137,15 @@ window.verHistoricoModo = function(modo) {
             const dataObj = new Date(partida.data);
             const dataFormatada = dataObj.toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'}) + 
                                   ' \u00E0s ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+            const destaque = dados.usaTempo
+                ? formatarTempoSegundos(partida.tempoSegundos)
+                : `${partida.pontos} pts`;
             
             const html = `
                 <div class="item-mini">
                     <span style="color:#64748b; font-size:0.85rem">${dataFormatada}</span>
                     <div style="display:flex; gap:10px; align-items:center;">
-                        <span class="pts">${partida.pontos} pts</span>
+                        <span class="pts">${destaque}</span>
                         <span style="font-size:0.8rem; color:var(--text-light)">(${partida.acertos}\u2705 / ${partida.erros}\u274C)</span>
                     </div>
                 </div>
@@ -148,18 +159,22 @@ window.verHistoricoModo = function(modo) {
 window.fecharHistoricoModo = function() {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
     document.getElementById('painel-detalhes-historico').classList.add('oculto');
+    modoDesempenhoAtual = null;
+    renderizarResumoDesempenho();
+    window.atualizarGrafico(periodoGraficoAtual);
 }
 
 // --- FUNÃƒâ€¡ÃƒÆ’O DO GRÃƒÂFICO (Com RÃƒÂ³tulos de Porcentagem) ---
 window.atualizarGrafico = function(periodo) {
     if(typeof AudioMestre !== 'undefined') AudioMestre.click();
+    periodoGraficoAtual = periodo;
     
     document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('ativo'));
     const botoes = Array.from(document.querySelectorAll('.btn-filtro'));
     const botaoAlvo = botoes.find(b => b.textContent.toLowerCase().includes(periodo === 'dia' ? 'dia' : periodo === 'mes' ? 'm\u00EAs' : 'ano'));
     if(botaoAlvo) botaoAlvo.classList.add('ativo');
 
-    const info = gerarDadosGrafico(periodo);
+    const info = gerarDadosGrafico(periodo, modoDesempenhoAtual);
     const container = document.getElementById('container-barras');
     if(container) {
         container.innerHTML = ''; 
@@ -175,10 +190,10 @@ window.atualizarGrafico = function(periodo) {
                 percentual = Math.round((acertos / total) * 100);
             }
 
-            // Altura da barra baseada no volume de acertos
-            let altura = info.max > 0 ? (acertos / info.max) * 100 : 0;
-            if (acertos > 0 && altura < 12) altura = 12; // MÃƒÂ­nimo para nÃƒÂ£o sumir
-            if (acertos === 0) altura = 3; 
+            // Altura da barra baseada no aproveitamento para conversar com o percentual exibido
+            let altura = total > 0 ? percentual : 0;
+            if (total > 0 && altura < 12) altura = 12; // MÃƒÂ­nimo para manter legibilidade
+            if (total === 0) altura = 3; 
             
             // Define a cor do texto
             let corTexto = '';
@@ -192,7 +207,7 @@ window.atualizarGrafico = function(periodo) {
             const html = `
                 <div class="barra-wrapper">
                     <span class="rotulo-barra" style="${corTexto}">${textoRotulo}</span>
-                    <div class="barra" style="height: ${altura}%; opacity: ${acertos===0 ? 0.3 : 1}" title="${acertos} acertos / ${erros} erros"></div>
+                    <div class="barra" style="height: ${altura}%; opacity: ${total===0 ? 0.3 : 1}" title="${acertos} acertos / ${erros} erros"></div>
                     <span>x${i}</span>
                 </div>
             `;
@@ -203,16 +218,12 @@ window.atualizarGrafico = function(periodo) {
 
 // --- INICIALIZAÃƒâ€¡ÃƒÆ’O ---
 document.addEventListener('DOMContentLoaded', () => {
-    Game.carregarRecorde();
     Store.initStore(); // Inicia a loja e carrega o saldo/avatar
     
     // --- NOVO: Carregar ConfiguraÃƒÂ§ÃƒÂµes ---
     carregarPreferencias();
+    atualizarRotulosVersao();
     atualizarSaudacao();
-
-    const recorde = localStorage.getItem('tabuada_recorde') || 0;
-    const el = document.getElementById('home-recorde');
-    if(el) el.textContent = `${recorde} pts`;
 
     setupEventos();
     iniciarMonitorAtualizacao();
@@ -317,16 +328,12 @@ function setupEventos() {
         menuDesempenho.onclick = () => {
             if(typeof AudioMestre !== 'undefined') AudioMestre.click();
             UI.toggleMenu(false); // Fecha o menu primeiro
-            
-            // Carrega dados
-            const dados = obterDadosDesempenho();
-            document.getElementById('dash-total-jogos').textContent = dados.totalJogos;
-            document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
-            document.getElementById('dash-total-erros').textContent = dados.totalErros;
-            
-            // Reseta visualizaÃƒÂ§ÃƒÂ£o
+            modoDesempenhoAtual = null;
+            periodoGraficoAtual = 'dia';
             document.getElementById('painel-detalhes-historico').classList.add('oculto');
-            window.atualizarGrafico('dia');
+            renderizarResumoDesempenho();
+            atualizarTituloGrafico();
+            window.atualizarGrafico(periodoGraficoAtual);
 
             UI.mostrarTela('tela-desempenho'); 
         };
@@ -413,5 +420,50 @@ function atualizarSaudacao() {
         saudacao = "Boa noite,";
     }
     textoEl.textContent = saudacao;
+}
+
+function renderizarResumoDesempenho() {
+    const dados = obterDadosDesempenho(modoDesempenhoAtual);
+    document.getElementById('dash-total-jogos').textContent = dados.totalJogos;
+    document.getElementById('dash-total-acertos').textContent = dados.totalAcertos;
+    document.getElementById('dash-total-erros').textContent = dados.totalErros;
+    atualizarTituloGrafico();
+}
+
+function atualizarTituloGrafico() {
+    const titulo = document.querySelector('.grafico-header h3');
+    if (!titulo) return;
+
+    if (!modoDesempenhoAtual) {
+        titulo.textContent = 'Aproveitamento por Tabuada';
+        return;
+    }
+
+    const nomes = {
+        classico: 'Clássico',
+        morte: 'Morte Súbita',
+        recarga: 'Recarga',
+        speedrun: 'Speedrun'
+    };
+
+    titulo.textContent = `Aproveitamento por Tabuada (${nomes[modoDesempenhoAtual] || modoDesempenhoAtual})`;
+}
+
+function formatarTempoSegundos(totalSegundos) {
+    if (typeof totalSegundos !== 'number' || Number.isNaN(totalSegundos)) {
+        return '--:--';
+    }
+
+    const minutos = Math.floor(totalSegundos / 60);
+    const segundos = totalSegundos % 60;
+    return `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+}
+
+function atualizarRotulosVersao() {
+    const versaoMenu = document.getElementById('app-version-menu');
+    const versaoConfig = document.getElementById('app-version-config');
+
+    if (versaoMenu) versaoMenu.textContent = APP_RELEASE_VERSION;
+    if (versaoConfig) versaoConfig.textContent = APP_RELEASE_VERSION;
 }
 

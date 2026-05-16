@@ -84,7 +84,7 @@ export function iniciarJogoTelaCheia(modo) {
         iniciarTimer();
     }
 
-    document.getElementById('placar-display').textContent = `Pontos: 0`;
+    document.getElementById('placar-display').textContent = `⭐ ${estado.pontos}`;
     
     mostrarTela('jogo');
     
@@ -100,7 +100,7 @@ export function pararJogoTelaCheia() {
 }
 
 function atualizarProgressoHeader() {
-    const concluidas = estado.totalQuestoes; 
+    const concluidas = obterProgressoConcluido();
     const total = estado.maxQuestoes;
     
     if (total === Infinity) {
@@ -116,7 +116,7 @@ function atualizarProgressoHeader() {
 function proximaQuestaoTelaCheia() {
     if (!estado.emAndamento) return;
 
-    if (estado.maxQuestoes !== Infinity && estado.totalQuestoes >= estado.maxQuestoes) {
+    if (estado.maxQuestoes !== Infinity && obterProgressoConcluido() >= estado.maxQuestoes) {
         finalizarJogoTelaCheia();
         return;
     }
@@ -138,7 +138,7 @@ function proximaQuestaoTelaCheia() {
     let a, b, chavePergunta;
     let tentativas = 0;
     
-    let minA = 2, maxA = 9; 
+    let minA = 1, maxA = 10; 
     let minB = 1, maxB = 10;
 
     if (estado.modo === 'desafio') {
@@ -370,7 +370,15 @@ function verificarRespostaTelaCheia(valorEscolhido, btnClicado) {
             setTimeout(proximaQuestaoTelaCheia, 1500); 
         }
     }
-    document.getElementById('placar-display').textContent = `Pontos: ${estado.pontos}`;
+    document.getElementById('placar-display').textContent = `⭐ ${estado.pontos}`;
+}
+
+function obterProgressoConcluido() {
+    if (estado.modo === 'desafio' && estado.subModo === 'speedrun') {
+        return estado.acertos;
+    }
+
+    return estado.totalQuestoes;
 }
 
 // --- TIMER ---
@@ -431,6 +439,7 @@ function finalizarJogoTelaCheia() {
             acertos: estado.acertos,
             erros: estado.erros,
             pontos: estado.pontos,
+            tempoSegundos: (estado.modo === 'desafio' && estado.subModo === 'speedrun') ? estado.tempo : null,
             errosMap: estado.errosMap || {},
             acertosMap: estado.acertosMap || {}
         });
@@ -439,8 +448,6 @@ function finalizarJogoTelaCheia() {
         if (estado.pontos > 0) {
             adicionarEstrelas(estado.pontos);
         }
-
-        if (estado.modo === 'desafio') salvarRecorde(estado.pontos);
 
     } catch (erro) {
         console.error("Erro crítico ao salvar dados:", erro);
@@ -478,21 +485,6 @@ export function processarResultadoFinal(acertos, erros, total, subtitulo) {
     document.getElementById('msg-motivacional').textContent = msg;
     mostrarTela('resultado');
     setTimeout(() => { circle.style.strokeDasharray = `${percentual}, 100`; textPercent.textContent = `${percentual}%`; }, 100);
-}
-
-export function salvarRecorde(pts) {
-    const recorde = parseInt(localStorage.getItem('tabuada_recorde') || 0);
-    if (pts > recorde) {
-        localStorage.setItem('tabuada_recorde', pts);
-        const el = document.getElementById('home-recorde');
-        if (el) el.textContent = `${pts} pts (Novo!)`;
-    }
-}
-
-export function carregarRecorde() {
-    const recorde = localStorage.getItem('tabuada_recorde') || 0;
-    const el = document.getElementById('home-recorde');
-    if(el) el.textContent = `${recorde} pts`;
 }
 
 // --- FUNCAO PARA O RODAPE DO MASCOTE ---
